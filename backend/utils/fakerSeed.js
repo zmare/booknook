@@ -25,7 +25,7 @@ const seedBooks = (num) => {
         books[i] = {
             author: faker.name.fullName(),
             title: faker.lorem.sentence(),
-            ISBN: faker.datatype.number({ min: 1111111111111, max: 9999999999999 }).toString(),
+            ISBN: (faker.datatype.number({ min: 1111111111111, max: 9999999999999 })).toString(),
             summary: faker.lorem.paragraph(rNum(10)),
             bookImage: faker.image.abstract(640, 480, true)
         }
