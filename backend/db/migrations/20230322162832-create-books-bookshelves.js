@@ -7,38 +7,24 @@ if (process.env.NODE_ENV === 'production') {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Reviews', {
+    await queryInterface.createTable('Books_Bookshelves', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      spotId: {
+      bookId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: 'Spots',
-          key: 'id'
-        },
-        onDelete: 'cascade',
-        allowNull: false
+        allowNull: false,
+        references: { model: "Books" },
+        onDelete: "CASCADE"
       },
-      userId: {
+      bookshelfId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: 'Users',
-          key: 'id'
-        },
-        onDelete: 'cascade',
-        allowNull: false
-      },
-      review: {
-        type: Sequelize.TEXT,
-        allowNull: false
-      },
-      stars: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: { model: "Bookshelves" },
+        onDelete: "CASCADE"
       },
       createdAt: {
         allowNull: false,
@@ -53,7 +39,7 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "Reviews"
+    options.tableName = 'Books_Bookshelves'
     await queryInterface.dropTable(options);
   }
 };

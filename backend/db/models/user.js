@@ -5,8 +5,8 @@ const bcrypt = require('bcryptjs');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     toSafeObject() {
-      const { id, firstName, lastName, username, email } = this; // context will be the User instance
-      return { id, firstName, lastName, username, email };
+      const { id, name, email } = this; // context will be the User instance
+      return { id, name, email };
     }
     validatePassword(password) {
       return bcrypt.compareSync(password, this.hashedPassword.toString());
@@ -18,10 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       const { Op } = require('sequelize');
       const user = await User.scope('loginUser').findOne({
         where: {
-          [Op.or]: {
-            username: credential,
-            email: credential
-          }
+          email: credential
         }
       });
       if (user && user.validatePassword(password)) {
@@ -32,13 +29,11 @@ module.exports = (sequelize, DataTypes) => {
         });
       }
     }
-    static async signup({ firstName, lastName, username, email, password }) {
+    static async signup({ name, email, password }) {
       const hashedPassword = bcrypt.hashSync(password);
 
       const user = await User.create({
-        firstName,
-        lastName,
-        username,
+        name,
         email,
         hashedPassword
       });
@@ -52,37 +47,18 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasMany(
-        models.Spot, { foreignKey: 'ownerId', onDelete: 'cascade', hooks: true }
+        models.Review, { foreignKey: 'ownerId', onDelete: 'cascade', hooks: true }
       )
 
       User.hasMany(
-        models.Review, { foreignKey: 'userId', onDelete: 'cascade', hooks: true }
-      )
-
-      User.hasMany(
-        models.Booking, { foreignKey: 'userId', onDelete: 'cascade', hooks: true }
+        models.Bookshelf, { foreignKey: 'ownerId', onDelete: 'cascade', hooks: true }
       )
     }
   };
   User.init(
     {
-      firstName: {
+      name: {
         type: DataTypes.STRING
-      },
-      lastName: {
-        type: DataTypes.STRING
-      },
-      username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          len: [4, 30],
-          isNotEmail(value) {
-            if (Validator.isEmail(value)) {
-              throw new Error("Cannot be an email.");
-            }
-          }
-        }
       },
       email: {
         type: DataTypes.STRING,
@@ -105,7 +81,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "User",
       defaultScope: {
         attributes: {
-          exclude: ["hashedPassword", "email", "createdAt", "updatedAt"]
+          exclude: ["hashedPassword", "createdAt", "updatedAt"]
         }
       },
       scopes: {

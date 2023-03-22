@@ -3,27 +3,24 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Review extends Model {
+  class Bookshelf extends Model {
 
     static associate(models) {
       // define association here
-      Review.belongsTo(
-        models.Book, { foreignKey: 'bookId' }
-      )
-
-      Review.belongsTo(
+      Bookshelf.belongsTo(
         models.User, { foreignKey: 'ownerId' }
+      )
+      Bookshelf.belongsToMany(
+        models.Book, { through: "Books_Bookshelves", foreignKey: 'bookshelfId' }
       )
     }
   }
-  Review.init({
+  Bookshelf.init({
     ownerId: DataTypes.INTEGER,
-    bookId: DataTypes.INTEGER,
-    review: DataTypes.STRING,
-    stars: DataTypes.INTEGER
+    name: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Review',
+    modelName: 'Bookshelf',
   });
-  return Review;
+  return Bookshelf;
 };

@@ -64,92 +64,90 @@ const requireAuth = function (req, _res, next) {
 }
 
 // Check if spot exists
-const doesSpotExist = async function (req, _res, next) {
-    let spot = await Spot.findByPk(req.params.spotId);
+// const doesSpotExist = async function (req, _res, next) {
+//     let spot = await Spot.findByPk(req.params.spotId);
 
-    if (!spot) {
-        _res.statusCode = 404;
-        _res.json({
-            message: "Spot couldn't be found",
-            statusCode: _res.statusCode
-        })
-    }
+//     if (!spot) {
+//         _res.statusCode = 404;
+//         _res.json({
+//             message: "Spot couldn't be found",
+//             statusCode: _res.statusCode
+//         })
+//     }
 
-    return next();
-}
+//     return next();
+// }
 
-const doesReviewExist = async function (req, _res, next) {
-    const review = await Review.findOne({
-        where: {
-            userId: req.user.id,
-            spotId: req.params.spotId
-        }
-    })
+// const doesReviewExist = async function (req, _res, next) {
+//     const review = await Review.findOne({
+//         where: {
+//             userId: req.user.id,
+//             spotId: req.params.spotId
+//         }
+//     })
 
-    if (review) {
-        _res.statusCode = 403;
-        _res.json({
-            message: "User already has a review for this spot",
-            statusCode: _res.statusCode
-        })
-    }
+//     if (review) {
+//         _res.statusCode = 403;
+//         _res.json({
+//             message: "User already has a review for this spot",
+//             statusCode: _res.statusCode
+//         })
+//     }
 
-    return next();
-}
+//     return next();
+// }
 
-const doesBookingExist = async function (req, _res, next) {
-    const booking = await Booking.findByPk(req.params.bookingId);
+// const doesBookingExist = async function (req, _res, next) {
+//     const booking = await Booking.findByPk(req.params.bookingId);
 
-    if (!booking) {
-        _res.statusCode = 404;
-        _res.json({
-            message: "Booking couldn't be found",
-            statusCode: _res.statusCode
-        })
-    }
+//     if (!booking) {
+//         _res.statusCode = 404;
+//         _res.json({
+//             message: "Booking couldn't be found",
+//             statusCode: _res.statusCode
+//         })
+//     }
 
-    return next();
-}
-
-
+//     return next();
+// }
 
 
 // Check if user is owner of spot
-const requireAuthorization = async function (req, _res, next) {
+// const requireAuthorization = async function (req, _res, next) {
 
-    let spot = await Spot.findByPk(req.params.spotId);
-    spot = spot.toJSON();
-    const owner = spot.ownerId;
+//     let spot = await Spot.findByPk(req.params.spotId);
+//     spot = spot.toJSON();
+//     const owner = spot.ownerId;
 
-    //authorization check
-    if (owner !== req.user.id) {
-        _res.statusCode = 403;
-        _res.json({
-            message: 'Forbidden',
-            statusCode: _res.statusCode
-        })
-    }
+//     //authorization check
+//     if (owner !== req.user.id) {
+//         _res.statusCode = 403;
+//         _res.json({
+//             message: 'Forbidden',
+//             statusCode: _res.statusCode
+//         })
+//     }
 
-    return next();
-}
+//     return next();
+// }
 
-const requireAuthBooking = async function (req, _res, next) {
+// const requireAuthBooking = async function (req, _res, next) {
 
-    let spot = await Spot.findByPk(req.params.spotId);
-    spot = spot.toJSON();
-    const owner = spot.ownerId;
+//     let spot = await Spot.findByPk(req.params.spotId);
+//     spot = spot.toJSON();
+//     const owner = spot.ownerId;
 
-    //authorization check
-    if (owner === req.user.id) {
-        _res.statusCode = 403;
-        _res.json({
-            message: 'Forbidden',
-            statusCode: _res.statusCode
-        })
-    }
+//     //authorization check
+//     if (owner === req.user.id) {
+//         _res.statusCode = 403;
+//         _res.json({
+//             message: 'Forbidden',
+//             statusCode: _res.statusCode
+//         })
+//     }
 
-    return next();
-}
+//     return next();
+// }
 
 
 
@@ -157,10 +155,10 @@ const requireAuthBooking = async function (req, _res, next) {
 module.exports = {
     setTokenCookie,
     restoreUser,
-    requireAuth,
-    requireAuthorization,
-    doesSpotExist,
-    requireAuthBooking,
-    doesReviewExist,
-    doesBookingExist
+    requireAuth
+    // requireAuthorization,
+    // doesSpotExist,
+    // requireAuthBooking,
+    // doesReviewExist,
+    // doesBookingExist
 };
