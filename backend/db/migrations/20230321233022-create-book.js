@@ -23,7 +23,7 @@ module.exports = {
         allowNull: false
       },
       ISBN: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false
       },
       summary: {
