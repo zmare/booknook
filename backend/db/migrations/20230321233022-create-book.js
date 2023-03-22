@@ -27,7 +27,7 @@ module.exports = {
         allowNull: false
       },
       summary: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false
       },
       bookImage: {
