@@ -1,5 +1,4 @@
 'use strict';
-const { Review } = require('../models')
 const { seedReviews } = require('../../utils/fakerSeed.js')
 
 let options = {};
@@ -12,7 +11,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     options.tableName = 'Reviews';
 
-    let reviews = seedReviews(30);
+    let reviews = seedReviews(40);
 
     return queryInterface.bulkInsert(options, reviews, {})
   },

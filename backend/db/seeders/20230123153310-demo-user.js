@@ -14,10 +14,8 @@ module.exports = {
 
     let users = seedUsers(10);
     users.push({
-      firstName: 'Demo',
-      lastName: 'Lition',
+      name: 'Demo Lition',
       email: 'demo@user.io',
-      username: 'Demo-lition',
       hashedPassword: bcrypt.hashSync('password')
     });
 

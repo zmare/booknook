@@ -9,10 +9,8 @@ const seedUsers = (num) => {
 
     for (const i in users) {
         users[i] = {
-            firstName: faker.name.firstName(),
-            lastName: faker.name.lastName(),
+            name: faker.name.fullName(),
             email: faker.internet.email(),
-            username: faker.internet.userName(),
             hashedPassword: bcrypt.hashSync(faker.internet.password())
         }
     }
@@ -20,39 +18,33 @@ const seedUsers = (num) => {
     return users;
 }
 
-const seedSpots = (num) => {
-    let spots = new Array(num).fill('');
+const seedBooks = (num) => {
+    let books = new Array(num).fill('');
 
-    for (const i in spots) {
-        spots[i] = {
-            ownerId: rNum(11),
-            address: faker.address.streetAddress(),
-            city: faker.address.cityName(),
-            state: faker.address.state(),
-            country: 'United States of America',
-            lat: faker.address.latitude(90, -90, 7),
-            lng: faker.address.longitude(180, -180, 7),
-            name: faker.lorem.sentence(),
-            description: faker.lorem.paragraph(rNum(10)),
-            price: faker.commerce.price(100, 500)
+    for (const i in books) {
+        books[i] = {
+            author: faker.name.fullName(),
+            title: faker.lorem.sentence(),
+            ISBN: faker.datatype.number({ min: 1111111111111, max: 9999999999999 }),
+            summary: faker.lorem.paragraph(rNum(10)),
+            bookImage: faker.image.abstract(640, 480, true)
         }
     }
 
-    return spots;
+    return books;
 }
 
-const seedSpotImages = (num) => {
-    let spotImages = new Array(num).fill('');
+const seedBookshelves = (num) => {
+    let bookshelves = new Array(num).fill('');
 
-    for (const i in spotImages) {
-        spotImages[i] = {
-            spotId: rNum(15),
-            url: faker.image.city(640, 480, true),
-            preview: faker.datatype.boolean()
+    for (const i in bookshelves) {
+        bookshelves[i] = {
+            ownerId: 11,
+            name: faker.lorem.words(rNum(5))
         }
     }
 
-    return spotImages;
+    return bookshelves;
 }
 
 const seedReviews = (num) => {
@@ -60,8 +52,8 @@ const seedReviews = (num) => {
 
     for (const i in reviews) {
         reviews[i] = {
-            spotId: rNum(15),
-            userId: rNum(11),
+            ownerId: rNum(11),
+            bookId: rNum(20),
             review: faker.lorem.paragraph(rNum(3)),
             stars: rNum(5)
         }
@@ -70,43 +62,23 @@ const seedReviews = (num) => {
     return reviews;
 }
 
-const seedReviewImages = (num) => {
-    let reviewImages = new Array(num).fill('');
+const seedBooksBookshelves = (num) => {
+    let booksBookshelves = new Array(num).fill('');
 
-    for (const i in reviewImages) {
-        reviewImages[i] = {
-            reviewId: rNum(15),
-            url: faker.image.abstract(640, 480, true)
+    for (const i in booksBookshelves) {
+        booksBookshelves[i] = {
+            bookId: rNum(20),
+            bookshelfId: rNum(5)
         }
     }
 
-    return reviewImages;
-}
-
-
-const seedBookings = (num) => {
-    let bookings = new Array(num).fill('');
-
-    for (const i in bookings) {
-        const startDate = new Date(faker.date.between('2023-02-01T00:00:00.000Z', '2023-03-01T00:00:00.000Z'));
-        const endDate = new Date(faker.date.between('2023-04-01T00:00:00.000Z', '2023-05-01T00:00:00.000Z'));
-
-        bookings[i] = {
-            spotId: rNum(15),
-            userId: rNum(11),
-            startDate: startDate,
-            endDate: endDate,
-        }
-    }
-
-    return bookings;
+    return booksBookshelves;
 }
 
 module.exports = {
     seedUsers,
-    seedSpots,
-    seedSpotImages,
+    seedBooks,
+    seedBookshelves,
     seedReviews,
-    seedReviewImages,
-    seedBookings
+    seedBooksBookshelves
 }

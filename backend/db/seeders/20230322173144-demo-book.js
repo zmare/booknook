@@ -1,6 +1,5 @@
 'use strict';
-const { ReviewImage } = require('../models')
-const { seedReviewImages } = require('../../utils/fakerSeed.js')
+const { seedBooks } = require('../../utils/fakerSeed.js')
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -10,15 +9,15 @@ if (process.env.NODE_ENV === 'production') {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    options.tableName = 'ReviewImages';
+    options.tableName = 'Books';
 
-    let reviewImages = seedReviewImages(40);
+    let books = seedBooks(20);
 
-    return queryInterface.bulkInsert(options, reviewImages, {})
+    return queryInterface.bulkInsert(options, books, {})
   },
 
   down: async (queryInterface, Sequelize) => {
-    options.tableName = 'ReviewImages';
+    options.tableName = 'Books';
 
     return queryInterface.bulkDelete(options, null, {})
   }

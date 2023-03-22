@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
         models.Review, { foreignKey: 'bookId', onDelete: 'cascade', hooks: true }
       )
 
-
-
-
+      Book.belongsToMany(
+        models.Bookshelf, { through: "Books_Bookshelves", foreignKey: 'bookId' }
+      )
 
     }
   }
