@@ -17,14 +17,12 @@ module.exports = {
       bookId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        primaryKey: true,
         references: { model: "Books" },
         onDelete: "CASCADE"
       },
       bookshelfId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        primaryKey: true,
         references: { model: "Bookshelves" },
         onDelete: "CASCADE"
       }
