@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { jwtConfig } = require('../config');
-const { User, Book, Review, Booking } = require('../db/models');
+const { User, Book, Bookshelf, Review, Booking } = require('../db/models');
 
 const { secret, expiresIn } = jwtConfig;
 
@@ -77,6 +77,22 @@ const doesBookExist = async function (req, _res, next) {
 
     return next();
 }
+
+// Check if bookshelf exists 
+const doesBookshelfExist = async function (req, _res, next) {
+    let bookshelf = await Bookshelf.findByPk(req.params.bookshelfId);
+
+    if (!bookshelf) {
+        _res.statusCode = 404;
+        _res.json({
+            message: "Bookshelf couldn't be found",
+            statusCode: _res.statusCode
+        })
+    }
+
+    return next();
+}
+
 
 // const doesReviewExist = async function (req, _res, next) {
 //     const review = await Review.findOne({
@@ -157,7 +173,8 @@ module.exports = {
     restoreUser,
     requireAuth,
     // requireAuthorization,
-    doesBookExist
+    doesBookExist,
+    doesBookshelfExist
     // requireAuthBooking,
     // doesReviewExist,
     // doesBookingExist
