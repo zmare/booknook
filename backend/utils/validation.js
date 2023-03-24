@@ -21,40 +21,12 @@ const handleValidationErrors = (req, _res, next) => {
     next();
 };
 
-// const validateNewSpot = [
-//     check('address')
-//         .exists({ checkFalsy: true })
-//         .withMessage('Street address is required'),
-//     check('city', 'City is required')
-//         .exists({ checkFalsy: true })
-//         .withMessage('Please enter a valid city'),
-//     check('state', 'State is required')
-//         .exists({ checkFalsy: true })
-//         .withMessage('Please enter a valid State'),
-//     check('country', "Country is required")
-//         .exists({ checkFalsy: true })
-//         .withMessage('Please enter a valid Country'),
-//     check('lat', 'Latitude is required')
-//         .exists({ checkFalsy: true })
-//         .isFloat({ min: -90, max: 90 })
-//         .withMessage('Latitude is not valid'),
-//     check('lng', 'Longitude is required')
-//         .exists({ checkFalsy: true })
-//         .isFloat({ min: -180, max: 180 })
-//         .withMessage('Longitude is not valid'),
-//     check('name', 'Name is required')
-//         .exists({ checkFalsy: true })
-//         .isLength({ max: 50 })
-//         .withMessage('Name must be less than 50 characters'),
-//     check('description')
-//         .exists({ checkFalsy: true })
-//         .withMessage('Description is required'),
-//     check('price', 'Price per day is required')
-//         .exists({ checkFalsy: true })
-//         .isCurrency()
-//         .withMessage('Please enter a valid price'),
-//     handleValidationErrors
-// ];
+const validateNewBookshelf = [
+    check('name')
+        .exists({ checkFalsy: true })
+        .withMessage('Bookshelf name is required'),
+    handleValidationErrors
+];
 
 // const validateBooking = [
 //     check('startDate')
@@ -100,8 +72,8 @@ const handleValidationErrors = (req, _res, next) => {
 
 
 module.exports = {
-    handleValidationErrors
-    // validateNewSpot,
+    handleValidationErrors,
+    validateNewBookshelf,
     // validateBooking,
     // validateReview
 };

@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { jwtConfig } = require('../config');
-const { User, Spot, Review, Booking } = require('../db/models');
+const { User, Book, Bookshelf, Review, Booking } = require('../db/models');
 
 const { secret, expiresIn } = jwtConfig;
 
@@ -63,20 +63,36 @@ const requireAuth = function (req, _res, next) {
     return next(err);
 }
 
-// Check if spot exists
-// const doesSpotExist = async function (req, _res, next) {
-//     let spot = await Spot.findByPk(req.params.spotId);
+// Check if book exists
+const doesBookExist = async function (req, _res, next) {
+    let book = await Book.findByPk(req.params.bookId);
 
-//     if (!spot) {
-//         _res.statusCode = 404;
-//         _res.json({
-//             message: "Spot couldn't be found",
-//             statusCode: _res.statusCode
-//         })
-//     }
+    if (!book) {
+        _res.statusCode = 404;
+        _res.json({
+            message: "Book couldn't be found",
+            statusCode: _res.statusCode
+        })
+    }
 
-//     return next();
-// }
+    return next();
+}
+
+// Check if bookshelf exists 
+const doesBookshelfExist = async function (req, _res, next) {
+    let bookshelf = await Bookshelf.findByPk(req.params.bookshelfId);
+
+    if (!bookshelf) {
+        _res.statusCode = 404;
+        _res.json({
+            message: "Bookshelf couldn't be found",
+            statusCode: _res.statusCode
+        })
+    }
+
+    return next();
+}
+
 
 // const doesReviewExist = async function (req, _res, next) {
 //     const review = await Review.findOne({
@@ -155,9 +171,10 @@ const requireAuth = function (req, _res, next) {
 module.exports = {
     setTokenCookie,
     restoreUser,
-    requireAuth
+    requireAuth,
     // requireAuthorization,
-    // doesSpotExist,
+    doesBookExist,
+    doesBookshelfExist
     // requireAuthBooking,
     // doesReviewExist,
     // doesBookingExist
