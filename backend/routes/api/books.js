@@ -132,7 +132,6 @@ router.get('/:bookId', doesBookExist, async (req, res, next) => {
         let avg = sum / reviews.length;
         let avgRounded = Math.round(avg * 10) / 10;
         book.avgStarRating = avgRounded;
-
     }
 
     res.json(book)

@@ -73,7 +73,7 @@ const validateNewBookshelf = [
 
 module.exports = {
     handleValidationErrors,
-    validateNewBookshelf,
+    validateNewBookshelf
     // validateBooking,
     // validateReview
 };
