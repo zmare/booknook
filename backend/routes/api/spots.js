@@ -525,7 +525,6 @@ router.post('/', [requireAuth, validateNewSpot], async (req, res, next) => {
             message: 'Spot already exists',
         })
     }
-
 })
 
 
