@@ -11,6 +11,7 @@ body {
 }
 
 .header-container {
+    display: flex;
     list-style: none;
     background-color: #F3EFE7;
     margin-top: 0;
