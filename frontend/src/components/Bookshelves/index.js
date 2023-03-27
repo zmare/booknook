@@ -1,15 +1,28 @@
-import React from 'react';
-//import { Link, NavLink } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBookshelves } from '../../store/bookshelves';
+import { Link, NavLink } from 'react-router-dom';
 //import { useSelector } from 'react-redux';
+import BookshelvesSidebar from './BookshelvesSidebar';
 import './Bookshelves.css'
 
 const Bookshelves = () => {
+    const dispatch = useDispatch();
 
+    const user = useSelector(state => state.session.user);
+    let bookshelves = useSelector(state => state.bookshelves.allBookshelves);
 
+    useEffect(() => {
+        dispatch(getBookshelves());
+    }, [dispatch, user]);
 
+    if (!user) return null;
+    if (!bookshelves) return null;
+
+    bookshelves = Object.values(bookshelves);
 
     return (
-        <>
+        <div className='test'>
             <div className="bookshelf-nav-container">
                 <div className='bookshelf-nav-title'>
                     My Books
@@ -25,15 +38,7 @@ const Bookshelves = () => {
                 </div>
             </div>
             <div className="bookshelf-details-container">
-                <div className='bookshelf-sidebar-container'>
-                    <div className='bookshelves-header'>
-                        Bookshelves
-                    </div>
-                    <div>
-
-                    </div>
-                </div>
-
+                <BookshelvesSidebar bookshelves={bookshelves} />
                 <div className='bookshelf-book-details-container'>
                     <div className='book-nav'>
                         books nav
@@ -43,7 +48,7 @@ const Bookshelves = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

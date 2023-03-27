@@ -30,7 +30,7 @@ function Navigation({ isLoaded }) {
 
                         <div className='nav-search-bar-container'>
                             <input className='nav-search-bar' type='text' placeholder='Search'></input>
-                            <button type="submit"><i class="fa fa-search"></i></button>
+                            <button type="submit"><i className="fa fa-search"></i></button>
                         </div>
 
                         <div className='icons-container'>

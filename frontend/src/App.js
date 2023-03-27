@@ -5,6 +5,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Homepage from "./components/Homepage";
 import Bookshelves from "./components/Bookshelves";
+import Books from "./components/Books";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,6 +21,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Homepage />
+          </Route>
+          <Route path='/shelf/:shelfId'>
+            <Books />
           </Route>
           <Route path='/shelf'>
             <Bookshelves />
