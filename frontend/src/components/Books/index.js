@@ -14,7 +14,8 @@ const Books = () => {
         dispatch(getBookshelf(shelfId));
     }, [dispatch])
 
-    const bookshelf = useSelector(state => state.bookshelves.currBookshelf)
+    const bookshelf = useSelector(state => state.bookshelves.currBookshelf);
+    if (!bookshelf) return null;
 
     return (
         <>

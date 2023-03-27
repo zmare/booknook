@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
+import { getBookshelves, getBookshelf, updateBookshelf } from "../../store/bookshelves";
 import "./EditBookshelves.css";
 
 const BookshelvesEditModal = ({ bookshelf }) => {
@@ -31,22 +32,23 @@ const BookshelvesEditModal = ({ bookshelf }) => {
     const handleUpdateSubmit = async (e) => {
         e.preventDefault();
 
+
         if (!validateForm(newBookshelf)) {
             return;
         };
 
-        // try {
-        //     let edittedServer = await dispatch(editServer(server.id, newServer));
-        //     if (edittedServer) {
-        //         await dispatch(getServers(user));
-        //         await dispatch(getServer(serverId));
-        //         closeModal();
-        //     }
-        // }
-        // catch (response) {
-        //     const data = await response.json();
-        //     if (data && data.errors) setErrors(data.errors);
-        // }
+        try {
+            let edittedBookshelf = await dispatch(updateBookshelf(bookshelf.id, newBookshelf));
+            if (edittedBookshelf) {
+                await dispatch(getBookshelves());
+                //await dispatch(getBookshelf(bookshelf.id))
+                closeModal();
+            }
+        }
+        catch (response) {
+            const data = await response.json();
+            if (data && data.errors) setErrors(data.errors);
+        }
     };
 
     const handleDeleteSubmit = async (e) => {
@@ -55,8 +57,8 @@ const BookshelvesEditModal = ({ bookshelf }) => {
 
     return (
         <div className='edit-server-page'>
-            <form className='edit-server-form' onSubmit={handleSubmit}>
-                <h1 className='edit-server-header'>Update "{bookshelf.name}"     Bookshelf </h1>
+            <form className='edit-server-form'>
+                <h1 className='edit-server-header'>Update "{bookshelf.name}" Bookshelf </h1>
 
                 <div className='edit-server-form-group'>
                     <span className='edit-server-form-label'>
@@ -76,8 +78,8 @@ const BookshelvesEditModal = ({ bookshelf }) => {
                 <div>
                     <button
                         disabled={!newBookshelf.name}
-                        className={!newBookshelf.name ? "disabled-btn" : "edit-server-form-button"} type="submit">Update Bookshelf</button>
-                    <button className={!newBookshelf.name ? "disabled-btn" : "edit-server-form-button"} type="submit">Delete Bookshelf</button>
+                        className={!newBookshelf.name ? "disabled-btn" : "edit-server-form-button"} type="submit" onClick={handleUpdateSubmit}>Update Bookshelf</button>
+                    <button className={!newBookshelf.name ? "disabled-btn" : "edit-server-form-button"} type="button">Delete Bookshelf</button>
                     <span onClick={closeModal} className="channel-update-form-cancel">Cancel</span>
                 </div>
             </form >
