@@ -35,6 +35,34 @@ router.get('/current', requireAuth, async (req, res) => {
     res.json(Reviews);
 })
 
+// GET REVIEW BY REVIEW ID 
+router.get('/:reviewId', requireAuth, async (req, res) => {
+    //check if review exists
+    let reviewPromise = await Review.findByPk(req.params.reviewId);
+
+    if (!reviewPromise) {
+        res.statusCode = 404;
+        res.json({
+            message: "Review couldn't be found",
+            statusCode: res.statusCode
+        })
+    }
+
+    //authorization check
+    const review = reviewPromise.toJSON();
+    const owner = review.ownerId;
+
+    if (owner !== req.user.id) {
+        res.statusCode = 403;
+        res.json({
+            message: 'Forbidden',
+            statusCode: res.statusCode
+        })
+    } else {
+        res.json(reviewPromise);
+    }
+});
+
 // ************************************ POST routes ************************************ // 
 // CREATE REVIEW FOR BOOK 
 router.post('/:bookId', requireAuth, async (req, res) => {
