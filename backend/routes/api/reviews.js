@@ -1,18 +1,20 @@
 const express = require('express');
 const sequelize = require('sequelize');
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
-const { Spot, SpotImage, Review, ReviewImage, User } = require('../../db/models');
+const { Review, ReviewImage, User } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 
-// GET Routes
+// ************************************ GET routes ************************************ // 
+
+/// GET REVIEWS FOR CURRENT USER 
 router.get('/current', requireAuth, async (req, res) => {
     let userId = req.user.id;
 
     let reviews = await Review.findAll({
         where: {
-            userId: userId
+            ownerId: userId
         },
         include: [
             {
@@ -20,12 +22,6 @@ router.get('/current', requireAuth, async (req, res) => {
                 attributes: {
                     exclude: ['username', 'hashedPassword', 'createdAt', 'updatedAt', 'email']
 
-                }
-            },
-            {
-                model: ReviewImage,
-                attributes: {
-                    exclude: ['reviewId', 'createdAt', 'updatedAt']
                 }
             }
         ]
@@ -36,112 +32,28 @@ router.get('/current', requireAuth, async (req, res) => {
         Reviews.push(review.toJSON());
     };
 
-    for (let review of Reviews) {
-        let spot = await Spot.findByPk(review.spotId, {
-            attributes: {
-                exclude: ['createdAt', 'updatedAt', 'description']
-            }
-        });
-        spot = spot.toJSON();
-
-
-        let spotImages = await SpotImage.findAll({
-            where: {
-                spotId: spot.id
-            },
-            attributes: ['url', 'preview']
-        })
-
-        for (let image of spotImages) {
-            image = image.toJSON();
-
-            if (image.preview === true) {
-                spot.previewImage = image.url;
-            } else {
-                spot.previewImage = 'no image found'
-            }
-        }
-
-        review.Spot = spot;
-
-    }
-
-    res.json({ Reviews });
+    res.json(Reviews);
 })
 
-//POST Routes
-router.post('/:reviewId/images', requireAuth, async (req, res) => {
-    //check if review exists
-    let reviewPromise = await Review.findByPk(req.params.reviewId);
+// ************************************ POST routes ************************************ // 
+// CREATE REVIEW FOR BOOK 
+router.post('/:bookId', requireAuth, async (req, res) => {
+    const { review, stars } = req.body;
 
-    if (!reviewPromise) {
-        res.statusCode = 404;
-        res.json({
-            message: "Review couldn't be found",
-            statusCode: res.statusCode
-        })
-    }
-
-    //authorization check
-    const review = reviewPromise.toJSON();
-    const owner = review.userId;
-
-    if (owner !== req.user.id) {
-        res.statusCode = 403;
-        res.json({
-            message: 'Forbidden',
-            statusCode: res.statusCode
-        })
-    }
-
-    // check number of images is valid
-    let reviewImagesPromise = await ReviewImage.findAll({
-        where: {
-            reviewId: req.params.reviewId
-        }
+    const newReview = await Review.create({
+        ownerId: req.user.id,
+        bookId: req.params.bookId,
+        review: review,
+        stars: stars
     })
-
-    let reviewImagesArr = [];
-    for (let image of reviewImagesPromise) {
-        reviewImagesArr.push(image.toJSON());
-    }
-
-    let numOfImages = reviewImagesArr.length;
-    console.log(numOfImages);
-
-    if (numOfImages >= 10) {
-        res.statusCode = 403;
-        res.json({
-            "message": "Maximum number of images for this resource was reached",
-            "statusCode": res.statusCode
-        })
-    } else {
-        const { url } = req.body;
-
-        if (!url) {
-            res.statusCode = 400;
-            res.json({
-                message: 'URL is required',
-                statusCode: res.statusCode
-            })
-        } else {
-            let newReviewImage = await ReviewImage.create({
-                reviewId: req.params.reviewId,
-                url: url
-            });
-
-            newReviewImage = newReviewImage.toJSON();
-            delete newReviewImage.reviewId;
-            delete newReviewImage.updatedAt;
-            delete newReviewImage.createdAt;
-
-            res.json(newReviewImage);
-        }
-    }
+    res.statusCode = 201;
+    res.json(newReview)
 
 })
 
-// PUT Routes
+// ************************************ PUT routes ************************************ // 
+
+// EDIT A REVIEW FOR A BOOK 
 router.put('/:reviewId', requireAuth, async (req, res) => {
     //check if review exists
     let reviewPromise = await Review.findByPk(req.params.reviewId);
@@ -156,7 +68,7 @@ router.put('/:reviewId', requireAuth, async (req, res) => {
 
     //authorization check
     const review = reviewPromise.toJSON();
-    const owner = review.userId;
+    const owner = review.ownerId;
 
     if (owner !== req.user.id) {
         res.statusCode = 403;
@@ -187,14 +99,15 @@ router.put('/:reviewId', requireAuth, async (req, res) => {
                 stars: stars
             });
 
-
             res.json(reviewPromise);
         }
     }
 });
 
 
-//DELETE Routes
+// ************************************ DELETE routes ************************************ // 
+
+// DELETE A REVIEW
 router.delete('/:reviewId', requireAuth, async (req, res) => {
     //check if review exists
     let reviewPromise = await Review.findByPk(req.params.reviewId);
@@ -209,7 +122,7 @@ router.delete('/:reviewId', requireAuth, async (req, res) => {
 
     //authorization check
     const review = reviewPromise.toJSON();
-    const owner = review.userId;
+    const owner = review.ownerId;
 
     if (owner !== req.user.id) {
         res.statusCode = 403;
