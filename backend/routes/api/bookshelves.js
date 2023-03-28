@@ -35,7 +35,7 @@ router.get('/', requireAuth, async (req, res, next) => {
 })
 
 // GET BOOKSHELVES OF CURRENT USER 
-router.get('/', requireAuth, async (req, res, next) => {
+router.get('/current', requireAuth, async (req, res, next) => {
     let userId = req.user.id;
 
     let bookshelvesPromise = await Bookshelf.findAll(
