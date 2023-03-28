@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
-import { getBookshelves, getBookshelf, updateBookshelf } from "../../store/bookshelves";
+import { getBookshelves, getBookshelf, updateBookshelf, removeBookshelf } from "../../store/bookshelves";
 import "./EditBookshelves.css";
 
 const BookshelvesEditModal = ({ bookshelf }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const user = useSelector(state => state.session.user);
 
     const [newBookshelf, setNewBookshelf] = useState({ ...bookshelf })
@@ -32,7 +34,6 @@ const BookshelvesEditModal = ({ bookshelf }) => {
     const handleUpdateSubmit = async (e) => {
         e.preventDefault();
 
-
         if (!validateForm(newBookshelf)) {
             return;
         };
@@ -41,7 +42,7 @@ const BookshelvesEditModal = ({ bookshelf }) => {
             let edittedBookshelf = await dispatch(updateBookshelf(bookshelf.id, newBookshelf));
             if (edittedBookshelf) {
                 await dispatch(getBookshelves());
-                //await dispatch(getBookshelf(bookshelf.id))
+                await dispatch(getBookshelf(bookshelf.id))
                 closeModal();
             }
         }
@@ -52,7 +53,16 @@ const BookshelvesEditModal = ({ bookshelf }) => {
     };
 
     const handleDeleteSubmit = async (e) => {
-
+        try {
+            await dispatch(removeBookshelf(bookshelf.id));
+            await dispatch(getBookshelves());
+            closeModal();
+            history.push('/shelf')
+        }
+        catch (response) {
+            const data = await response.json();
+            if (data && data.errors) setErrors(data.errors);
+        }
     }
 
     return (
@@ -79,7 +89,7 @@ const BookshelvesEditModal = ({ bookshelf }) => {
                     <button
                         disabled={!newBookshelf.name}
                         className={!newBookshelf.name ? "disabled-btn" : "edit-server-form-button"} type="submit" onClick={handleUpdateSubmit}>Update Bookshelf</button>
-                    <button className={!newBookshelf.name ? "disabled-btn" : "edit-server-form-button"} type="button">Delete Bookshelf</button>
+                    <button className={!newBookshelf.name ? "disabled-btn" : "edit-server-form-button"} type="button" onClick={handleDeleteSubmit}>Delete Bookshelf</button>
                     <span onClick={closeModal} className="channel-update-form-cancel">Cancel</span>
                 </div>
             </form >

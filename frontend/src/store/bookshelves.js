@@ -3,7 +3,9 @@ import { csrfFetch } from './csrf';
 // ******************************** CONSTANTS ******************************** // 
 const LOAD_BOOKSHELVES = '/bookshelves/load';
 const LOAD_BOOKSHELF = '/bookshelves/current';
-const EDIT_BOOKSHELF = '/bookshelves/update'
+const ADD_BOOKSHELF = '/bookshelves/add';
+const EDIT_BOOKSHELF = '/bookshelves/update';
+const DELETE_BOOKSHELF = '/bookshelves/delete';
 
 // ***************************** ACTION CREATORS ***************************** // 
 const loadBookshelves = bookshelves => ({
@@ -16,9 +18,18 @@ const loadBookshelf = bookshelf => ({
     bookshelf
 })
 
+const addBookshelf = bookshelf => ({
+    type: ADD_BOOKSHELF,
+    bookshelf
+})
+
 const editBookshelf = bookshelf => ({
     type: EDIT_BOOKSHELF,
     bookshelf
+})
+
+const deleteBookshelf = () => ({
+    type: DELETE_BOOKSHELF
 })
 
 // ********************************* THUNKS ********************************** //
@@ -42,6 +53,20 @@ export const getBookshelf = (shelfId) => async (dispatch) => {
     }
 }
 
+export const createBookshelf = (bookshelf) => async (dispatch) => {
+    const response = await csrfFetch(`/api/bookshelves/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(bookshelf)
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(addBookshelf(data));
+        return data;
+    }
+}
+
 export const updateBookshelf = (bookshelfId, bookshelf) => async (dispatch) => {
     const response = await csrfFetch(`/api/bookshelves/${bookshelfId}`, {
         method: "PUT",
@@ -57,7 +82,18 @@ export const updateBookshelf = (bookshelfId, bookshelf) => async (dispatch) => {
 
 }
 
+export const removeBookshelf = (bookshelfId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/bookshelves/${bookshelfId}`, {
+        method: 'DELETE',
+        headers: { "Content-Type": "application/json" }
+    });
 
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(deleteBookshelf());
+        return data;
+    }
+}
 
 // ********************************* REDUCER ********************************* // 
 const initialState = {};
@@ -83,16 +119,27 @@ export default function bookshelfReducer(state = initialState, action) {
                 currBookshelf
             }
         }
+        case ADD_BOOKSHELF: {
+            const allBookshelves = { ...state.allBookshelves }
+            allBookshelves[action.bookshelf.id] = action.bookshelf;
+            return {
+                ...state,
+                allBookshelves
+            }
+        }
         case EDIT_BOOKSHELF: {
             return {
                 ...state,
                 currBookshelf: { ...state.currentServer, ...action.bookshelf }
             }
         }
-
+        case DELETE_BOOKSHELF: {
+            return {
+                ...state
+            }
+        }
         default:
             return state;
     }
-
 
 }
