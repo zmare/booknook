@@ -37,7 +37,22 @@ const seedBooks = (num) => {
 const seedBookshelves = (num) => {
     let bookshelves = new Array(num).fill('');
 
-    for (const i in bookshelves) {
+    bookshelves[0] = {
+        ownerId: 11,
+        name: "Read"
+    }
+
+    bookshelves[1] = {
+        ownerId: 11,
+        name: "Currently Reading"
+    }
+
+    bookshelves[2] = {
+        ownerId: 11,
+        name: "Want to Read"
+    }
+
+    for (let i = 3; i < bookshelves.length; i++) {
         bookshelves[i] = {
             ownerId: 11,
             name: faker.lorem.words(rNum(5))
