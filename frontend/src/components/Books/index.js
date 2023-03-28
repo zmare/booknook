@@ -1,24 +1,32 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, NavLink } from 'react-router-dom'
+import { useParams, NavLink, Redirect, useHistory } from 'react-router-dom'
 import { getBook } from '../../store/book';
 import { createBookshelf, getBookshelf, getBookshelves } from '../../store/bookshelves';
+import { createReview, getReviewsUser } from '../../store/review';
 import BookshelvesEditModal from '../BookshelvesEditModal';
 import OpenModalButton from '../OpenModalButton'
+import Review from '../Review';
 
 
 const Books = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const { bookId } = useParams();
 
     useEffect(() => {
         dispatch(getBook(bookId))
+        dispatch(getReviewsUser())
     }, [dispatch])
 
     const book = useSelector(state => state.books.currBook);
     if (!book) return null;
 
-    console.log(book);
+    const handleAdd = async (e) => {
+        e.preventDefault();
+
+        history.push(`/reviews/edit/${book.id}`);
+    }
 
     return (
         <div style={{ marginLeft: '20px' }}>
@@ -35,12 +43,10 @@ const Books = () => {
             <p>{book.avgStarRating} rating</p>
 
             <ul>
+                <button onClick={handleAdd}>Add Review</button>
                 {book.Reviews.map(review => (
                     <>
-                        <li>{review.review}</li>
-                        <li>{review.User.name}</li>
-                        <li>{review.stars} stars</li>
-                        <br></br>
+                        <Review review={review} />
                     </>
                 ))}
             </ul>

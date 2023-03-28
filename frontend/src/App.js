@@ -7,6 +7,7 @@ import Homepage from "./components/Homepage";
 import Bookshelves from "./components/Bookshelves";
 import Books from "./components/Books";
 import BookDetails from "./components/BookDetails";
+import ReviewCreateEdit from "./components/Review/ReviewCreateEdit";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +33,13 @@ function App() {
           <Route path='/shelf'>
             <Bookshelves />
           </Route>
+          <Route path='/reviews/edit/:bookId/:reviewId'>
+            <ReviewCreateEdit />
+          </Route>
+          <Route path='/reviews/edit/:bookId'>
+            <ReviewCreateEdit />
+          </Route>
+
 
         </Switch>
       )}

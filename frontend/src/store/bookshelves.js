@@ -130,7 +130,7 @@ export default function bookshelfReducer(state = initialState, action) {
         case EDIT_BOOKSHELF: {
             return {
                 ...state,
-                currBookshelf: { ...state.currentServer, ...action.bookshelf }
+                currBookshelf: { ...state.currentBookshelf, ...action.bookshelf }
             }
         }
         case DELETE_BOOKSHELF: {
