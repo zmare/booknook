@@ -7,12 +7,18 @@ import { createReview, getReviewsUser } from '../../store/review';
 import BookshelvesEditModal from '../BookshelvesEditModal';
 import OpenModalButton from '../OpenModalButton'
 import Review from '../Review';
+import ReviewCreateEdit from '../Review/ReviewCreateEdit';
 
 
 const Books = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { bookId } = useParams();
+
+    let review = {
+        review: '',
+        stars: '',
+    }
 
     useEffect(() => {
         dispatch(getBook(bookId))
@@ -21,12 +27,11 @@ const Books = () => {
 
     const book = useSelector(state => state.books.currBook);
     if (!book) return null;
+    let orderedReviews = [];
 
-    const handleAdd = async (e) => {
-        e.preventDefault();
-
-        history.push(`/reviews/edit/${book.id}`);
-    }
+    for (let i = (book.Reviews).length - 1; i >= 0; i--) {
+        orderedReviews.push(book.Reviews[i])
+    };
 
     return (
         <div style={{ marginLeft: '20px' }}>
@@ -43,11 +48,14 @@ const Books = () => {
             <p>{book.avgStarRating} rating</p>
 
             <ul>
-                <button onClick={handleAdd}>Add Review</button>
-                {book.Reviews.map(review => (
-                    <>
+                <OpenModalButton
+                    buttonText='Add Review'
+                    modalComponent={<ReviewCreateEdit book={book} review={review} type='Add' />}
+                />
+                {orderedReviews.map(review => (
+                    <div key={`book-review-${review.id}`}>
                         <Review review={review} />
-                    </>
+                    </div>
                 ))}
             </ul>
 

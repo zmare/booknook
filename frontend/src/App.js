@@ -39,8 +39,6 @@ function App() {
           <Route path='/reviews/edit/:bookId'>
             <ReviewCreateEdit />
           </Route>
-
-
         </Switch>
       )}
     </>

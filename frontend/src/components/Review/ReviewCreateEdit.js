@@ -1,47 +1,62 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams, NavLink, Redirect, useHistory } from 'react-router-dom'
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { getBook } from '../../store/book';
-import { getReviewCurrent } from '../../store/review';
-import { createBookshelf, getBookshelf, getBookshelves } from '../../store/bookshelves';
+import { updateReview } from '../../store/review';
 import { createReview, getReviewsUser } from '../../store/review';
-import BookshelvesEditModal from '../BookshelvesEditModal';
-import OpenModalButton from '../OpenModalButton'
-import Review from '../Review';
-const ReviewCreateEdit = () => {
+import { useModal } from '../../context/Modal';
+
+const ReviewCreateEdit = ({ book, review, type }) => {
     const dispatch = useDispatch();
-    const { bookId, reviewId } = useParams();
-    let currentReview = useSelector(state => state.review.currReviews)
 
-    const [newReview, setNewReview] = useState({
-        review: "",
-        stars: ""
-    });
+    const { closeModal } = useModal();
+    const [newReview, setNewReview] = useState(review.review)
+    const [newStars, setNewStars] = useState(review.stars)
+    const [errors, setErrors] = useState([]);
 
-    useEffect(() => {
-        if (reviewId && currentReview) {
-            dispatch(getReviewCurrent(reviewId));
-        }
-        dispatch(getBook(bookId));
-
-
-    }, [dispatch, bookId, reviewId, currentReview])
-
-    if (!currentReview) {
-        console.log("returning null")
-        return null;
-    } else {
-        setNewReview({
-            review: currentReview.review,
-            stars: currentReview.stars
-        })
-    }
 
     const handleSubmit = async (e) => {
-        if (reviewId) {
-            window.alert("you want to edit")
-        } else {
-            window.alert('you want to create')
+        if (type === "Edit") {
+            e.preventDefault();
+
+            let updatedReview = {
+                review: newReview,
+                stars: newStars
+            }
+
+            try {
+                let returnedReview = await dispatch(updateReview(review.id, updatedReview));
+                if (returnedReview) {
+                    await dispatch(getBook(book.id));
+                    await dispatch(getReviewsUser());
+                    closeModal();
+                }
+            }
+            catch (response) {
+                const data = await response.json();
+                if (data && data.errors) setErrors(data.errors);
+            }
+        }
+
+        if (type === "Add") {
+            e.preventDefault();
+
+            let createdReview = {
+                review: newReview,
+                stars: newStars
+            }
+
+            try {
+                let returnedReview = await dispatch(createReview(createdReview, book.id));
+                if (returnedReview) {
+                    await dispatch(getBook(book.id));
+                    await dispatch(getReviewsUser());
+                    closeModal();
+                }
+            }
+            catch (response) {
+                const data = await response.json();
+                if (data && data.errors) setErrors(data.errors);
+            }
         }
     }
 
@@ -51,16 +66,15 @@ const ReviewCreateEdit = () => {
             <p>What did you think? </p>
             <textarea
                 placeholder="write review here"
-            // value={newReview.review}
-            // onChange={(e) => setNewReview({ ...newReview, review: e.target.value })}
+                value={newReview}
+                onChange={(e) => setNewReview(e.target.value)}
             ></textarea>
             <p>Enter number of stars</p>
             <input
                 placeholder='number of stars'
-            // value={newReview.stars}
-            // onChange={(e) => setNewReview({ ...newReview, stars: e.target.value })}
-            >
-            </input>
+                value={newStars}
+                onChange={(e) => setNewStars(+e.target.value)}
+            ></input>
             <br></br>
             <button type='submit'>Submit</button>
         </form>

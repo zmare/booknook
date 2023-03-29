@@ -53,8 +53,8 @@ export const getReviewCurrent = (reviewId) => async (dispatch) => {
     }
 };
 
-export const createReview = (review) => async (dispatch) => {
-    const response = await csrfFetch(`/api/reviews/`, {
+export const createReview = (review, bookId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/reviews/${bookId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(review)
@@ -132,7 +132,7 @@ export default function reviewReducer(state = initialState, action) {
         }
         case EDIT_REVIEW: {
             // const userReviews = { ...state.userReviews };
-            const currReview = { ...state.currReview };
+            let currReview = { ...state.currReview };
             // userReviews[action.review.id] = action.review;
             currReview = action.review
             return {

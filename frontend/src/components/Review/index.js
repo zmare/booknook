@@ -5,6 +5,8 @@ import { getBook } from '../../store/book';
 import { createBookshelf, getBookshelf, getBookshelves } from '../../store/bookshelves';
 import BookshelvesEditModal from '../BookshelvesEditModal';
 import OpenModalButton from '../OpenModalButton'
+import ReviewCreateEdit from './ReviewCreateEdit';
+import ReviewDelete from './ReviewDelete';
 
 
 const Review = ({ review }) => {
@@ -22,8 +24,13 @@ const Review = ({ review }) => {
             <li>{review.review}</li>
             <li>{review.User.name}</li>
             <li>{review.stars} stars</li>
-            <button onClick={handleEdit}>Edit</button>
-            <button>Delete</button>
+            <OpenModalButton
+                buttonText="Edit"
+                modalComponent={<ReviewCreateEdit book={book} review={review} type='Edit' />} />
+            <OpenModalButton
+                buttonText="Delete"
+                modalComponent={<ReviewDelete book={book} review={review} />}
+            />
             <br></br>
         </>
 
