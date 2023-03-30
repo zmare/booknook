@@ -40,31 +40,47 @@ function Homepage() {
                         <div className="login-form-container">
                             <div className="login-form">
                                 <form onSubmit={handleSubmit}>
-                                    <h1 style={{ fontSize: '16px' }}>Welcome to BookNook! Login to get started!</h1>
-                                    <ul>
+                                    <h1 style={{ fontWeight: 'bolder' }} className='login-form-header'>Welcome to BookNook!</h1>
+                                    <h2 className='login-form-header' id='small-header'>Login to get started!</h2>
+                                    <ul style={{ color: 'red', fontFamily: "'Roboto',sans-serif", fontSize: '12px', listStyle: 'none', paddingRight: '30px' }}>
                                         {errors.map((error, idx) => (
                                             <li key={idx}>{error}</li>
                                         ))}
                                     </ul>
-                                    <label>
-                                        Email
-                                        <input
-                                            type="text"
-                                            value={credential}
-                                            onChange={(e) => setCredential(e.target.value)}
-                                            required
-                                        />
-                                    </label>
-                                    <label>
-                                        Password
-                                        <input
-                                            type="password"
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            required
-                                        />
-                                    </label>
-                                    <button type="submit">Log In</button>
+                                    <div>
+                                        <label className='login-form-label'>
+                                            Email
+                                            <br></br>
+                                            <input
+                                                className='login-form-input'
+                                                type="text"
+                                                value={credential}
+                                                onChange={(e) => setCredential(e.target.value)}
+                                                required
+                                            />
+                                        </label>
+                                    </div>
+                                    <br></br>
+                                    <div>
+                                        <label className='login-form-label'>
+                                            Password
+                                            <br></br>
+                                            <input
+                                                className='login-form-input'
+                                                type="password"
+                                                value={password}
+                                                onChange={(e) => setPassword(e.target.value)}
+                                                required
+                                            />
+                                        </label>
+                                    </div>
+
+                                    <br></br>
+                                    <button className='login-form-button' type="submit">Log In</button>
+                                    <button onClick={() => { setCredential('demo@user.io'); setPassword('password'); }} type="text" className='login-form-button' id='demo-user-button'>Log In Demo User</button>
+                                    <p className="login-form-footer">Not a member?<span> </span>
+                                        <NavLink to="/">Sign up!</NavLink>
+                                    </p>
                                 </form>
                             </div>
                         </div>
