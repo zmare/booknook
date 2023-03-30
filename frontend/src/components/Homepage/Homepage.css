@@ -1,0 +1,53 @@
+.banner-background-image {
+    background-image: url("../../../static/book_background.jpg");
+    background-size: cover;
+    width: 100vw;
+    height: 295px;
+}
+
+.login-form-container {
+    width: 50%;
+}
+
+.login-form {
+    position: fixed;
+    z-index: 1;
+    width: 350px;
+    right: 0;
+    background: white;
+    border-radius: 10px;
+    margin-left: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 400px;
+    margin-right: 35px;
+    top: 80px;
+    border: 1px solid #d8d8d8;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)
+}
+
+.homepage-left-container {
+    float: left;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 60px;
+    padding-bottom: 10px;
+    width: 65%;
+    font-family: 'Roboto', sans-serif;
+}
+
+.left-para-container {
+    margin-right: 40px;
+    float: left;
+    margin: 0 10px 10px 30px;
+    margin-right: 10px;
+    width: 280px;
+    font-size: 13px;
+}
+
+.right-para-container {
+    float: left;
+    margin: 0 10px 10px 55px;
+    width: 300px;
+    font-size: 13px;
+}

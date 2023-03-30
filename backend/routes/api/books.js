@@ -96,7 +96,7 @@ router.get('/', async (req, res, next) => {
     res.json(books);
 })
 
-// GET SPECIIFIC BOOK BY ID 
+// GET SPECIFIC BOOK BY ID 
 router.get('/:bookId', doesBookExist, async (req, res, next) => {
     let bookPromise = await Book.findByPk(req.params.bookId,
         {

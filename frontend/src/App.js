@@ -5,6 +5,9 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Homepage from "./components/Homepage";
 import Bookshelves from "./components/Bookshelves";
+import Books from "./components/Books";
+import BookDetails from "./components/BookDetails";
+import ReviewCreateEdit from "./components/Review/ReviewCreateEdit";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,8 +24,20 @@ function App() {
           <Route exact path="/">
             <Homepage />
           </Route>
+          <Route path='/shelf/:shelfId/books/:bookId'>
+            <Books />
+          </Route>
+          <Route path='/shelf/:shelfId'>
+            <BookDetails />
+          </Route>
           <Route path='/shelf'>
             <Bookshelves />
+          </Route>
+          <Route path='/reviews/edit/:bookId/:reviewId'>
+            <ReviewCreateEdit />
+          </Route>
+          <Route path='/reviews/edit/:bookId'>
+            <ReviewCreateEdit />
           </Route>
         </Switch>
       )}
