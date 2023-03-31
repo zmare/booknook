@@ -8,6 +8,7 @@ import Bookshelves from "./components/Bookshelves";
 import Books from "./components/Books";
 import BookDetails from "./components/BookDetails";
 import ReviewCreateEdit from "./components/Review/ReviewCreateEdit";
+import SignupForm from "./components/SignupForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ function App() {
           <Route exact path="/">
             <Homepage />
           </Route>
-          <Route path='/shelf/:shelfId/books/:bookId'>
+          <Route path='/books/:bookId'>
             <Books />
           </Route>
           <Route path='/shelf/:shelfId'>
@@ -39,7 +40,11 @@ function App() {
           <Route path='/reviews/edit/:bookId'>
             <ReviewCreateEdit />
           </Route>
+          <Route path='/signup'>
+            <SignupForm />
+          </Route>
         </Switch>
+
       )}
     </>
   );

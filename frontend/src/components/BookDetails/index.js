@@ -36,7 +36,7 @@ const BookDetails = () => {
                     {bookshelf.Books.map(book => (
                         <>
                             <br></br>
-                            <NavLink to={`/shelf/${bookshelf.id}/books/${book.id}`}>
+                            <NavLink to={`/books/${book.id}`}>
                                 {book.title}
                             </NavLink>
                             <br></br>
