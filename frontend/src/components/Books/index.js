@@ -45,8 +45,6 @@ const Books = () => {
 
     if (myReviews) {
         myReviews = Object.values(myReviews);
-        console.log("--------", myReviews)
-        console.log('book', book)
         for (let review of myReviews) {
             let bookId = parseInt(review.bookId);
             if (bookId === book.id) hasReview = true;
@@ -78,7 +76,7 @@ const Books = () => {
 
                     {(book.numReviews && book.avgStarRating) ?
                         <div style={{ display: 'flex', flexDirection: 'row', paddingTop: '0' }}>
-                            <p id='book-details-reviews' > {book.numReviews} {book.numReviews === 1 ? "review" : "reviews"}</p>
+                            <p id='book-details-reviews'> {book.numReviews} {book.numReviews === 1 ? "review" : "reviews"}</p>
                             <p id='book-details-ratings'>{book.avgStarRating} rating</p>
                         </div>
                         :
