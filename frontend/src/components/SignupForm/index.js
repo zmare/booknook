@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import './SignupForm.css';
 
@@ -90,8 +90,8 @@ const SignupForm = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                        <p> <i className="fas fa-user-circle" /> </p>
-                        <p style={{ marginTop: '5px', marginBottom: '0', fontSize: '10px' }}><i class="fa-light fa-circle-exclamation"></i>Password must be 6 characters or longer</p>
+                        {/* <p> <i className="fas fa-circle-exclamation" /> </p> */}
+                        <p style={{ marginTop: '5px', marginBottom: '0', fontSize: '10px' }}><i class="fa-solid fa-circle-exclamation"></i> Password must be 6 characters or longer</p>
                     </label>
                 </div>
                 <br></br>
@@ -112,6 +112,9 @@ const SignupForm = () => {
                 <br></br>
                 <div className='signup-form-button-container'>
                     <button className='signup-form-button' type="submit">Sign Up</button>
+                    <p className="login-form-footer">Already a member?<span> </span>
+                        <NavLink to="/">Log In!</NavLink>
+                    </p>
                 </div>
             </form>
         </>

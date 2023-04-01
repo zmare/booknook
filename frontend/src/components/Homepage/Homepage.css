@@ -1,5 +1,6 @@
 .banner-background-image {
-    background-image: url("../../../static/book_background.jpg");
+    /* background-image: url("../../../static/book_background.jpg"); */
+    background-image: url('https://s.gr-assets.com/assets/home/homepage_promos/reading_challenge_2023/HomepageMasthead_Desktop@2x.png');
     background-size: cover;
     width: 100vw;
     height: 295px;

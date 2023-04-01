@@ -49,6 +49,25 @@ export const signup = (user) => async (dispatch) => {
     });
     const data = await response.json();
     dispatch(setUser(data.user));
+
+    await csrfFetch(`/api/bookshelves`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: "Reading" })
+    })
+
+    await csrfFetch(`/api/bookshelves`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: "Currently Reading" })
+    })
+
+    await csrfFetch(`/api/bookshelves`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: "Want to Read" })
+    })
+
     return response;
 };
 

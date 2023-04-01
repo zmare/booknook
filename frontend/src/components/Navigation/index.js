@@ -13,7 +13,7 @@ function Navigation({ isLoaded }) {
 
                 <NavLink className='header-title' exact to="/"><span style={{ fontWeight: 'lighter' }}>book</span><span style={{ fontWeight: 'bolder' }}>nook</span></NavLink>
 
-                {(isLoaded && sessionUser) && (
+                {(isLoaded) && (
                     <>
                         <div className="nav-menu-container">
                             <ul className='nav-menu-content'>

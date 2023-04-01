@@ -7,36 +7,15 @@ import "./Homepage.css"
 import { getBookshelves } from "../../store/bookshelves";
 import { getBooks } from "../../store/book";
 import RecommendedBook from "./RecommendedBooks";
+import HomepageLoggedIn from "./HomepageLoggedIn";
 
 function Homepage() {
     const dispatch = useDispatch();
-    const rNum = (num) => Math.floor(Math.random() * Math.floor(num) + 1);
     const user = useSelector(state => state.session.user);
 
     const [credential, setCredential] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
-
-    useEffect(() => {
-        dispatch(getBookshelves());
-        dispatch(getBooks());
-    }, [dispatch])
-
-    let bookshelves = useSelector(state => state.bookshelves.allBookshelves);
-    let books = useSelector(state => state.books.allBooks)
-    if (!bookshelves) return null;
-    if (!books) return null;
-
-    bookshelves = Object.values(bookshelves);
-    books = Object.values(books);
-    let currReadingBook = bookshelves[1].Books[0];
-
-    let randomBooks = [];
-    for (let i = 0; i < 5; i++) {
-        randomBooks.push(books[rNum(10)]);
-    }
-
-    console.log('****', randomBooks)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -50,54 +29,24 @@ function Homepage() {
             );
     };
 
+    const handleDemoLogin = (e) => {
+        e.preventDefault();
+        setErrors([]);
+        return dispatch(sessionActions.login({
+            credential: 'demo@user.io',
+            password: 'password'
+        }))
+            .catch(
+                async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) setErrors(data.errors);
+                }
+            );
+    }
+
     return (
         <>
-            {user ?
-                <>
-                    <div className='homepage-wrapper'>
-                        <div className='homepage-column-container' id='column-one'>
-                            <div className='homepage-bookshelf-container'>
-                                <h2 className='homepage-bookshelf-header'>CURRENTLY READING</h2>
-                                {!currReadingBook ?
-                                    <div style={{ display: 'flex' }}>
-                                        <img src="https://s.gr-assets.com/assets/react_components/currently_reading/icn_default_CR_ltrail-16f28d39654104ceb329648a474943eb.svg"></img>
-                                        <p className='homepage-bookshelf-para'>What are you reading? </p>
-                                    </div>
-                                    :
-                                    <div style={{ display: "flex" }}>
-                                        <img className="homepage-bookshelf-image" src={currReadingBook.bookImage}></img>
-                                        <div>
-                                            <p id='homepage-bookshelf-book-title'>{currReadingBook.title}</p>
-                                            <p id='homepage-bookshelf-book-author'>by {currReadingBook.author}</p>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                        <div className='homepage-column-container' id='column-two'>
-                            <div className='homepage-recommendations-container'>
-                                <h2 className='homepage-bookshelf-header-rec'>RECOMMENDED FOR YOU</h2>
-                                <div>
-                                    {randomBooks.map(book => (
-                                        <NavLink style={{ textDecoration: 'none' }} to={`/books/${book.id}`}>
-                                            <RecommendedBook book={book} />
-                                        </NavLink>
-
-                                    ))}
-                                </div>
-
-                            </div>
-                        </div>
-                        <div className='homepage-column-container' id='column-three'>
-                            <div className='homepage-in-the-news-container'>
-                                <h2 className='homepage-bookshelf-header'>IN THE NEWS</h2>
-                            </div>
-                        </div>
-                    </div>
-                </>
-
-                :
-
+            {!user ?
                 <>
                     <div>
                         <div className='banner-background-image'> </div>
@@ -138,10 +87,9 @@ function Homepage() {
                                             />
                                         </label>
                                     </div>
-
                                     <br></br>
                                     <button className='login-form-button' type="submit">Log In</button>
-                                    <button onClick={() => { setCredential('demo@user.io'); setPassword('password'); }} type="text" className='login-form-button' id='demo-user-button'>Log In Demo User</button>
+                                    <button onClick={handleDemoLogin} type="text" className='login-form-button' id='demo-user-button'>Log In Demo User</button>
                                     <p className="login-form-footer">Not a member?<span> </span>
                                         <NavLink to="/signup">Sign up!</NavLink>
                                     </p>
@@ -166,9 +114,10 @@ function Homepage() {
 
                     </div>
                 </>
+                :
+                <HomepageLoggedIn />
             }
         </>
-
     );
 }
 

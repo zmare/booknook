@@ -5,6 +5,7 @@ import { createBookshelf, getBookshelf, getBookshelves } from '../../store/books
 import BookshelvesEditModal from '../BookshelvesEditModal';
 import OpenModalButton from '../OpenModalButton'
 
+//WILL BE THE COMPONENET THAT RENDERS FROM THE BOOKSHELF PAGE. THE BOOK TABLE 
 
 const BookDetails = () => {
     const dispatch = useDispatch();
