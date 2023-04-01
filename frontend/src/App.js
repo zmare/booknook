@@ -6,7 +6,7 @@ import Navigation from "./components/Navigation";
 import Homepage from "./components/Homepage";
 import Bookshelves from "./components/Bookshelves";
 import Books from "./components/Books";
-import BookDetails from "./components/BookDetails";
+import BookDetails from "./components/Bookshelves/BookTable";
 import ReviewCreateEdit from "./components/Review/ReviewCreateEdit";
 import SignupForm from "./components/SignupForm";
 
@@ -37,9 +37,9 @@ function App() {
           <Route path='/reviews/edit/:bookId/:reviewId'>
             <ReviewCreateEdit />
           </Route>
-          <Route path='/reviews/edit/:bookId'>
+          {/* <Route path='/reviews/edit/:bookId'>
             <ReviewCreateEdit />
-          </Route>
+          </Route> */}
           <Route path='/signup'>
             <SignupForm />
           </Route>

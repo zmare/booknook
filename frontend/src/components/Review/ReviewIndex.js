@@ -10,7 +10,13 @@ const ReviewIndex = ({ book, reviews }) => {
         <>
             <div className='review_rating_num'>
                 {book.avgStarRating === "New" ? (
-                    <p>
+                    <p style={{
+                        fontFamily: " 'Libre Baskerville ', serif",
+                        fontSize: "18px",
+                        fontWeight: '600',
+                        lineHeight: "31px",
+                        color: "rgb(30, 25, 21)"
+                    }}>
                         New
                     </p>
                 ) : (

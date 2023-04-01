@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { getBookshelves, getBookshelf, updateBookshelf, removeBookshelf } from "../../store/bookshelves";
 import "./EditBookshelves.css";
@@ -44,6 +44,7 @@ const BookshelvesEditModal = ({ bookshelf }) => {
                 await dispatch(getBookshelves());
                 await dispatch(getBookshelf(bookshelf.id))
                 closeModal();
+                history.push(`/shelf/${bookshelf.id}`)
             }
         }
         catch (response) {
@@ -53,11 +54,13 @@ const BookshelvesEditModal = ({ bookshelf }) => {
     };
 
     const handleDeleteSubmit = async (e) => {
+        e.preventDefault();
+
         try {
             await dispatch(removeBookshelf(bookshelf.id));
+            history.push('/shelf')
             await dispatch(getBookshelves());
             closeModal();
-            history.push('/shelf')
         }
         catch (response) {
             const data = await response.json();
@@ -89,7 +92,7 @@ const BookshelvesEditModal = ({ bookshelf }) => {
                     <button
                         disabled={!newBookshelf.name}
                         className={!newBookshelf.name ? "disabled-btn" : "edit-server-form-button"} type="submit" onClick={handleUpdateSubmit}>Update Bookshelf</button>
-                    <button className={!newBookshelf.name ? "disabled-btn" : "edit-server-form-button"} type="button" onClick={handleDeleteSubmit}>Delete Bookshelf</button>
+                    <button className={!newBookshelf.name ? "disabled-btn" : "edit-server-form-button"} type="submit" onClick={handleDeleteSubmit}>Delete Bookshelf</button>
                     <span onClick={closeModal} className="channel-update-form-cancel">Cancel</span>
                 </div>
             </form >
