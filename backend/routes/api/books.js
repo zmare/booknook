@@ -88,7 +88,7 @@ router.get('/', async (req, res, next) => {
 
             let avg = sum / reviews.length;
             let avgRounded = Math.round(avg * 10) / 10;
-            book.avgStarRating = avg.toFixed(2);
+            book.avgStarRating = avgRounded.toFixed(2);
         }
 
     })
@@ -104,7 +104,7 @@ router.get('/:bookId', doesBookExist, async (req, res, next) => {
                 {
                     model: Review,
                     attributes: {
-                        exclude: ['bookId', 'createdAt', 'updatedAt', "ownerId"]
+                        exclude: ['bookId', 'updatedAt', "ownerId"]
                     },
                     include: [
                         {
@@ -131,7 +131,7 @@ router.get('/:bookId', doesBookExist, async (req, res, next) => {
 
         let avg = sum / reviews.length;
         let avgRounded = Math.round(avg * 10) / 10;
-        book.avgStarRating = avgRounded;
+        book.avgStarRating = avgRounded.toFixed(2);
     }
 
     res.json(book)

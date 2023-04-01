@@ -34,7 +34,7 @@ body {
 .header-title {
     text-decoration: none;
     font-family: 'Montserrat', sans-serif;
-    color: black;
+    color: #382110;
     font-size: 20pt;
 }
 
@@ -49,7 +49,7 @@ body {
 
 .nav-menu-content>* {
     text-decoration: none;
-    color: black;
+    color: #382110;
     width: 100%;
     text-align: center;
     padding-top: 10px;

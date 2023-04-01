@@ -1,51 +1,53 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBookshelves } from '../../store/bookshelves';
-import { Link, NavLink } from 'react-router-dom';
-//import { useSelector } from 'react-redux';
+import { getBookshelf, getBookshelves } from '../../store/bookshelves';
+import { useParams } from 'react-router-dom';
 import BookshelvesSidebar from './BookshelvesSidebar';
+import BookTable from './BookTable';
+import BookshelfNavigation from './BookshelfNavigation';
 import './Bookshelves.css'
+
 
 const Bookshelves = () => {
     const dispatch = useDispatch();
 
+    const { shelfId } = useParams();
+
     const user = useSelector(state => state.session.user);
     let bookshelves = useSelector(state => state.bookshelves.allBookshelves);
+    //let book = useSelector(state => state.bookshelves.currBookshelf)
 
     useEffect(() => {
-        dispatch(getBookshelves());
-    }, [dispatch, user]);
+        dispatch(getBookshelves())
+        if (shelfId) dispatch(getBookshelf(shelfId));
+    }, [dispatch, user, shelfId]);
 
     if (!user) return null;
     if (!bookshelves) return null;
+    // if (!book) return null;
 
+    let bookshelf = bookshelves[shelfId];
     bookshelves = Object.values(bookshelves);
 
+    console.log("curr bookshelf ", bookshelf);
+
+
     return (
-        <div className='test'>
+        <div>
             <div className="bookshelf-nav-container">
-                <div className='bookshelf-nav-title'>
-                    My Books
-                </div>
-                <div className='bookshelf-settings'>
-                    <ul className='bookshelf-settings-ul'>
-                        <li> Batch Edit </li>
-                        <li> Settings </li>
-                        <li> Stats </li>
-                        <li> Print </li>
-                        {/* <li> | </li> */}
-                    </ul>
-                </div>
+                <BookshelfNavigation />
             </div>
             <div className="bookshelf-details-container">
-                <BookshelvesSidebar bookshelves={bookshelves} />
-                <div className='bookshelf-book-details-container'>
-                    <div className='book-nav'>
-                        books nav
-                    </div>
-                    <div className='book-detail-index'>
-                        book detail
-                    </div>
+                <div className='test'>
+                    <BookshelvesSidebar bookshelves={bookshelves} />
+
+                </div>
+                <div className='test2'>
+                    {shelfId ?
+                        <BookTable bookshelf={bookshelf} />
+                        :
+                        ""
+                    }
                 </div>
             </div>
         </div>

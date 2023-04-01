@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import "./Homepage.css"
+import { getBookshelves } from "../../store/bookshelves";
+import { getBooks } from "../../store/book";
+import RecommendedBook from "./RecommendedBooks";
+import HomepageLoggedIn from "./HomepageLoggedIn";
 
 function Homepage() {
+    const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
 
-    const dispatch = useDispatch();
     const [credential, setCredential] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
@@ -25,15 +29,24 @@ function Homepage() {
             );
     };
 
+    const handleDemoLogin = (e) => {
+        e.preventDefault();
+        setErrors([]);
+        return dispatch(sessionActions.login({
+            credential: 'demo@user.io',
+            password: 'password'
+        }))
+            .catch(
+                async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) setErrors(data.errors);
+                }
+            );
+    }
+
     return (
         <>
-            {user ?
-                <>
-                    <h1>hello from homepage component! </h1>
-                </>
-
-                :
-
+            {!user ?
                 <>
                     <div>
                         <div className='banner-background-image'> </div>
@@ -41,7 +54,7 @@ function Homepage() {
                             <div className="login-form">
                                 <form onSubmit={handleSubmit}>
                                     <h1 style={{ fontWeight: 'bolder' }} className='login-form-header'>Welcome to BookNook!</h1>
-                                    <h2 className='login-form-header' id='small-header'>Login to get started!</h2>
+                                    <h2 className='login-form-header' id='small-header'>Log in to get started!</h2>
                                     <ul style={{ color: 'red', fontFamily: "'Roboto',sans-serif", fontSize: '12px', listStyle: 'none', paddingRight: '30px' }}>
                                         {errors.map((error, idx) => (
                                             <li key={idx}>{error}</li>
@@ -74,12 +87,11 @@ function Homepage() {
                                             />
                                         </label>
                                     </div>
-
                                     <br></br>
                                     <button className='login-form-button' type="submit">Log In</button>
-                                    <button onClick={() => { setCredential('demo@user.io'); setPassword('password'); }} type="text" className='login-form-button' id='demo-user-button'>Log In Demo User</button>
+                                    <button onClick={handleDemoLogin} type="text" className='login-form-button' id='demo-user-button'>Log In Demo User</button>
                                     <p className="login-form-footer">Not a member?<span> </span>
-                                        <NavLink to="/">Sign up!</NavLink>
+                                        <NavLink to="/signup">Sign up!</NavLink>
                                     </p>
                                 </form>
                             </div>
@@ -102,9 +114,10 @@ function Homepage() {
 
                     </div>
                 </>
+                :
+                <HomepageLoggedIn />
             }
         </>
-
     );
 }
 

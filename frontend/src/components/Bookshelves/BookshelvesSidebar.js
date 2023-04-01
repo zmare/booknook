@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useHistory } from 'react-router-dom';
 import { createBookshelf, getBookshelf, getBookshelves } from '../../store/bookshelves';
 import Books from '../Books';
 
 
 const BookshelvesSidebar = ({ bookshelves }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [name, setName] = useState("")
     const [errors, setErrors] = useState([]);
@@ -38,13 +39,13 @@ const BookshelvesSidebar = ({ bookshelves }) => {
     return (
         <div className='bookshelf-sidebar-container'>
             <div className='bookshelves-header'>
-                Bookshelves
+                <span style={{ fontWeight: 'bold', fontFamily: "'Lato',serif" }}>Bookshelves</span>
             </div>
             <div>
                 {bookshelves.map(bookshelf => (
                     <>
-                        <NavLink key={`bookshelf-${bookshelf.id}`} to={`/shelf/${bookshelf.id}`}>
-                            {bookshelf.name}
+                        <NavLink className="bookshelf-links" key={`bookshelf-${bookshelf.id}`} to={`/shelf/${bookshelf.id}`}>
+                            {bookshelf.name} ({bookshelf.Books ? bookshelf.Books.length : 0})
                         </NavLink>
                         <br></br>
                     </>
