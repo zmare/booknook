@@ -29,7 +29,7 @@ function App() {
             <Books />
           </Route>
           <Route path='/shelf/:shelfId'>
-            <BookDetails />
+            <Bookshelves />
           </Route>
           <Route path='/shelf'>
             <Bookshelves />

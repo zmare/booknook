@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBookshelves } from '../../store/bookshelves';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useParams } from 'react-router-dom';
 //import { useSelector } from 'react-redux';
 import BookshelvesSidebar from './BookshelvesSidebar';
 import './Bookshelves.css'
 
 const Bookshelves = () => {
     const dispatch = useDispatch();
+
+    const { shelfId } = useParams();
 
     const user = useSelector(state => state.session.user);
     let bookshelves = useSelector(state => state.bookshelves.allBookshelves);
@@ -37,17 +39,26 @@ const Bookshelves = () => {
                     </ul>
                 </div>
             </div>
+
             <div className="bookshelf-details-container">
                 <BookshelvesSidebar bookshelves={bookshelves} />
-                <div className='bookshelf-book-details-container'>
-                    <div className='book-nav'>
-                        books nav
+                {shelfId ?
+                    <div className='bookshelf-book-details-container'>
+                        <div className='book-nav'>
+                            books nav
+                        </div>
+                        <div className='book-detail-index'>
+                            book detail
+                        </div>
                     </div>
-                    <div className='book-detail-index'>
-                        book detail
-                    </div>
-                </div>
+                    :
+                    ""
+                }
+
             </div>
+
+
+
         </div>
     )
 }
