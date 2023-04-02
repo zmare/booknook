@@ -153,8 +153,8 @@ router.get('/:bookshelfId', [requireAuth, doesBookshelfExist], async (req, res, 
 
 // CREATE A NEW BOOKSHELF 
 router.post('/', [requireAuth, validateNewBookshelf], async (req, res, next) => {
-    let userId = req.user.id;
-    const { name } = req.body;
+    const { name, user } = req.body;
+    let userId = user.id;
 
     const existingBookshelf = await Bookshelf.findOne({
         where: {
