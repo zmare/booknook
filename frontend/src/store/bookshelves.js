@@ -4,6 +4,7 @@ import { csrfFetch } from './csrf';
 const LOAD_BOOKSHELVES = '/bookshelves/load';
 const LOAD_BOOKSHELF = '/bookshelves/current';
 const ADD_BOOKSHELF = '/bookshelves/add';
+const ADD_BOOK = '/bookshelves/add/book';
 const EDIT_BOOKSHELF = '/bookshelves/update';
 const DELETE_BOOKSHELF = '/bookshelves/delete';
 
@@ -23,6 +24,9 @@ const addBookshelf = bookshelf => ({
     bookshelf
 })
 
+const addBookToShelf = () => ({
+    type: ADD_BOOK
+})
 const editBookshelf = bookshelf => ({
     type: EDIT_BOOKSHELF,
     bookshelf
@@ -63,6 +67,23 @@ export const createBookshelf = (bookshelf) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(addBookshelf(data));
+        return data;
+    }
+}
+
+export const addBook = (bookId, bookshelfId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/bookshelves/add`, {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            bookId: bookId,
+            bookshelfId: bookshelfId
+        })
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(addBookToShelf());
         return data;
     }
 }
@@ -126,6 +147,10 @@ export default function bookshelfReducer(state = initialState, action) {
                 ...state,
                 allBookshelves
             }
+        }
+        case ADD_BOOK: {
+            const newState = { ...state }
+            return newState;
         }
         case EDIT_BOOKSHELF: {
             return {

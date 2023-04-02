@@ -26,7 +26,9 @@ const BookshelvesSidebar = ({ bookshelves }) => {
         try {
             let createdBookshelf = await dispatch(createBookshelf(newBookshelf));
             if (createdBookshelf) {
+                console.log("id", createdBookshelf)
                 await dispatch(getBookshelves());
+                history.push(`/shelf/${createdBookshelf.id}`)
                 setName("");
             }
         }
@@ -44,7 +46,7 @@ const BookshelvesSidebar = ({ bookshelves }) => {
             <div>
                 {bookshelves.map(bookshelf => (
                     <>
-                        <NavLink className="bookshelf-links" key={`bookshelf-${bookshelf.id}`} to={`/shelf/${bookshelf.id}`}>
+                        <NavLink className="bookshelf-links" key={`bookshelf-${bookshelf.id}`} to={(bookshelf.name !== "All") ? `/shelf/${bookshelf.id}` : '/shelf'}>
                             {bookshelf.name} ({bookshelf.Books ? bookshelf.Books.length : 0})
                         </NavLink>
                         <br></br>
@@ -64,7 +66,7 @@ const BookshelvesSidebar = ({ bookshelves }) => {
                     <button>Add</button>
                 </form>
             </div>
-        </div>
+        </div >
     )
 }
 

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom'
 import { getBook } from '../../store/book';
 import { getReviewsUser } from '../../store/review';
+import { getBookshelves, addBook } from '../../store/bookshelves';
 import ReviewIndex from '../Review/ReviewIndex';
 import OpenModalButton from '../OpenModalButton';
 import ReviewCreateEdit from '../Review/ReviewCreateEdit';
@@ -14,6 +15,7 @@ const Books = () => {
     const user = useSelector(state => state.session.user);
     const history = useHistory();
     const { bookId } = useParams();
+    let allShelves;
 
     let review = {
         review: '',
@@ -22,13 +24,16 @@ const Books = () => {
 
     let array = new Array(5).fill('');
     const [stars, setStars] = useState(0);
+    const [errors, setErrors] = [];
 
     useEffect(() => {
         dispatch(getBook(bookId))
         dispatch(getReviewsUser())
-    }, [dispatch])
+        dispatch(getBookshelves())
+    }, [dispatch, allShelves])
 
     const book = useSelector(state => state.books.currBook);
+    let userBookshelves = useSelector(state => state.bookshelves.allBookshelves);
     let myReviews = useSelector(state => {
         if ((state.review.userReviews === null)) {
             return;
@@ -40,6 +45,9 @@ const Books = () => {
     if (!book) return null;
     let orderedReviews = [];
     if (!book.avgStarRating) book.avgStarRating = 'New';
+    if (!userBookshelves) return null;
+
+    allShelves = book.Bookshelves;
 
     let hasReview = false;
 
@@ -55,6 +63,30 @@ const Books = () => {
         orderedReviews.push(book.Reviews[i])
     };
 
+    let availableBookshelves = {};
+
+    for (let shelf of allShelves) {
+        delete userBookshelves[shelf.id]
+    }
+
+    userBookshelves = Object.values(userBookshelves)
+
+    const handleAddBook = async (shelfId) => {
+
+        console.log(shelfId)
+        try {
+            let addBookToShelf = await dispatch(addBook(bookId, shelfId));
+            if (addBookToShelf) {
+                await dispatch(getBookshelves());
+            }
+        }
+        catch (response) {
+            const data = await response.json();
+            if (data && data.errors) setErrors(data.errors);
+        }
+
+    }
+
     return (
         <>
             <div className='book-info-container'>
@@ -64,12 +96,31 @@ const Books = () => {
                             <img src={book.bookImage}></img>
                         </div>
                         <div className='book-info-bookself-selection-container'>
-                            <h1>testing stickiness</h1>
+                            {allShelves.length
+                                ?
+                                <div style={{ fontFamily: "'Lato',serif" }}>
+                                    <p>You have this book on the following bookshelves:</p>
+                                    {allShelves.map(shelf => (
+                                        <li style={{ listStyle: 'none', paddingLeft: '10px' }} id={`my-shelf-list-${shelf.id}`}>{shelf.name}</li>
+                                    ))}
+                                </div>
+                                :
+                                ""
+                            }
+                            <br></br>
+                            <div class="dropdown">
+                                <button className={userBookshelves.length ? "dropbtn" : "hidden"}>Add to a Bookshelf!</button>
+                                <div class="dropdown-content">
+                                    {userBookshelves.map(shelf => (
+                                        <p id={`shelf-list-${shelf.id}`} onClick={() => handleAddBook(shelf.id)} > {shelf.name}</p>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                 </div>
-                <div className="book-details-container" style={{ marginLeft: '20px' }}>
+                <div className="book-details-container" style={{ marginLeft: '40px' }}>
                     <p id='book-details-title'> {book.title}</p>
                     <p id='book-details-author'>by {book.author}</p>
                     <p id='book-details-summary'>{book.summary}</p>
@@ -90,12 +141,12 @@ const Books = () => {
                                 <p className='rating-review-write'>Write a Review!</p>
                                 <div className='review_spot_stars'>
                                     <div className='star-rating'>
-                                        {array.map((rating, index) => {
+                                        {array.map((index) => {
                                             index += 1
                                             if (user !== null && !hasReview) {
                                                 return (
                                                     <OpenModalButton
-                                                        buttonText={<i class="fa-solid fa-star"></i>}
+                                                        buttonText={<i className="fa-solid fa-star"></i>}
                                                         modalComponent={<ReviewCreateEdit book={book} review={review} type="Add" />}
                                                     />
 
