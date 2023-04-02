@@ -10,14 +10,13 @@ function Navigation({ isLoaded }) {
     return (
         <ul className='header-container'>
             <div className="header-content">
+                <NavLink className='header-title' exact to={sessionUser ? "/myfeed" : "/"}><span style={{ fontWeight: 'lighter' }}>book</span><span style={{ fontWeight: 'bolder' }}>nook</span></NavLink>
 
-                <NavLink className='header-title' exact to="/"><span style={{ fontWeight: 'lighter' }}>book</span><span style={{ fontWeight: 'bolder' }}>nook</span></NavLink>
-
-                {(isLoaded) && (
+                {(isLoaded && sessionUser) && (
                     <>
                         <div className="nav-menu-container">
                             <ul className='nav-menu-content'>
-                                <NavLink to='/'>Home</NavLink>
+                                <NavLink to='/myfeed'>Home</NavLink>
                                 <NavLink to='/shelf'>My Books</NavLink>
                                 {/* <li>Browse</li>
                                 <li>Community</li> */}

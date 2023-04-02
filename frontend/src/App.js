@@ -9,6 +9,7 @@ import Books from "./components/Books";
 import BookDetails from "./components/Bookshelves/BookTable";
 import ReviewCreateEdit from "./components/Review/ReviewCreateEdit";
 import SignupForm from "./components/SignupForm";
+import HomepageLoggedIn from "./components/Homepage/HomepageLoggedIn";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Homepage />
+          </Route>
+          <Route path="/myfeed">
+            <HomepageLoggedIn />
           </Route>
           <Route path='/books/:bookId'>
             <Books />

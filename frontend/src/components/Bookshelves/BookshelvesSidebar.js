@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink, useHistory } from 'react-router-dom';
-import { createBookshelf, getBookshelf, getBookshelves } from '../../store/bookshelves';
-import Books from '../Books';
-
+import { NavLink, useHistory } from 'react-router-dom';
+import { createBookshelf, getBookshelves } from '../../store/bookshelves';
 
 const BookshelvesSidebar = ({ bookshelves }) => {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const user = useSelector(state => state.session.user)
+
     const [name, setName] = useState("")
     const [errors, setErrors] = useState([]);
 
-    // const handleUpdate = async (e) => {
-    //     setNewBookshelf({ ...newBookshelf, [e.target.name]: e.target.value })
-    // }
+    if (!user) return null;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         let newBookshelf = {
-            name: name
+            name: name,
+            user: user
         }
 
         try {
@@ -44,12 +43,12 @@ const BookshelvesSidebar = ({ bookshelves }) => {
             </div>
             <div>
                 {bookshelves.map(bookshelf => (
-                    <>
-                        <NavLink className="bookshelf-links" key={`bookshelf-${bookshelf.id}`} to={(bookshelf.name !== "All") ? `/shelf/${bookshelf.id}` : '/shelf'}>
+                    <div key={`bookshelf-${bookshelf.id}`}>
+                        <NavLink className="bookshelf-links" to={(bookshelf.name !== "All") ? `/shelf/${bookshelf.id}` : '/shelf'}>
                             {bookshelf.name} ({bookshelf.Books ? bookshelf.Books.length : 0})
                         </NavLink>
                         <br></br>
-                    </>
+                    </div>
                 ))}
             </div>
             <div>

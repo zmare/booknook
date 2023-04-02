@@ -1,25 +1,10 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams, NavLink } from 'react-router-dom'
-import { createBookshelf, getBookshelf, getBookshelves } from '../../store/bookshelves';
+import { NavLink } from 'react-router-dom'
 import BookshelvesEditModal from '../BookshelvesEditModal';
 import BookTableCard from './BookTableCard';
 import OpenModalButton from '../OpenModalButton'
 import './Bookshelves.css'
 
 const BookTable = ({ bookshelf }) => {
-    const dispatch = useDispatch();
-    const { shelfId } = useParams();
-
-    // let book = useSelector(state => state.bookshelves.currBookshelf)
-
-    // useEffect(() => {
-    //     dispatch(getBookshelf(shelfId));
-    // }, [dispatch, shelfId])
-
-    // const myBookshelf = useSelector(state => state.bookshelves.currBookshelf);
-    // if (!myBookshelf) return null;
-    // if (!book) return null;
 
     return (
         <>
@@ -30,7 +15,7 @@ const BookTable = ({ bookshelf }) => {
                 {(bookshelf.name !== "All" && bookshelf.name !== "Read" && bookshelf.name !== "Currently Reading" && bookshelf.name !== "Want to Read") ?
                     <div>
                         <OpenModalButton
-                            buttonText={<i class="fa-solid fa-gear"></i>}
+                            buttonText={<i className="fa-solid fa-gear"></i>}
                             modalComponent={<BookshelvesEditModal bookshelf={bookshelf} />}
                         />
                     </div>
@@ -55,7 +40,7 @@ const BookTable = ({ bookshelf }) => {
                 bookshelf.Books.length ?
                     <>
                         {bookshelf.Books.map(book => (
-                            <NavLink style={{ textDecoration: 'none' }} to={`/books/${book.id}`}>
+                            <NavLink key={`books-table-${book.id}`} style={{ textDecoration: 'none' }} to={`/books/${book.id}`}>
                                 <BookTableCard book={book} bookshelf={bookshelf} />
                             </NavLink>
                         ))}
