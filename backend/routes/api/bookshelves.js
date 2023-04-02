@@ -126,7 +126,7 @@ router.get('/:bookshelfId', [requireAuth, doesBookshelfExist], async (req, res, 
     books.forEach(book => {
         let reviews = book.Reviews;
 
-        if (reviews.length) {
+        if (reviews && reviews.length) {
             book.numReviews = reviews.length;
 
             let sum = 0;
@@ -182,26 +182,6 @@ router.post('/add', requireAuth, async (req, res, next) => {
     let userId = req.user.id;
     const { bookId, bookshelfId } = req.body;
 
-    // const existingBookshelf = await Bookshelf.findOne({
-    //     where: {
-    //         name: name,
-    //         ownerId: userId
-    //     }
-    // })
-
-    // if (!existingBookshelf) {
-    //     const newBookshelf = await Bookshelf.create({
-    //         ownerId: req.user.id,
-    //         name: name
-    //     })
-    //     res.statusCode = 201;
-    //     res.json(newBookshelf)
-    // } else {
-    //     res.json({
-    //         message: 'Bookshelf already exists',
-    //     })
-    // }
-
     Books_Bookshelves.create({
         bookId: bookId,
         bookshelfId: bookshelfId
@@ -209,8 +189,6 @@ router.post('/add', requireAuth, async (req, res, next) => {
 
     res.json("successfully added")
 })
-
-
 
 
 // ************************************ PUT routes ************************************ // 
@@ -231,6 +209,27 @@ router.put('/:bookshelfId', [requireAuth, doesBookshelfExist, validateNewBookshe
 })
 
 // ************************************ DELETE routes ************************************ // 
+router.delete('/delete', requireAuth, async (req, res, next) => {
+    //let userId = req.user.id;
+
+    const { bookId, bookshelfId } = req.body;
+
+    const book_bookshelf = await Books_Bookshelves.findOne({
+        where: {
+            bookId: bookId,
+            bookshelfId: bookshelfId
+        }
+    })
+
+    await book_bookshelf.destroy();
+
+    res.statusCode = 200;
+    res.json({
+        message: "Successfully deleted",
+        statusCode: res.statusCode
+    })
+})
+
 
 // DELETE AN EXISTING BOOKSHELF
 router.delete('/:bookshelfId', [requireAuth, doesBookshelfExist], async (req, res) => {
@@ -246,5 +245,7 @@ router.delete('/:bookshelfId', [requireAuth, doesBookshelfExist], async (req, re
         statusCode: res.statusCode
     })
 })
+
+
 
 module.exports = router;
