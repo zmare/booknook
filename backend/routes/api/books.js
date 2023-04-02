@@ -1,6 +1,6 @@
 const express = require('express');
 const { requireAuth, doesBookExist } = require('../../utils/auth');
-const { User, Book, Review } = require('../../db/models');
+const { User, Book, Review, Bookshelf } = require('../../db/models');
 // const { validateNewSpot, validateBooking, validateReview } = require('../../utils/validation');
 const router = express.Router();
 const { Op } = require('sequelize')
@@ -111,6 +111,9 @@ router.get('/:bookId', doesBookExist, async (req, res, next) => {
                             model: User
                         }
                     ]
+                },
+                {
+                    model: Bookshelf
                 }
             ]
         }

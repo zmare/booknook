@@ -177,6 +177,42 @@ router.post('/', [requireAuth, validateNewBookshelf], async (req, res, next) => 
     }
 })
 
+// ADD A BOOK TO BOOKSHELF 
+router.post('/add', requireAuth, async (req, res, next) => {
+    let userId = req.user.id;
+    const { bookId, bookshelfId } = req.body;
+
+    // const existingBookshelf = await Bookshelf.findOne({
+    //     where: {
+    //         name: name,
+    //         ownerId: userId
+    //     }
+    // })
+
+    // if (!existingBookshelf) {
+    //     const newBookshelf = await Bookshelf.create({
+    //         ownerId: req.user.id,
+    //         name: name
+    //     })
+    //     res.statusCode = 201;
+    //     res.json(newBookshelf)
+    // } else {
+    //     res.json({
+    //         message: 'Bookshelf already exists',
+    //     })
+    // }
+
+    Books_Bookshelves.create({
+        bookId: bookId,
+        bookshelfId: bookshelfId
+    })
+
+    res.json("successfully added")
+})
+
+
+
+
 // ************************************ PUT routes ************************************ // 
 
 // EDIT AN EXISTING BOOKSHELF
