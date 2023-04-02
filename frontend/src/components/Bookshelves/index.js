@@ -29,8 +29,23 @@ const Bookshelves = () => {
     let bookshelf = bookshelves[shelfId];
     bookshelves = Object.values(bookshelves);
 
-    console.log("curr bookshelf ", bookshelf);
+    let Books = {};
 
+    for (let myBookshelf of bookshelves) {
+        let books = Object.values(myBookshelf.Books);
+
+        for (let book of books) {
+            Books[book.id] = book;
+        }
+    }
+
+    Books = Object.values(Books);
+    let allBookshelf = {
+        name: 'All',
+        Books: Books
+    }
+
+    bookshelves.unshift(allBookshelf);
 
     return (
         <div>
@@ -40,13 +55,12 @@ const Bookshelves = () => {
             <div className="bookshelf-details-container">
                 <div className='test'>
                     <BookshelvesSidebar bookshelves={bookshelves} />
-
                 </div>
                 <div className='test2'>
                     {shelfId ?
                         <BookTable bookshelf={bookshelf} />
                         :
-                        ""
+                        <BookTable bookshelf={allBookshelf} />
                     }
                 </div>
             </div>

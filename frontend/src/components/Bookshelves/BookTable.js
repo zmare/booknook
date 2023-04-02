@@ -5,14 +5,13 @@ import { createBookshelf, getBookshelf, getBookshelves } from '../../store/books
 import BookshelvesEditModal from '../BookshelvesEditModal';
 import BookTableCard from './BookTableCard';
 import OpenModalButton from '../OpenModalButton'
+import './Bookshelves.css'
 
 //WILL BE THE COMPONENET THAT RENDERS FROM THE BOOKSHELF PAGE. THE BOOK TABLE 
 
 const BookTable = ({ bookshelf }) => {
     const dispatch = useDispatch();
     const { shelfId } = useParams();
-    console.log(shelfId)
-    console.log("this is from booktable", bookshelf)
     //let book = useSelector(state => state.bookshelves.currBookshelf)
 
     // useEffect(() => {
@@ -25,11 +24,11 @@ const BookTable = ({ bookshelf }) => {
 
     return (
         <>
-            <div style={{ display: 'flex' }}>
-                <h1 style={{ marginTop: "0" }}>
+            <div style={{ display: 'flex', justifyContent: "space-between", borderBottom: '1px solid #EBE8D5' }}>
+                <h1 style={{ marginTop: "0", fontFamily: "'Merriweather', serif", fontWeight: '400' }}>
                     {bookshelf.name}
                 </h1>
-                {(bookshelf.name !== "Read" && bookshelf.name !== "Currently Reading" && bookshelf.name !== "Want to Read") ?
+                {(bookshelf.name !== "All" && bookshelf.name !== "Read" && bookshelf.name !== "Currently Reading" && bookshelf.name !== "Want to Read") ?
                     <div>
                         <OpenModalButton
                             buttonText={<i class="fa-solid fa-gear"></i>}
@@ -39,22 +38,25 @@ const BookTable = ({ bookshelf }) => {
                     :
                     ""
                 }
-
+            </div>
+            <div className="book-table-headers" style={{ fontWeight: 700 }}>
+                <p id="header-1">Cover</p>
+                <p id="header-2">Title</p>
+                <p id="header-3">Author</p>
+                <p id='header-4'>Avg Rating</p>
             </div>
 
             {
                 bookshelf.Books.length ?
-                    <div>
+                    <>
                         {bookshelf.Books.map(book => (
-                            <>
-                                <NavLink to={`/books/${book.id}`}>
-                                    <BookTableCard book={book} />
-                                </NavLink>
-                            </>
+                            <NavLink style={{ textDecoration: 'none' }} to={`/books/${book.id}`}>
+                                <BookTableCard book={book} />
+                            </NavLink>
                         ))}
-                    </div>
+                    </>
                     :
-                    <p>No books in this bookshelf</p>
+                    <p style={{ fontFamily: "'Lato', serif" }}>No books in this bookshelf.</p>
             }
 
         </>
