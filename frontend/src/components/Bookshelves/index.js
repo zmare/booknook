@@ -15,29 +15,34 @@ const Bookshelves = () => {
 
     const user = useSelector(state => state.session.user);
     let bookshelves = useSelector(state => state.bookshelves.allBookshelves);
-    //let book = useSelector(state => state.bookshelves.currBookshelf)
 
     useEffect(() => {
         dispatch(getBookshelves())
         if (shelfId) dispatch(getBookshelf(shelfId));
     }, [dispatch, user, shelfId]);
 
-    if (!user) return null;
-    if (!bookshelves) return null;
-    // if (!book) return null;
-
-    let bookshelf = bookshelves[shelfId];
-    bookshelves = Object.values(bookshelves);
 
     let Books = {};
+    let bookshelf;
+
+    if (!user) return null;
+    if (!bookshelves) return null
+
+    bookshelf = bookshelves[shelfId];
+    bookshelves = Object.values(bookshelves);
 
     for (let myBookshelf of bookshelves) {
-        let books = Object.values(myBookshelf.Books);
+        if (myBookshelf.Books) {
+            let books = Object.values(myBookshelf.Books);
 
-        for (let book of books) {
-            Books[book.id] = book;
+            for (let book of books) {
+                Books[book.id] = book;
+            }
         }
+
     }
+
+    bookshelves = Object.values(bookshelves);
 
     Books = Object.values(Books);
     let allBookshelf = {

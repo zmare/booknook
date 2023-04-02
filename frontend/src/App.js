@@ -37,9 +37,6 @@ function App() {
           <Route path='/reviews/edit/:bookId/:reviewId'>
             <ReviewCreateEdit />
           </Route>
-          {/* <Route path='/reviews/edit/:bookId'>
-            <ReviewCreateEdit />
-          </Route> */}
           <Route path='/signup'>
             <SignupForm />
           </Route>
