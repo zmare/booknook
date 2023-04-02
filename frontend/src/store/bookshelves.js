@@ -7,6 +7,7 @@ const ADD_BOOKSHELF = '/bookshelves/add';
 const ADD_BOOK = '/bookshelves/add/book';
 const EDIT_BOOKSHELF = '/bookshelves/update';
 const DELETE_BOOKSHELF = '/bookshelves/delete';
+const DELETE_BOOK = 'bookshelves/delete/book';
 
 // ***************************** ACTION CREATORS ***************************** // 
 const loadBookshelves = bookshelves => ({
@@ -34,6 +35,10 @@ const editBookshelf = bookshelf => ({
 
 const deleteBookshelf = () => ({
     type: DELETE_BOOKSHELF
+})
+
+const deleteBook = () => ({
+    type: DELETE_BOOK
 })
 
 // ********************************* THUNKS ********************************** //
@@ -116,6 +121,23 @@ export const removeBookshelf = (bookshelfId) => async (dispatch) => {
     }
 }
 
+export const removeBook = (bookId, bookshelfId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/bookshelves/delete`, {
+        method: 'DELETE',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            bookId: bookId,
+            bookshelfId: bookshelfId
+        })
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(deleteBook());
+        return data;
+    }
+}
+
 // ********************************* REDUCER ********************************* // 
 const initialState = {};
 
@@ -149,8 +171,8 @@ export default function bookshelfReducer(state = initialState, action) {
             }
         }
         case ADD_BOOK: {
-            const newState = { ...state }
-            return newState;
+            const allBookshelves = { ...state.allBookshelves }
+            return { ...state, allBookshelves };
         }
         case EDIT_BOOKSHELF: {
             return {
@@ -159,6 +181,11 @@ export default function bookshelfReducer(state = initialState, action) {
             }
         }
         case DELETE_BOOKSHELF: {
+            return {
+                ...state
+            }
+        }
+        case DELETE_BOOK: {
             return {
                 ...state
             }

@@ -72,19 +72,17 @@ const Books = () => {
     userBookshelves = Object.values(userBookshelves)
 
     const handleAddBook = async (shelfId) => {
-
-        console.log(shelfId)
         try {
             let addBookToShelf = await dispatch(addBook(bookId, shelfId));
             if (addBookToShelf) {
                 await dispatch(getBookshelves());
+                await dispatch(getBook(bookId))
             }
         }
         catch (response) {
             const data = await response.json();
             if (data && data.errors) setErrors(data.errors);
         }
-
     }
 
     return (

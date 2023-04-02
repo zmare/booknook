@@ -1,7 +1,34 @@
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useState } from "react";
+import { removeBook, getBookshelves, getBookshelf } from "../../store/bookshelves";
 import "./Bookshelves.css"
 
 
-const BookTableCard = ({ book }) => {
+const BookTableCard = ({ book, bookshelf }) => {
+    const history = useHistory();
+    const dispatch = useDispatch();
+
+    const [errors, setErrors] = useState();
+
+    const handleDelete = async (e) => {
+        e.preventDefault();
+
+        try {
+            let removeBookFromShelf = await dispatch(removeBook(book.id, bookshelf.id));
+            if (removeBookFromShelf) {
+                await dispatch(getBookshelves());
+                await dispatch(getBookshelf(bookshelf.id))
+                //history.push(`/`)
+            }
+        }
+        catch (response) {
+            const data = await response.json();
+            if (data && data.errors) setErrors(data.errors);
+        }
+
+    }
+
     return (
         <div id="book-table" className="book-table-headers">
             <div id='header-1'>
@@ -10,6 +37,11 @@ const BookTableCard = ({ book }) => {
             <p id='header-2'>{book.title}</p>
             <p id='header-3'>{book.author}</p>
             <p id='header-4'>{book.avgStarRating}</p>
+            {bookshelf.name !== "All" ?
+                <button className="button-testing" id="header-5" onClick={handleDelete}> <i className="fa-solid fa-trash-can"></i> </button>
+                :
+                ""
+            }
         </div>
     )
 }

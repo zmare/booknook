@@ -75,14 +75,32 @@
 }
 
 #header-3 {
-    width: 30%;
+    width: 25%;
 }
 
 #header-4 {
     width: 15%;
 }
 
+#header-5 {
+    width: 5%
+}
+
 #book-table {
     color: rgb(30, 25, 21);
     font-family: 'Lato', serif;
+}
+
+.button-testing {
+    height: 30px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    background-color: transparent;
+    border: none;
+}
+
+.button-testing:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
 }

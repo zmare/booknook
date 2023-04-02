@@ -26,7 +26,6 @@ const BookshelvesSidebar = ({ bookshelves }) => {
         try {
             let createdBookshelf = await dispatch(createBookshelf(newBookshelf));
             if (createdBookshelf) {
-                console.log("id", createdBookshelf)
                 await dispatch(getBookshelves());
                 history.push(`/shelf/${createdBookshelf.id}`)
                 setName("");
