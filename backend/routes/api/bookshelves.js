@@ -18,7 +18,7 @@ router.get('/', requireAuth, async (req, res, next) => {
                     model: Book,
                     attributes: {
                         exclude: ["Books_Bookshelves"]
-                    },
+                    }
                 }
             ]
         }
@@ -49,6 +49,14 @@ router.get('/current', requireAuth, async (req, res, next) => {
                     attributes: {
                         exclude: ["Books_Bookshelves"]
                     },
+                    include: [
+                        {
+                            model: Review,
+                            attributes: {
+                                exclude: ["createdAt", "updatedAt"]
+                            }
+                        }
+                    ]
                 }
             ]
         }
@@ -58,6 +66,33 @@ router.get('/current', requireAuth, async (req, res, next) => {
     let bookshelves = [];
     bookshelvesPromise.forEach(bookshelf => {
         bookshelves.push(bookshelf.toJSON());
+    })
+
+    bookshelves.forEach(bookshelf => {
+        let books = bookshelf.Books;
+
+        books.forEach(book => {
+            let reviews = book.Reviews;
+
+            if (reviews.length) {
+                book.numReviews = reviews.length;
+
+                let sum = 0;
+                for (let review of reviews) {
+                    sum += review.stars;
+                }
+
+                let avg = sum / reviews.length;
+                let avgRounded = Math.round(avg * 10) / 10;
+                book.avgStarRating = avgRounded.toFixed(2);
+            } else {
+                book.avgStarRating = "New"
+            }
+
+            delete book.Reviews;
+            delete book.Books_Bookshelves;
+        })
+
     })
 
     res.json(bookshelves);
@@ -75,7 +110,7 @@ router.get('/:bookshelfId', [requireAuth, doesBookshelfExist], async (req, res, 
                     model: Book,
                     attributes: {
                         exclude: ["Books_Bookshelves"]
-                    },
+                    }
                 }
             ]
         }
@@ -83,6 +118,31 @@ router.get('/:bookshelfId', [requireAuth, doesBookshelfExist], async (req, res, 
 
     // convert returned promise to json 
     let bookshelf = bookshelfPromise.toJSON();
+
+    // convert returned promise to json 
+    let books = bookshelf.Books;
+
+    // calculate number of reviews and rating for each book 
+    books.forEach(book => {
+        let reviews = book.Reviews;
+
+        if (reviews.length) {
+            book.numReviews = reviews.length;
+
+            let sum = 0;
+            for (let review of reviews) {
+                sum += review.stars;
+            }
+
+            let avg = sum / reviews.length;
+            let avgRounded = Math.round(avg * 10) / 10;
+            book.avgStarRating = avgRounded.toFixed(2);
+        }
+
+        delete book.Reviews;
+        delete book.Books_Bookshelves;
+    })
+
 
     res.json(bookshelf);
 
