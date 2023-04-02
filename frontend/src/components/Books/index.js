@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { getBook } from '../../store/book';
 import { getReviewsUser } from '../../store/review';
 import { getBookshelves, addBook } from '../../store/bookshelves';
@@ -11,9 +11,9 @@ import "./Books.css"
 
 // COMPONENT FOR ACTUAL BOOK INFORMATION 
 const Books = () => {
+    const rNum = (num) => Math.floor(Math.random() * Math.floor(num) + 1);
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
-    const history = useHistory();
     const { bookId } = useParams();
     let allShelves;
 
@@ -23,17 +23,16 @@ const Books = () => {
     }
 
     let array = new Array(5).fill('');
-    const [stars, setStars] = useState(0);
     const [errors, setErrors] = [];
 
     useEffect(() => {
         dispatch(getBook(bookId))
         dispatch(getReviewsUser())
         dispatch(getBookshelves())
-    }, [dispatch, allShelves])
+    }, [dispatch, allShelves, bookId])
 
     const book = useSelector(state => state.books.currBook);
-    let userBookshelves = useSelector(state => state.bookshelves.allBookshelves);
+    let userBookshelves = useSelector(state => state.bookshelves.allBookshelves); //all the bookshelves of the user
     let myReviews = useSelector(state => {
         if ((state.review.userReviews === null)) {
             return;
@@ -47,7 +46,7 @@ const Books = () => {
     if (!book.avgStarRating) book.avgStarRating = 'New';
     if (!userBookshelves) return null;
 
-    allShelves = book.Bookshelves;
+    allShelves = book.Bookshelves; // all the bookshelves a book is a part of 
 
     let hasReview = false;
 
@@ -63,28 +62,27 @@ const Books = () => {
         orderedReviews.push(book.Reviews[i])
     };
 
-    let availableBookshelves = {};
+    let availableBookshelves = { ...userBookshelves };
 
+    // for each shelf that the book is in, remove that from the user's bookshelves list 
     for (let shelf of allShelves) {
-        delete userBookshelves[shelf.id]
+        delete availableBookshelves[shelf.id]
     }
 
-    userBookshelves = Object.values(userBookshelves)
+    availableBookshelves = Object.values(availableBookshelves)
 
     const handleAddBook = async (shelfId) => {
-
-        console.log(shelfId)
         try {
             let addBookToShelf = await dispatch(addBook(bookId, shelfId));
             if (addBookToShelf) {
                 await dispatch(getBookshelves());
+                await dispatch(getBook(bookId))
             }
         }
         catch (response) {
             const data = await response.json();
             if (data && data.errors) setErrors(data.errors);
         }
-
     }
 
     return (
@@ -93,7 +91,7 @@ const Books = () => {
                 <div className="book-info-sidebar-container">
                     <div className="book-info-wrapper">
                         <div className='book-info-img-container'>
-                            <img src={book.bookImage}></img>
+                            <img src={book.bookImage} alt=""></img>
                         </div>
                         <div className='book-info-bookself-selection-container'>
                             {allShelves.length
@@ -101,18 +99,18 @@ const Books = () => {
                                 <div style={{ fontFamily: "'Lato',serif" }}>
                                     <p>You have this book on the following bookshelves:</p>
                                     {allShelves.map(shelf => (
-                                        <li style={{ listStyle: 'none', paddingLeft: '10px' }} id={`my-shelf-list-${shelf.id}`}>{shelf.name}</li>
+                                        <li style={{ listStyle: 'none', paddingLeft: '10px' }} key={`my-shelf-list-${shelf.id}`}>{shelf.name}</li>
                                     ))}
                                 </div>
                                 :
                                 ""
                             }
                             <br></br>
-                            <div class="dropdown">
-                                <button className={userBookshelves.length ? "dropbtn" : "hidden"}>Add to a Bookshelf!</button>
-                                <div class="dropdown-content">
-                                    {userBookshelves.map(shelf => (
-                                        <p id={`shelf-list-${shelf.id}`} onClick={() => handleAddBook(shelf.id)} > {shelf.name}</p>
+                            <div className="dropdown">
+                                <button className={availableBookshelves.length ? "dropbtn" : "hidden"}>Add to a Bookshelf!</button>
+                                <div className="dropdown-content">
+                                    {availableBookshelves.map(shelf => (
+                                        <p key={`shelf-list-${shelf.id}`} onClick={() => handleAddBook(shelf.id)}> {shelf.name}</p>
                                     ))}
                                 </div>
                             </div>
@@ -127,7 +125,7 @@ const Books = () => {
 
                     {(book.numReviews && book.avgStarRating) ?
                         <div style={{ display: 'flex', flexDirection: 'row', paddingTop: '0' }}>
-                            <p id='book-details-reviews'> {book.numReviews} {book.numReviews === 1 ? "review" : "reviews"}</p>
+                            <p id='book-details-reviews'>{book.numReviews} {book.numReviews === 1 ? "review" : "reviews"}</p>
                             <p id='book-details-ratings'>{book.avgStarRating} rating</p>
                         </div>
                         :
@@ -146,14 +144,15 @@ const Books = () => {
                                             if (user !== null && !hasReview) {
                                                 return (
                                                     <OpenModalButton
+                                                        key={`stars-add-${rNum(100)}`}
                                                         buttonText={<i className="fa-solid fa-star"></i>}
                                                         modalComponent={<ReviewCreateEdit book={book} review={review} type="Add" />}
                                                     />
-
                                                 )
                                             } else {
                                                 return (
                                                     <OpenModalButton
+                                                        key={`stars-${index}`}
                                                         buttonText={<i className="fa-solid fa-star"></i>}
                                                         modalComponent={<ReviewCreateEdit book={book} review={review} type="Edit" />}
                                                     />
@@ -185,9 +184,7 @@ const Books = () => {
                             </>
                             : ""}
                     </div>
-
                     < ReviewIndex book={book} reviews={orderedReviews} />
-
                 </div>
             </div >
         </>

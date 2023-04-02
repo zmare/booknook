@@ -25,7 +25,7 @@ const SignupForm = () => {
                     if (data && data.errors) setErrors(data.errors);
                 })
                 .then(
-                    history.push('/')
+                    history.push('/myfeed')
                 );
         }
         return setErrors(['Confirm Password field must be the same as the Password field']);

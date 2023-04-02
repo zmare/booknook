@@ -39,36 +39,27 @@ export const restoreUser = () => async dispatch => {
 
 export const signup = (user) => async (dispatch) => {
     const { name, email, password } = user;
+
     const response = await csrfFetch("/api/users", {
         method: "POST",
         body: JSON.stringify({
             name,
             email,
             password
-        }),
+        })
     });
+
     const data = await response.json();
     dispatch(setUser(data.user));
 
-    await csrfFetch(`/api/bookshelves`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: "Reading" })
-    })
-
-    await csrfFetch(`/api/bookshelves`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: "Currently Reading" })
-    })
-
-    await csrfFetch(`/api/bookshelves`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: "Want to Read" })
-    })
+    // await csrfFetch(`/api/bookshelves`, {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({ name: "Read", user: data.user })
+    // })
 
     return response;
+
 };
 
 export const logout = () => async (dispatch) => {

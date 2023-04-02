@@ -1,6 +1,6 @@
 const express = require('express');
 const { setTokenCookie } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { User, Bookshelf } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
@@ -32,6 +32,21 @@ router.post(
 
         user = user.toJSON();
         user.token = token;
+
+        await Bookshelf.create({
+            ownerId: user.id,
+            name: "Read"
+        })
+
+        await Bookshelf.create({
+            ownerId: user.id,
+            name: "Currently Reading"
+        })
+
+        await Bookshelf.create({
+            ownerId: user.id,
+            name: "Want to Read"
+        })
 
         return res.json({ user });
     }
