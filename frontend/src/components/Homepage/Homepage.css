@@ -107,3 +107,16 @@
     font-size: 12px;
     margin-top: 20px;
 }
+
+.in-the-news-title {
+    font-family: "Merriweather", sans-serif;
+    font-size: 14px;
+    width: 300px;
+
+}
+
+.in-the-news-article {
+    font-family: "Lato", serif;
+    font-size: 12px;
+    width: 300px;
+}

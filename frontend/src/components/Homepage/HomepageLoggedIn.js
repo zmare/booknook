@@ -70,7 +70,26 @@ const HomepageLoggedIn = () => {
                 </div>
                 <div className='homepage-column-container' id='column-three'>
                     <div className='homepage-in-the-news-container'>
-                        <h2 className='homepage-bookshelf-header'> </h2>
+                        <h2 className='homepage-bookshelf-header'>IN THE NEWS</h2>
+                        <div>
+                            <img style={{ width: '300px', height: "158px" }} src="https://images.gr-assets.com/misc/1679599196-1679599196_goodreads_misc.png" alt=''></img>
+                            <p className="in-the-news-title">Readers' Top Romances for April</p>
+                            <p className='in-the-news-article'>New in April: Mazey Eddings chronicles a complicated wedding situation in The Plus One. Carlyn Greenwald writes of a lesbian Hollywood flirtation in Sizzle Reel. And Suzanne Park goes back to college in The Do-Over. Also in the mix for April: Victorian-era romance, doctors in love, and Emily Henry's newest. Whew, what a great month!</p>
+                        </div>
+                        <br></br>
+                        <div>
+                            <img style={{ width: '300px', height: "158px" }} src='https://images.gr-assets.com/misc/1677192214-1677192214_goodreads_misc.png' alt=""></img>
+                            <p className="in-the-news-title">The Biggest New Fantasy and Sci-Fi Books for Spring</p>
+                            <p className="in-the-news-article">
+                                Science fiction and fantasy fans, we bring glad tidings.
+
+                                The spring season is positively stacked with great new books in and around the genres of science fiction and fantasy. We’ve collected the most anticipated of the lot here, as determined by Goodreads regulars’ Want to Read shelves and ratings from early readers (all titles here are scoring 3.5 stars and above in that regard).
+
+                                Experienced SFF heads will recognize some of the veteran names here, including Martha Wells (demons!), T.J. Klune (robots!), and Ann Leckie (translators!). It’s also always good policy to pay attention to whatever Cory Doctorow is writing about—in this case, cryptocurrency and the surprisingly dangerous world of forensic accounting.
+
+                                Traditionalists will note that there are not one but two modern-day King Arthur tales on the way. Genre benders should enjoy the SF/horror hybrids and science fantasy explorations. You’ll also find some fascinating variations on familiar themes, including a funny First Contact tale and cozy fantasy with an 83-year-old Chosen One.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
