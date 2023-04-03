@@ -54,7 +54,7 @@ const seedBookshelves = (num) => {
 
     for (let i = 3; i < bookshelves.length; i++) {
         bookshelves[i] = {
-            ownerId: 11,
+            ownerId: 21,
             name: faker.lorem.words(rNum(5))
         }
     }
