@@ -48,6 +48,14 @@ const Books = () => {
 
     allShelves = book.Bookshelves; // all the bookshelves a book is a part of 
 
+    let allShelvesUser = [];
+
+    for (let shelf of allShelves) {
+        if (shelf.ownerId === user.id) {
+            allShelvesUser.push(shelf)
+        }
+    }
+
     let hasReview = false;
 
     if (myReviews) {
@@ -65,8 +73,10 @@ const Books = () => {
     let availableBookshelves = { ...userBookshelves };
 
     // for each shelf that the book is in, remove that from the user's bookshelves list 
-    for (let shelf of allShelves) {
-        delete availableBookshelves[shelf.id]
+    if (allShelvesUser.length) {
+        for (let shelf of allShelves) {
+            delete availableBookshelves[shelf.id]
+        }
     }
 
     availableBookshelves = Object.values(availableBookshelves)
@@ -94,11 +104,11 @@ const Books = () => {
                             <img src={book.bookImage} alt=""></img>
                         </div>
                         <div className='book-info-bookself-selection-container'>
-                            {allShelves.length
+                            {allShelvesUser.length
                                 ?
                                 <div style={{ fontFamily: "'Montserrat',serif", fontSize: "10pt" }}>
                                     <p>You have this book on the following bookshelves:</p>
-                                    {allShelves.map(shelf => (
+                                    {allShelvesUser.map(shelf => (
                                         <>
                                             <li style={{ listStyle: 'none', paddingLeft: '10px' }} key={`my-shelf-list-${shelf.id}`}>{shelf.name}</li>
                                             <br></br>
