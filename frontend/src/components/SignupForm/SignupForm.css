@@ -86,9 +86,10 @@
     width: 400px;
 }
 
-/* #column-three {
-    border: 1px solid blue;
-} */
+#column-three {
+    width: 150px;
+    margin-left: 20px;
+}
 
 .homepage-bookshelf {
     width: 200px;
