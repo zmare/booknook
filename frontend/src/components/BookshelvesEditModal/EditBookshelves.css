@@ -1,19 +1,23 @@
-.edit-server-page {
+#modal-background {
+    background-color: transparent;
+}
+
+.edit-bookshelf-page {
     display: flex;
     flex-direction: column;
-    background-color: #25262b;
+    background-color: #F3EFE7;
     max-width: 500px;
     max-height: 450px;
-    border: 1px black solid;
+    border: 1px #f0e6d2 solid;
     padding-left: 60px;
     padding-right: 60px;
     padding-top: 40px;
     padding-bottom: 90px;
     border-radius: 10px;
-
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)
 }
 
-.edit-server-modal {
+/* .edit-server-modal {
     display: flex;
     flex-direction: column;
     background-color: #25262b;
@@ -25,32 +29,26 @@
     padding-top: 40px;
     padding-bottom: 90px;
     border-radius: 10px;
-}
+} */
 
-.edit-server-header {
+.edit-bookshelf-header {
     /* font-family: 'PixelPal'; */
-    color: whitesmoke;
+    color: rgb(30, 25, 21);
     font-size: 20px;
     font-weight: 900;
     text-align: center;
     margin-top: 0px;
     margin-bottom: 0px;
+    font-family: "Libre Baskerville", serif;
 }
 
-.edit-server-para {
-    /* font-family: 'PixelPal'; */
-    font-size: 15px;
-    color: gray;
-    text-align: center;
-    margin-top: 5px;
-}
-
-.edit-server-form-group {
+.edit-bookshelf-form-group {
     display: flex;
     flex-direction: column;
 }
 
-.edit-server-form-input {
+
+.edit-bookshelf-form-input {
     margin-bottom: 0px;
     border-radius: 5px;
     padding-top: 0;
@@ -58,48 +56,48 @@
     border: 1px solid lightgray;
 }
 
-.edit-server-form-label {
-    /* font-family: 'PixelPal'; */
-    color: #ADB2BA;
+.edit-bookshelf-form-label {
+    font-family: "Lato", serif;
+    color: rgb(30, 25, 21);
     font-size: 15px;
+    margin-top: 20px;
     margin-bottom: 5px;
 }
 
-.edit-server-form-button {
-    height: 45px;
+.edit-bookshelf-form-button {
+    font-family: "Lato", serif;
+    height: 40px;
     width: 100%;
-    background-color: #5865F2;
+    background-color: #382110;
     border: none;
     border-radius: 3px;
-    /* font-family: 'PixelPal'; */
     font-size: 16px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     color: whitesmoke;
     font-weight: bolder;
     cursor: pointer;
 }
 
-.edit-server-form-button:hover {
-    background-color: #6772ed;
+.edit-bookshelf-form-button:hover {
+    background-color: #5d4435;
 }
 
 .disabled-btn {
     background-color: gray;
-    height: 45px;
+    height: 40px;
     width: 100%;
     border: none;
     border-radius: 3px;
-    /* font-family: 'PixelPal'; */
     font-size: 16px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     color: white;
     font-weight: bolder;
     cursor: pointer;
 }
 
-.edit-server-error {
-    color: rgba(44, 125, 192, 0.837);
-    /* font-family: 'PixelPal' */
+.edit-bookshelf-error {
+    color: red;
+    font-family: 'Lato', serif;
 }
 
 #name,
@@ -107,4 +105,13 @@
     height: 20px;
     /* width: 100%; */
     margin-top: 5px;
+}
+
+.cancel-button {
+    font-family: 'Lato', serif;
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+    font-weight: bolder;
 }

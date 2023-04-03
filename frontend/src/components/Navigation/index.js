@@ -18,27 +18,25 @@ function Navigation({ isLoaded }) {
                             <ul className='nav-menu-content'>
                                 <NavLink to='/myfeed'>Home</NavLink>
                                 <NavLink to='/shelf'>My Books</NavLink>
-                                {/* <li>Browse</li>
-                                <li>Community</li> */}
                             </ul>
                         </div>
 
                         <div className='nav-search-bar-container'>
-                            <input className='nav-search-bar' type='text' placeholder='Search'></input>
-                            <button type="submit"><i className="fa fa-search"></i></button>
+                            <input className='nav-search-bar' type='text' placeholder='Search' onClick={(e) => window.alert("Feature coming soon!")}></input>
+                            <button className='magnifying-tool' type="submit" onClick={(e) => window.alert("Feature coming soon!")}><i className="fa fa-search"></i></button>
                         </div>
 
                         <div className='icons-container'>
-                            <li>
+                            <li onClick={(e) => window.alert("Feature coming soon!")}>
                                 <img src="https://s.gr-assets.com/assets/layout/header/icn_nav_notifications.svg"></img>
-                            </li>
-                            <li>
+                            </li >
+                            <li onClick={(e) => window.alert("Feature coming soon!")}>
                                 <img src="https://s.gr-assets.com/assets/layout/header/icn_nav_discussions.svg"></img>
                             </li>
-                            <li>
+                            <li onClick={(e) => window.alert("Feature coming soon!")}>
                                 <img src="https://s.gr-assets.com/assets/layout/header/icn_nav_msgs.svg"></img>
                             </li>
-                            <li>
+                            <li onClick={(e) => window.alert("Feature coming soon!")}>
                                 <img src="https://s.gr-assets.com/assets/layout/header/icn_nav_friend.svg"></img>
                             </li>
                             <li style={{ paddingRight: '10px' }} >

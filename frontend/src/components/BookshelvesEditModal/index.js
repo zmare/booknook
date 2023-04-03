@@ -5,7 +5,7 @@ import { useModal } from "../../context/Modal";
 import { getBookshelves, getBookshelf, updateBookshelf, removeBookshelf } from "../../store/bookshelves";
 import "./EditBookshelves.css";
 
-const BookshelvesEditModal = ({ bookshelf }) => {
+const BookshelvesEditModal = ({ bookshelf, bookshelves }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector(state => state.session.user);
@@ -24,6 +24,14 @@ const BookshelvesEditModal = ({ bookshelf }) => {
 
         if (newBookshelf.name === '') {
             err.name = 'Bookshelf Name is required';
+        }
+
+        //let alreadyExists = false;
+
+        for (let shelf of bookshelves) {
+            if (shelf.name === newBookshelf.name) {
+                err.alreadyExists = "Bookshelf already exists"
+            }
         }
 
         setFormErrors({ ...err });
@@ -69,12 +77,14 @@ const BookshelvesEditModal = ({ bookshelf }) => {
     }
 
     return (
-        <div className='edit-server-page'>
-            <form className='edit-server-form'>
-                <h1 className='edit-server-header'>Update "{bookshelf.name}" Bookshelf </h1>
-
-                <div className='edit-server-form-group'>
-                    <span className='edit-server-form-label'>
+        <div className='edit-bookshelf-page'>
+            <form className='edit-bookshelf-form'>
+                <h1 className='edit-bookshelf-header'>Update "{bookshelf.name}" Bookshelf </h1>
+                <ul>
+                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                </ul>
+                <div className='edit-bookshelf-form-group'>
+                    <span className='edit-bookshelf-form-label'>
                         Bookshelf Name
                     </span>
                     <input style={{ height: '30px' }} className='modal-input'
@@ -85,15 +95,16 @@ const BookshelvesEditModal = ({ bookshelf }) => {
                         onChange={handleUpdate}
 
                     />
-                    <div className='edit-server-error'>{formErrors.name}</div>
+                    <div className='edit-bookshelf-error'>{formErrors.name}</div>
+                    <div className='edit-bookshelf-error'>{formErrors.alreadyExists}</div>
                 </div>
                 <br></br>
                 <div>
                     <button
                         disabled={!newBookshelf.name}
-                        className={!newBookshelf.name ? "disabled-btn" : "edit-server-form-button"} type="submit" onClick={handleUpdateSubmit}>Update Bookshelf</button>
-                    <button className={!newBookshelf.name ? "disabled-btn" : "edit-server-form-button"} type="submit" onClick={handleDeleteSubmit}>Delete Bookshelf</button>
-                    <span onClick={closeModal} className="channel-update-form-cancel">Cancel</span>
+                        className={!newBookshelf.name ? "disabled-btn" : "edit-bookshelf-form-button"} type="submit" onClick={handleUpdateSubmit}>Update Bookshelf</button>
+                    <button className="edit-bookshelf-form-button" type="submit" onClick={handleDeleteSubmit}>Delete Bookshelf</button>
+                    <span onClick={closeModal} className="cancel-button">Cancel</span>
                 </div>
             </form >
         </div >

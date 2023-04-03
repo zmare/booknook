@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import OpenModalButton from '../OpenModalButton';
 import ReviewCreateEdit from './ReviewCreateEdit';
 import ReviewDelete from './ReviewDelete';
+import './Review.css'
 
 
 const Review = ({ review }) => {
@@ -29,7 +30,6 @@ const Review = ({ review }) => {
                         {array.map((star, index) => (
                             <i key={`review-star-${index}`} className="fa-solid fa-star"></i>
                         ))}
-
                     </div>
                     <div className='review-user-date-container'>
                         <li className="review-username">{review.User.name}</li>
@@ -40,7 +40,7 @@ const Review = ({ review }) => {
                     </div>
                     {(user !== null && user.id === review.User.id) ?
                         (
-                            <>
+                            <div className='review-edit-delete-buttons'>
                                 <OpenModalButton
                                     buttonText="Edit"
                                     modalComponent={<ReviewCreateEdit book={book} review={review} type='Edit' />} />
@@ -48,9 +48,10 @@ const Review = ({ review }) => {
                                     buttonText="Delete"
                                     modalComponent={<ReviewDelete book={book} review={review} />}
                                 />
-                            </>
+                            </div>
                         ) :
                         ''}
+
                 </div>
             </div>
 

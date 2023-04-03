@@ -58,14 +58,14 @@ const Bookshelves = () => {
                 <BookshelfNavigation />
             </div>
             <div className="bookshelf-details-container">
-                <div className='test'>
+                <div className='my-bookshelf-sidebar'>
                     <BookshelvesSidebar bookshelves={bookshelves} />
                 </div>
-                <div className='test2'>
+                <div className='my-book-table'>
                     {shelfId ?
-                        <BookTable bookshelf={bookshelf} />
+                        <BookTable bookshelf={bookshelf} bookshelves={bookshelves} />
                         :
-                        <BookTable bookshelf={allBookshelf} />
+                        <BookTable bookshelf={allBookshelf} bookshelves={bookshelves} />
                     }
                 </div>
             </div>

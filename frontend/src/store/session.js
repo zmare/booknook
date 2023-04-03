@@ -49,16 +49,20 @@ export const signup = (user) => async (dispatch) => {
         })
     });
 
-    const data = await response.json();
-    dispatch(setUser(data.user));
+    console.log("response from store", response)
 
-    // await csrfFetch(`/api/bookshelves`, {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({ name: "Read", user: data.user })
-    // })
-
-    return response;
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(setUser(data.user));
+        return null;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data.errors;
+        }
+    } else {
+        return ['An error occurred. Please try again.'];
+    }
 
 };
 

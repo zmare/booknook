@@ -96,7 +96,7 @@ const Books = () => {
                         <div className='book-info-bookself-selection-container'>
                             {allShelves.length
                                 ?
-                                <div style={{ fontFamily: "'Lato',serif" }}>
+                                <div style={{ fontFamily: "'Montserrat',serif", fontSize: "10pt" }}>
                                     <p>You have this book on the following bookshelves:</p>
                                     {allShelves.map(shelf => (
                                         <li style={{ listStyle: 'none', paddingLeft: '10px' }} key={`my-shelf-list-${shelf.id}`}>{shelf.name}</li>

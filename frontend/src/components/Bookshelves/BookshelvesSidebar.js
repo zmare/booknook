@@ -61,7 +61,7 @@ const BookshelvesSidebar = ({ bookshelves }) => {
                         value={name}
                         onChange={(e) => setName(e.target.value)}>
                     </input>
-                    <button>Add</button>
+                    <button className={!name ? "disabled-add-btn" : "add-button"}>Add</button>
                 </form>
             </div>
         </div >
