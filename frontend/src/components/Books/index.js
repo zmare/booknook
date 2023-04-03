@@ -99,7 +99,10 @@ const Books = () => {
                                 <div style={{ fontFamily: "'Montserrat',serif", fontSize: "10pt" }}>
                                     <p>You have this book on the following bookshelves:</p>
                                     {allShelves.map(shelf => (
-                                        <li style={{ listStyle: 'none', paddingLeft: '10px' }} key={`my-shelf-list-${shelf.id}`}>{shelf.name}</li>
+                                        <>
+                                            <li style={{ listStyle: 'none', paddingLeft: '10px' }} key={`my-shelf-list-${shelf.id}`}>{shelf.name}</li>
+                                            <br></br>
+                                        </>
                                     ))}
                                 </div>
                                 :

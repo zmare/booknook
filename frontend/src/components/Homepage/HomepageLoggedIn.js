@@ -29,7 +29,7 @@ const HomepageLoggedIn = () => {
     if (!books) return null;
     let randomBooks = [];
     for (let i = 0; i < 5; i++) {
-        randomBooks.push(books[rNum(10)]);
+        randomBooks.push(books[rNum(15)]);
     }
 
     return (
