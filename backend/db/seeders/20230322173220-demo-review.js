@@ -11,7 +11,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     options.tableName = 'Reviews';
 
-    let reviews = seedReviews(40);
+    let reviews = seedReviews(100);
 
     return queryInterface.bulkInsert(options, reviews, {})
   },
