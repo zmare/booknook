@@ -24,21 +24,13 @@
     padding-right: 10px;
 }
 
-/* .test {
-    border: 1px solid blue;
-} */
-
-.test2 {
+.my-book-table {
     width: 100%;
     padding-left: 40px;
 }
 
 .bookshelf-details-container {
-    /* display: flex;
-    justify-content: space-around; */
-
     display: flex;
-    /* align-items: center; */
     width: 960px;
     margin: auto;
 }
@@ -102,5 +94,43 @@
 .button-testing:hover {
     transform: scale(1.2);
     transition: transform 0.2s ease-in-out;
+    color: #5d4435;
+    cursor: pointer;
+}
+
+.gear-shift-icon button {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.gear-shift-icon button:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s ease-in-out;
+    color: #5d4435;
+}
+
+.add-button {
+    background-color: #382110;
+    border: none;
+    color: white;
+    padding: 8px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.add-button:hover {
+    background-color: #5d4435;
+}
+
+
+.disabled-add-btn {
+    background-color: gray;
+    border: none;
+    color: white;
+    padding: 8px;
+    width: 100%;
+    margin-top: 10px;
     cursor: pointer;
 }

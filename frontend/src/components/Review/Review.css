@@ -51,3 +51,84 @@
     color: rgb(30, 25, 21);
     margin-top: 5px;
 }
+
+.form-parent-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #F3EFE7;
+    width: 500px;
+    max-height: 450px;
+    border: 1px #f0e6d2 solid;
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-top: 40px;
+    padding-bottom: 90px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)
+}
+
+.review-form-header {
+    color: rgb(30, 25, 21);
+    font-size: 20px;
+    font-weight: 900;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    font-family: "Libre Baskerville", serif;
+}
+
+textarea {
+    font-family: 'Montserrat', serif;
+}
+
+.star-rating>button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.fill {
+    color: rgb(30, 25, 21);
+
+}
+
+.no-fill {
+    color: #ccc;
+}
+
+.form-parent-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px 20px 20px;
+    font-family: 'Manrope', sans-serif;
+    padding: 0 20px;
+}
+
+.reviews-para {
+    font-family: 'Montserrat', serif;
+    text-align: center;
+}
+
+.review_spot_stars {
+
+    padding-bottom: 2em;
+    display: flex;
+    justify-content: center;
+    ;
+}
+
+.review-edit-delete-buttons button {
+    border: none;
+    cursor: pointer;
+    font-family: "Lato", serif;
+    background-color: #382110;
+    color: white;
+    font-size: 12px;
+    margin-right: 40px;
+    height: 20px;
+    width: 50px;
+    border-radius: 3px;
+    margin-top: 10px;
+}

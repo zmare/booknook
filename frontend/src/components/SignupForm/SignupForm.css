@@ -50,12 +50,21 @@
     font-family: 'Roboto', sans-serif;
 }
 
+.disabled-submit {
+    border: 1px solid gray;
+    /* background-color: #fafafa; */
+    background-color: gray;
+    color: white;
+    height: 30px;
+    width: 40%;
+    border-radius: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
 .signup-form-button:hover {
     background-color: #382110d1;
     color: white;
 }
-
-
 
 .homepage-wrapper {
     display: flex;
@@ -74,16 +83,14 @@
 }
 
 #column-two {
-
     width: 400px;
 }
 
-#column-three {
+/* #column-three {
     border: 1px solid blue;
-}
+} */
 
 .homepage-bookshelf {
-    background: red;
     width: 200px;
     height: 300px
 }
@@ -106,7 +113,7 @@
 }
 
 .homepage-bookshelf-image {
-    width: 95px;
+    width: 200px;
     height: 150px;
     object-fit: cover;
 }

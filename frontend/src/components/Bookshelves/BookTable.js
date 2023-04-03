@@ -4,7 +4,7 @@ import BookTableCard from './BookTableCard';
 import OpenModalButton from '../OpenModalButton'
 import './Bookshelves.css'
 
-const BookTable = ({ bookshelf }) => {
+const BookTable = ({ bookshelf, bookshelves }) => {
 
     return (
         <>
@@ -13,10 +13,10 @@ const BookTable = ({ bookshelf }) => {
                     {bookshelf.name}
                 </h1>
                 {(bookshelf.name !== "All" && bookshelf.name !== "Read" && bookshelf.name !== "Currently Reading" && bookshelf.name !== "Want to Read") ?
-                    <div>
+                    <div className="gear-shift-icon">
                         <OpenModalButton
                             buttonText={<i className="fa-solid fa-gear"></i>}
-                            modalComponent={<BookshelvesEditModal bookshelf={bookshelf} />}
+                            modalComponent={<BookshelvesEditModal bookshelf={bookshelf} bookshelves={bookshelves} />}
                         />
                     </div>
                     :

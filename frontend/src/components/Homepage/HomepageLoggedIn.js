@@ -70,7 +70,7 @@ const HomepageLoggedIn = () => {
                 </div>
                 <div className='homepage-column-container' id='column-three'>
                     <div className='homepage-in-the-news-container'>
-                        <h2 className='homepage-bookshelf-header'>IN THE NEWS</h2>
+                        <h2 className='homepage-bookshelf-header'> </h2>
                     </div>
                 </div>
             </div>

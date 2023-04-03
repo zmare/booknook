@@ -43,35 +43,37 @@ function ProfileButton({ user }) {
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
     return (
-        <>
+        <div className='profile-dropdown'>
 
-            <img className="profile-btn" onClick={openMenu} src="https://s.gr-assets.com/assets/nophoto/user/u_60x60-267f0ca0ea48fd3acfd44b95afa64f01.png" />
+            <img className="profile-btn" onClick={openMenu} src="https://s.gr-assets.com/assets/nophoto/user/u_60x60-267f0ca0ea48fd3acfd44b95afa64f01.png" alt='' />
 
-            <ul className={ulClassName} ref={ulRef}>
-                {user ? (
-                    <>
-                        <li>{user.name}</li>
-                        <li>{user.email}</li>
-                        <li>
-                            <button onClick={logout}>Log Out</button>
-                        </li>
-                    </>
-                ) : (
-                    <>
-                        <OpenModalMenuItem
-                            itemText="Log In"
-                            onItemClick={closeMenu}
-                            modalComponent={<LoginFormModal />}
-                        />
-                        <OpenModalMenuItem
-                            itemText="Sign Up"
-                            onItemClick={closeMenu}
-                            modalComponent={<SignupFormModal />}
-                        />
-                    </>
-                )}
-            </ul>
-        </>
+            <div className='profile-dropdown-content'>
+                <ul className={ulClassName} ref={ulRef}>
+                    {user ? (
+                        <div className="dropdown-content-container">
+                            <li>{user.name}</li>
+                            <li>{user.email}</li>
+                            <li>
+                                <button onClick={logout} className="logout-button">Log Out</button>
+                            </li>
+                        </div>
+                    ) : (
+                        <>
+                            <OpenModalMenuItem
+                                itemText="Log In"
+                                onItemClick={closeMenu}
+                                modalComponent={<LoginFormModal />}
+                            />
+                            <OpenModalMenuItem
+                                itemText="Sign Up"
+                                onItemClick={closeMenu}
+                                modalComponent={<SignupFormModal />}
+                            />
+                        </>
+                    )}
+                </ul>
+            </div>
+        </div>
     );
 }
 
