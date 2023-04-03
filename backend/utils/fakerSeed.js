@@ -38,17 +38,17 @@ const seedBookshelves = (num) => {
     let bookshelves = new Array(num).fill('');
 
     bookshelves[0] = {
-        ownerId: 11,
+        ownerId: 21,
         name: "Read"
     }
 
     bookshelves[1] = {
-        ownerId: 11,
+        ownerId: 21,
         name: "Currently Reading"
     }
 
     bookshelves[2] = {
-        ownerId: 11,
+        ownerId: 21,
         name: "Want to Read"
     }
 
@@ -67,7 +67,7 @@ const seedReviews = (num) => {
 
     for (const i in reviews) {
         reviews[i] = {
-            ownerId: rNum(11),
+            ownerId: rNum(21),
             bookId: rNum(20),
             review: faker.lorem.paragraph(rNum(3)),
             stars: rNum(5)
