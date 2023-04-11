@@ -90,10 +90,38 @@ const seedBooksBookshelves = (num) => {
     return booksBookshelves;
 }
 
+const seedRequests = (num) => {
+    let requests = new Array(num).fill('');
+
+    for (const i in requests) {
+        requests[i] = {
+            requestorId: rNum(20),
+            receiverId: 21
+        }
+    }
+
+    return requests;
+}
+
+const seedFriends = (num) => {
+    let friends = new Array(num).fill('');
+
+    for (const i in friends) {
+        friends[i] = {
+            userId: 21,
+            friendId: rNum(20)
+        }
+    }
+
+    return friends;
+}
+
 module.exports = {
     seedUsers,
     seedBooks,
     seedBookshelves,
     seedReviews,
-    seedBooksBookshelves
+    seedBooksBookshelves,
+    seedRequests,
+    seedFriends
 }
