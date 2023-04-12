@@ -1,5 +1,6 @@
 'use strict';
-const { seedRequests } = require('../../utils/fakerSeed.js')
+//const { seedRequests } = require('../../utils/fakerSeed.js')
+const { requests } = require('../../utils/request_data')
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -11,7 +12,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     options.tableName = 'Requests';
 
-    let requests = seedRequests(5);
+    //let requests = seedRequests(5);
 
     return queryInterface.bulkInsert(options, requests, {})
 

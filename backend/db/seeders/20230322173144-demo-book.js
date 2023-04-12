@@ -1,5 +1,5 @@
 'use strict';
-const { seedBooks } = require('../../utils/fakerSeed.js')
+//const { seedBooks } = require('../../utils/fakerSeed.js')
 const { books } = require('../../utils/book_data')
 
 let options = {};

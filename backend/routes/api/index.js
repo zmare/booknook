@@ -2,9 +2,10 @@ const router = require('express').Router();
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const booksRouter = require('./books.js');
-const bookshelvesRouter = require('./bookshelves.js')
+const bookshelvesRouter = require('./bookshelves.js');
 const reviewsRouter = require('./reviews.js');
-const requestsRouter = require('./requests.js')
+const requestsRouter = require('./requests.js');
+const friendsRouter = require('./friends.js')
 const { restoreUser } = require('../../utils/auth.js');
 const { requireAuth } = require('../../utils/auth.js');
 
@@ -19,6 +20,7 @@ router.use('/books', booksRouter);
 router.use('/bookshelves', bookshelvesRouter);
 router.use('/reviews', reviewsRouter);
 router.use('/requests', requestsRouter);
+router.use('/friends', friendsRouter);
 
 // GET /api/restore-user
 router.get(

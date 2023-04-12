@@ -1,4 +1,7 @@
 'use strict';
+
+const { query } = require('express');
+
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
@@ -45,9 +48,16 @@ module.exports = {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     }, options);
+
+    await queryInterface.addConstraint("Requests", {
+      fields: ['requestorId', 'receiverId'],
+      type: 'unique',
+      name: 'unique_friend_requests'
+    });
   },
   async down(queryInterface, Sequelize) {
     options.tableName = "Requests"
+    await queryInterface.removeConstraint("Requests", 'unique_friend_requests');
     await queryInterface.dropTable(options);
   }
 };
