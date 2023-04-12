@@ -4,13 +4,14 @@ import sessionReducer from './session';
 import bookshelfReducer from "./bookshelves";
 import bookReducer from "./book";
 import reviewReducer from "./review";
-
+import friendReducer from "./friend";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   bookshelves: bookshelfReducer,
   books: bookReducer,
-  review: reviewReducer
+  review: reviewReducer,
+  friends: friendReducer
 });
 
 let enhancer;

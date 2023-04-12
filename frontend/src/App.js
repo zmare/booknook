@@ -10,6 +10,7 @@ import BookDetails from "./components/Bookshelves/BookTable";
 import ReviewCreateEdit from "./components/Review/ReviewCreateEdit";
 import SignupForm from "./components/SignupForm";
 import HomepageLoggedIn from "./components/Homepage/HomepageLoggedIn";
+import Friends from "./components/Friends";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +44,9 @@ function App() {
           </Route>
           <Route path='/signup'>
             <SignupForm />
+          </Route>
+          <Route path='/friends'>
+            <Friends />
           </Route>
         </Switch>
 

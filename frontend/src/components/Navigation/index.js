@@ -18,6 +18,7 @@ function Navigation({ isLoaded }) {
                             <ul className='nav-menu-content'>
                                 <NavLink to='/myfeed'>Home</NavLink>
                                 <NavLink to='/shelf'>My Books</NavLink>
+                                <NavLink to='/community'>Community</NavLink>
                             </ul>
                         </div>
 
@@ -36,9 +37,9 @@ function Navigation({ isLoaded }) {
                             <li onClick={(e) => window.alert("Feature coming soon!")}>
                                 <img src="https://s.gr-assets.com/assets/layout/header/icn_nav_msgs.svg"></img>
                             </li>
-                            <li onClick={(e) => window.alert("Feature coming soon!")}>
+                            <NavLink to='/friends'>
                                 <img src="https://s.gr-assets.com/assets/layout/header/icn_nav_friend.svg"></img>
-                            </li>
+                            </NavLink>
                             <li style={{ paddingRight: '10px' }} >
                                 <ProfileButton user={sessionUser} />
                             </li>
