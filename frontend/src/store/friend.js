@@ -124,10 +124,10 @@ export const deleteFriend = (userId, friendId) => async (dispatch) => {
             method: 'DELETE',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                userId: userId,
-                friendId: friendId
+                userId: +userId,
+                friendId: +friendId
             })
-        });
+        })
 
     if (response.ok) {
         const data = await response.json();

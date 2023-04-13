@@ -94,14 +94,21 @@ router.delete('/delete', requireAuth, async (req, res) => {
     //check if friend exists
     const { userId, friendId } = req.body;
 
-    let friendPromise = await Friend.findOne({
+    let friendPromise1 = await Friend.findOne({
         where: {
-            userId: receiverId,
-            friendId: requestorId
+            userId: userId,
+            friendId: friendId
         }
     });
 
-    if (!friendPromise) {
+    let friendPromise2 = await Friend.findOne({
+        where: {
+            userId: friendId,
+            friendId: userId,
+        }
+    });
+
+    if (!friendPromise1) {
         res.statusCode = 404;
         res.json({
             message: "Friend couldn't be found",
@@ -110,17 +117,20 @@ router.delete('/delete', requireAuth, async (req, res) => {
     }
 
     //authorization check
-    const friend = friendPromise.toJSON();
-    const owner = friend.userId;
+    const friendship1 = friendPromise1.toJSON();
+    const friendship2 = friendPromise2.toJSON();
+    const owner = friendship1.userId;
+    const receiver = friendship2.friendId;
 
-    if (owner !== req.user.id) {
+    if (owner !== req.user.id || receiver !== req.user.id) {
         res.statusCode = 403;
         res.json({
             message: 'Forbidden',
             statusCode: res.statusCode
         })
     } else {
-        await friendPromise.destroy();
+        await friendPromise1.destroy();
+        await friendPromise2.destroy();
 
         res.statusCode = 200;
         res.json({
