@@ -69,6 +69,10 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(
         models.Friend, { foreignKey: 'friendId', onDelete: 'casecade', hooks: true }
       )
+
+      User.hasMany(
+        models.List, { foreignKey: 'ownerId', onDelete: 'cascade', hooks: true }
+      )
     }
   };
   User.init(

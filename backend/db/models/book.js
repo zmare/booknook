@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         models.Bookshelf, { through: "Books_Bookshelves", foreignKey: 'bookId' }
       )
 
+      Book.belongsToMany(
+        models.List, { through: "Books_Lists", foreignKey: 'bookId' }
+      )
+
     }
   }
   Book.init({
