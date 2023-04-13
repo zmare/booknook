@@ -35,38 +35,10 @@ router.get('/current', requireAuth, async (req, res) => {
     res.json(Friends);
 })
 
-// // GET REVIEW BY REVIEW ID 
-// router.get('/:reviewId', requireAuth, async (req, res) => {
-//     //check if review exists
-//     let reviewPromise = await Review.findByPk(req.params.reviewId);
-
-//     if (!reviewPromise) {
-//         res.statusCode = 404;
-//         res.json({
-//             message: "Review couldn't be found",
-//             statusCode: res.statusCode
-//         })
-//     }
-
-//     //authorization check
-//     const review = reviewPromise.toJSON();
-//     const owner = review.ownerId;
-
-//     if (owner !== req.user.id) {
-//         res.statusCode = 403;
-//         res.json({
-//             message: 'Forbidden',
-//             statusCode: res.statusCode
-//         })
-//     } else {
-//         res.json(reviewPromise);
-//     }
-// });
-
-// // ************************************ POST routes ************************************ // 
-// // CREATE ADD FRIEND
-router.post('/:friendId', requireAuth, async (req, res) => {
-    const { requestorId, receiverId } = req.body;
+// ************************************ POST routes ************************************ // 
+/// CREATE ADD FRIEND
+router.post('/:requestorId', requireAuth, async (req, res) => {
+    const { requestId, requestorId, receiverId } = req.body;
 
     //check if friend exists
     let friendPromise = await Friend.findOne({
@@ -98,72 +70,36 @@ router.post('/:friendId', requireAuth, async (req, res) => {
             friendId: requestorId
         })
 
+        const newFriend2 = await Friend.create({
+            userId: requestorId,
+            friendId: receiverId
+        })
+
+        let requestPromise = await Request.findByPk(requestId);
+        await requestPromise.destroy()
+
         res.statusCode = 200;
-        res.json(newFriend)
+        res.json(newFriend);
     }
 
 })
 
 // // ************************************ PUT routes ************************************ // 
 
-// // EDIT A REVIEW FOR A BOOK 
-// router.put('/:reviewId', requireAuth, async (req, res) => {
-//     //check if review exists
-//     let reviewPromise = await Review.findByPk(req.params.reviewId);
-
-//     if (!reviewPromise) {
-//         res.statusCode = 404;
-//         res.json({
-//             message: "Review couldn't be found",
-//             statusCode: res.statusCode
-//         })
-//     }
-
-//     //authorization check
-//     const review = reviewPromise.toJSON();
-//     const owner = review.ownerId;
-
-//     if (owner !== req.user.id) {
-//         res.statusCode = 403;
-//         res.json({
-//             message: 'Forbidden',
-//             statusCode: res.statusCode
-//         })
-//     } else {
-//         const { review, stars } = req.body;
-
-//         if (!review) {
-//             res.statusCode = 400;
-//             res.json({
-//                 message: "Validation Error",
-//                 statusCode: res.statusCode,
-//                 error: "Review text is required"
-//             });
-//         } else if (!stars || Number.isInteger(stars) === false || stars < 1 || stars > 5) {
-//             res.statusCode = 400;
-//             res.json({
-//                 message: "Validation Error",
-//                 statusCode: res.statusCode,
-//                 error: "Stars must be an integer from 1 to 5"
-//             });
-//         } else {
-//             reviewPromise.update({
-//                 review: review,
-//                 stars: stars
-//             });
-
-//             res.json(reviewPromise);
-//         }
-//     }
-// });
-
 
 // // ************************************ DELETE routes ************************************ // 
 
 // // DELETE A FRIEND
-router.delete('/:friendshipId', requireAuth, async (req, res) => {
+router.delete('/delete', requireAuth, async (req, res) => {
     //check if friend exists
-    let friendPromise = await Friend.findByPk(req.params.friendshipId);
+    const { userId, friendId } = req.body;
+
+    let friendPromise = await Friend.findOne({
+        where: {
+            userId: receiverId,
+            friendId: requestorId
+        }
+    });
 
     if (!friendPromise) {
         res.statusCode = 404;

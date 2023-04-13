@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom'
 import { getFriends } from '../../store/friend';
+import OpenModalButton from '../OpenModalButton';
+import FriendDeleteModal from './FriendDeleteModal';
 import "./Friends.css"
 
 const FriendList = () => {
@@ -23,6 +24,10 @@ const FriendList = () => {
             {friends.map(friend => (
                 <li>
                     {friend.User.name}
+                    <OpenModalButton
+                        buttonText={<i className="fa-solid fa-trash-can"></i>}
+                        modalComponent={<FriendDeleteModal friend={friend} />}
+                    />
                 </li>
             ))}
         </>

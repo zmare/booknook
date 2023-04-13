@@ -8,6 +8,7 @@ import ReviewIndex from '../Review/ReviewIndex';
 import OpenModalButton from '../OpenModalButton';
 import ReviewCreateEdit from '../Review/ReviewCreateEdit';
 import "./Books.css"
+import { getFriends, getRequests } from '../../store/friend';
 
 // COMPONENT FOR ACTUAL BOOK INFORMATION 
 const Books = () => {
@@ -29,6 +30,8 @@ const Books = () => {
         dispatch(getBook(bookId))
         dispatch(getReviewsUser())
         dispatch(getBookshelves())
+        dispatch(getFriends());
+        dispatch(getRequests());
     }, [dispatch, allShelves, bookId])
 
     const book = useSelector(state => state.books.currBook);

@@ -35,36 +35,51 @@ router.get('/current', requireAuth, async (req, res) => {
     res.json(Requests);
 })
 
-// // GET REVIEW BY REVIEW ID 
-// router.get('/:reviewId', requireAuth, async (req, res) => {
-//     //check if review exists
-//     let reviewPromise = await Review.findByPk(req.params.reviewId);
+/// GET REQUESTS SENT BY CURRENT USER 
+router.get('/pending', requireAuth, async (req, res) => {
+    let userId = req.user.id;
 
-//     if (!reviewPromise) {
-//         res.statusCode = 404;
-//         res.json({
-//             message: "Review couldn't be found",
-//             statusCode: res.statusCode
-//         })
-//     }
+    let requests = await Request.findAll({
+        where: {
+            requestorId: userId
+        }
+    })
 
-//     //authorization check
-//     const review = reviewPromise.toJSON();
-//     const owner = review.ownerId;
+    let Requests = [];
+    for (let request of requests) {
+        Requests.push(request.toJSON());
+    };
 
-//     if (owner !== req.user.id) {
-//         res.statusCode = 403;
-//         res.json({
-//             message: 'Forbidden',
-//             statusCode: res.statusCode
-//         })
-//     } else {
-//         res.json(reviewPromise);
-//     }
-// });
+    for (let request of Requests) {
+        let user = await User.findByPk(request.receiverId)
 
-// // ************************************ POST routes ************************************ // 
-// // CREATE FRIEND REQUEST 
+        if (user) {
+            user = await user.toJSON();
+            request.User = user;
+        }
+    }
+    res.json(Requests);
+})
+
+// ************************************ POST routes ************************************ // 
+
+/// CREATE FRIEND REQUEST 
+
+// THIS ROUTE IS ONLY TO CREATE MORE TEST DATA...DO NOT USE ON FRONTEND 
+router.post('/testingData', requireAuth, async (req, res) => {
+    const { requestorId, receiverId } = req.body;
+
+    const newRequest = await Request.create({
+        requestorId: +requestorId,
+        receiverId: +receiverId
+    })
+
+    res.statusCode = 201;
+    res.json(newRequest)
+
+})
+
+
 router.post('/:friendId', requireAuth, async (req, res) => {
     let userId = req.user.id;
 
@@ -78,63 +93,10 @@ router.post('/:friendId', requireAuth, async (req, res) => {
 
 })
 
-// // ************************************ PUT routes ************************************ // 
 
-// // EDIT A REVIEW FOR A BOOK 
-// router.put('/:reviewId', requireAuth, async (req, res) => {
-//     //check if review exists
-//     let reviewPromise = await Review.findByPk(req.params.reviewId);
+// ************************************ DELETE routes ************************************ // 
 
-//     if (!reviewPromise) {
-//         res.statusCode = 404;
-//         res.json({
-//             message: "Review couldn't be found",
-//             statusCode: res.statusCode
-//         })
-//     }
-
-//     //authorization check
-//     const review = reviewPromise.toJSON();
-//     const owner = review.ownerId;
-
-//     if (owner !== req.user.id) {
-//         res.statusCode = 403;
-//         res.json({
-//             message: 'Forbidden',
-//             statusCode: res.statusCode
-//         })
-//     } else {
-//         const { review, stars } = req.body;
-
-//         if (!review) {
-//             res.statusCode = 400;
-//             res.json({
-//                 message: "Validation Error",
-//                 statusCode: res.statusCode,
-//                 error: "Review text is required"
-//             });
-//         } else if (!stars || Number.isInteger(stars) === false || stars < 1 || stars > 5) {
-//             res.statusCode = 400;
-//             res.json({
-//                 message: "Validation Error",
-//                 statusCode: res.statusCode,
-//                 error: "Stars must be an integer from 1 to 5"
-//             });
-//         } else {
-//             reviewPromise.update({
-//                 review: review,
-//                 stars: stars
-//             });
-
-//             res.json(reviewPromise);
-//         }
-//     }
-// });
-
-
-// // ************************************ DELETE routes ************************************ // 
-
-// // DELETE A FRIEND REQUEST
+/// DELETE A FRIEND REQUEST
 router.delete('/:requestId', requireAuth, async (req, res) => {
     //check if review exists
     let requestPromise = await Request.findByPk(req.params.requestId);
@@ -149,9 +111,8 @@ router.delete('/:requestId', requireAuth, async (req, res) => {
 
     //authorization check
     const request = requestPromise.toJSON();
-    const owner = request.receiverId;
 
-    if (owner !== req.user.id) {
+    if (request.receiverId !== req.user.id && request.requestorId !== req.user.id) {
         res.statusCode = 403;
         res.json({
             message: 'Forbidden',
