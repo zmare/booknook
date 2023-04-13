@@ -6,11 +6,11 @@ import Navigation from "./components/Navigation";
 import Homepage from "./components/Homepage";
 import Bookshelves from "./components/Bookshelves";
 import Books from "./components/Books";
-import BookDetails from "./components/Bookshelves/BookTable";
 import ReviewCreateEdit from "./components/Review/ReviewCreateEdit";
 import SignupForm from "./components/SignupForm";
 import HomepageLoggedIn from "./components/Homepage/HomepageLoggedIn";
 import Friends from "./components/Friends";
+import Lists from "./components/Lists";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,8 +48,10 @@ function App() {
           <Route path='/friends'>
             <Friends />
           </Route>
+          <Route path='/community'>
+            <Lists />
+          </Route>
         </Switch>
-
       )}
     </>
   );
