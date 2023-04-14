@@ -5,7 +5,8 @@ const booksRouter = require('./books.js');
 const bookshelvesRouter = require('./bookshelves.js');
 const reviewsRouter = require('./reviews.js');
 const requestsRouter = require('./requests.js');
-const friendsRouter = require('./friends.js')
+const friendsRouter = require('./friends.js');
+const listRouter = require('./lists.js');
 const { restoreUser } = require('../../utils/auth.js');
 const { requireAuth } = require('../../utils/auth.js');
 
@@ -21,6 +22,7 @@ router.use('/bookshelves', bookshelvesRouter);
 router.use('/reviews', reviewsRouter);
 router.use('/requests', requestsRouter);
 router.use('/friends', friendsRouter);
+router.use('/lists', listRouter);
 
 // GET /api/restore-user
 router.get(

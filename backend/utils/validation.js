@@ -28,52 +28,15 @@ const validateNewBookshelf = [
     handleValidationErrors
 ];
 
-// const validateBooking = [
-//     check('startDate')
-//         .exists({ checkFalsy: true })
-//         .withMessage('startDate is required')
-//         .custom((value, { req, next }) => {
-//             value = new Date(value.replace(/-/g, '\/')).toDateString();
-//             startDate = new Date(value).getTime();
-
-//             endDateVal = new Date(req.body.endDate.replace(/-/g, '\/')).toDateString();
-//             endDate = new Date(endDateVal).getTime();
-
-//             console.log(endDate - startDate < 0);
-
-//             if (endDate - startDate < 0) {
-//                 throw new Error("endDate cannot be on or before startDate");
-//             } else {
-//                 return value;
-//             }
-
-//         }),
-//     check('endDate')
-//         .exists()
-//         .withMessage('endDate is required'),
-//     handleValidationErrors
-// ]
-
-// const validateReview = [
-//     check('review')
-//         .exists({ checkFalsy: true })
-//         .withMessage('Review text is required'),
-//     check('stars', 'Stars are required')
-//         .exists({ checkFalsy: true })
-//         .isInt({ min: 1, max: 5 })
-//         .withMessage('Stars must be an integer from 1 to 5'),
-//     handleValidationErrors
-// ]
-
-
-
-
-
-
+const validateNewList = [
+    check('name')
+        .exists({ checkFalsy: true })
+        .withMessage('List name is required'),
+    handleValidationErrors
+];
 
 module.exports = {
     handleValidationErrors,
-    validateNewBookshelf
-    // validateBooking,
-    // validateReview
+    validateNewBookshelf,
+    validateNewList
 };

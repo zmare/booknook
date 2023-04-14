@@ -116,6 +116,19 @@ const seedFriends = (num) => {
     return friends;
 }
 
+const seedBooksLists = (num) => {
+    let booksLists = new Array(num).fill('');
+
+    for (const i in booksLists) {
+        booksLists[i] = {
+            bookId: rNum(20),
+            listId: rNum(3)
+        }
+    }
+
+    return booksLists;
+}
+
 module.exports = {
     seedUsers,
     seedBooks,
@@ -123,5 +136,6 @@ module.exports = {
     seedReviews,
     seedBooksBookshelves,
     seedRequests,
-    seedFriends
+    seedFriends,
+    seedBooksLists
 }
