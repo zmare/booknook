@@ -18,21 +18,22 @@ const FriendList = () => {
 
 
     return (
-        <>
-            <h1>hello from friendlist </h1>
-            <p> total friends: {friends.length}</p>
+        <div className='friendlist-container'>
+            <p className='requests-para'> You have {friends.length} {friends.length === 1 ? 'friend' : 'friends'}! </p>
             {friends.map(friend => (
-                <li>
-                    {friend.User.name}
+                <li id={`friend-card-id-${friend.id}`} className='friendlist-card'>
                     <OpenModalButton
                         buttonText={<i className="fa-solid fa-trash-can"></i>}
                         modalComponent={<FriendDeleteModal friend={friend} />}
                     />
+                    <img className='friendlist-user-image' src='https://s.gr-assets.com/assets/nophoto/user/u_225x300-c928cbb998d4ac6dd1f0f66f31f74b81.png'></img>
+                    <p className='pending-requests-para'>{friend.User.name}</p>
+
+
                 </li>
-            ))}
-        </>
-
-
+            ))
+            }
+        </div >
     )
 }
 

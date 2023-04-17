@@ -117,3 +117,34 @@
 .pending-request-delete-btn:hover {
     background-color: rgb(254, 0, 0);
 }
+
+
+.friendlist-card {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin: 20px 0;
+}
+
+.friendlist-card button {
+    font-size: large;
+    padding: 0 30px;
+    background-color: transparent;
+    border: none;
+}
+
+.friendlist-card button:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s ease-in-out;
+    color: #5d4435;
+    cursor: pointer;
+}
+
+.friendlist-user-image {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    background-color: rgb(238, 237, 224);
+}
