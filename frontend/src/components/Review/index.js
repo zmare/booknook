@@ -58,7 +58,7 @@ const Review = ({ review }) => {
                         ))}
                     </div>
                     <div className='review-user-date-container'>
-                        <div style={{ display: 'flex', flexDirection: 'row' }}>
+                        <div style={{ display: 'flex', flexDirection: 'row' }} className='review-add-user'>
                             {(!isFriend(review.User.name) && review.User.name !== user.name) ?
                                 <OpenModalButton
                                     buttonText={<i className="fa-solid fa-user-plus"> </i>}
