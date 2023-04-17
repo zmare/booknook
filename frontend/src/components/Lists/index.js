@@ -20,12 +20,23 @@ const Lists = () => {
 
 
     return (
-        <>
-            <h2>Listopia</h2>
-            <FeaturedLists allLists={allLists} />
-            <AllListsCommunity allLists={allLists} />
-        </>
+        <div>
+            <div className='friends-nav-container'>
+                <div className='friends-nav-title'>
+                    Listopia
+                </div>
+            </div>
 
+            <div className='friends-details-container'>
+                <div className='my-requests-sidebar'>
+                    Manage Your Lists
+                </div>
+                <div className='my-friendlist'>
+                    <FeaturedLists allLists={allLists} />
+                    <AllListsCommunity allLists={allLists} />
+                </div>
+            </div>
+        </div>
     )
 }
 

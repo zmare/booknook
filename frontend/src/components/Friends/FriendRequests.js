@@ -30,11 +30,12 @@ const FriendRequests = () => {
             }
             <br></br>
             <p className='requests-para'> Requests Waiting for a Response</p>
-            {
+            {requests.length ?
                 requests.map(request => (
                     <FriendRequestCard id={`request-card-id-${request.id}`} request={request} />
                 ))
-            }
+                : <p style={{ marginLeft: '10px' }} className='requests-sub-para'>No friend requests</p>}
+
         </>
 
     )

@@ -101,6 +101,7 @@
 
 .pending-request-add-btn:hover {
     background-color: #5d4435;
+    color: white;
 }
 
 .pending-request-delete-btn {
