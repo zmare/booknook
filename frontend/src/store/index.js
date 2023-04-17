@@ -5,13 +5,15 @@ import bookshelfReducer from "./bookshelves";
 import bookReducer from "./book";
 import reviewReducer from "./review";
 import friendReducer from "./friend";
+import listReducer from "./lists";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   bookshelves: bookshelfReducer,
   books: bookReducer,
   review: reviewReducer,
-  friends: friendReducer
+  friends: friendReducer,
+  lists: listReducer
 });
 
 let enhancer;

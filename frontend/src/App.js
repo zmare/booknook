@@ -11,6 +11,7 @@ import SignupForm from "./components/SignupForm";
 import HomepageLoggedIn from "./components/Homepage/HomepageLoggedIn";
 import Friends from "./components/Friends";
 import Lists from "./components/Lists";
+import ListDetail from "./components/Lists/ListDetail"
 
 function App() {
   const dispatch = useDispatch();
@@ -50,6 +51,9 @@ function App() {
           </Route>
           <Route path='/community'>
             <Lists />
+          </Route>
+          <Route path='/list/:listId'>
+            <ListDetail />
           </Route>
         </Switch>
       )}
