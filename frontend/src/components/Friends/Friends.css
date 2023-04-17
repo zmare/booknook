@@ -1,0 +1,119 @@
+.friends-nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 960px;
+    border-bottom: 1px solid #EBE8D5;
+    margin: auto;
+    color: #00635d;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.friends-nav-title {
+    font-family: "Merriweather", Georgia, "Times New Roman", serif;
+    font-weight: bolder;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.friends-details-container {
+    display: flex;
+    width: 960px;
+    margin: auto;
+}
+
+.my-friendlist {
+    width: 100%;
+    padding-left: 85px;
+}
+
+.requests-para {
+    font-weight: bold;
+    font-family: "Lato", serif;
+}
+
+.requests-sub-para {
+    font-family: "Montserrat", serif;
+    font-size: 10pt;
+}
+
+.button-trash-requests-list {
+    margin-bottom: 16px;
+    padding: 0 10px;
+    background-color: transparent;
+    border: none;
+}
+
+.button-trash-requests-list:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s ease-in-out;
+    color: #5d4435;
+    cursor: pointer;
+}
+
+.request-user-name {
+    font-family: "Libre Baskerville", Georgia, serif;
+    font-size: 12px;
+    padding-left: 5px;
+}
+
+.request-user-image {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    background-color: rgb(238, 237, 224);
+}
+
+.pending-requests-container {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin-bottom: 16px;
+}
+
+.pending-requests-img-username {
+    display: flex;
+    flex-direction: row;
+}
+
+.pending-requests-para {
+    margin: 0 0 0 6px;
+    font-family: "Libre Baskerville", Georgia, serif;
+    font-size: 13px;
+}
+
+.pending-requests-buttons {
+    margin: 5px 0;
+}
+
+.pending-request-add-btn {
+    background-color: transparent;
+    border: 1px solid whitesmoke;
+    border-radius: 5px;
+    background-color: #382110;
+    color: white;
+    padding: 3px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.pending-request-add-btn:hover {
+    background-color: #5d4435;
+}
+
+.pending-request-delete-btn {
+    background-color: transparent;
+    border: 1px solid whitesmoke;
+    border-radius: 5px;
+    background-color: rgb(202, 2, 2);
+    color: white;
+    padding: 3px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.pending-request-delete-btn:hover {
+    background-color: rgb(254, 0, 0);
+}

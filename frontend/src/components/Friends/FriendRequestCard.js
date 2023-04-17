@@ -38,11 +38,18 @@ const FriendRequestCard = ({ request }) => {
     }
 
     return (
-        <>
-            <p>{request.User.name}</p>
-            <button onClick={handleAdd}>Accept</button>
-            <button onClick={handleDelete}>Decline</button>
-        </>
+        <div className='pending-requests-container'>
+            <div className='pending-requests-img-username'>
+                <img className='request-user-image' src='https://s.gr-assets.com/assets/nophoto/user/u_225x300-c928cbb998d4ac6dd1f0f66f31f74b81.png'></img>
+                <p className='pending-requests-para'>{request.User.name}</p>
+            </div>
+
+            <div className='pending-requests-buttons'>
+                <button className='pending-request-add-btn' onClick={handleAdd}>Accept</button>
+                <button className='pending-request-delete-btn' onClick={handleDelete}>Decline</button>
+            </div>
+
+        </div>
 
     )
 }

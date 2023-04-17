@@ -12,7 +12,6 @@ import { getFriends, getRequests } from '../../store/friend';
 
 // COMPONENT FOR ACTUAL BOOK INFORMATION 
 const Books = () => {
-    const rNum = (num) => Math.floor(Math.random() * Math.floor(num) + 1);
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
     const { bookId } = useParams();
@@ -160,7 +159,6 @@ const Books = () => {
                                             if (user !== null && !hasReview) {
                                                 return (
                                                     <OpenModalButton
-                                                        key={`stars-add-${rNum(100)}`}
                                                         buttonText={<i className="fa-solid fa-star"></i>}
                                                         modalComponent={<ReviewCreateEdit book={book} review={review} type="Add" />}
                                                     />

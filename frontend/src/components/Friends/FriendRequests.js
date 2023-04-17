@@ -21,21 +21,21 @@ const FriendRequests = () => {
 
     return (
         <>
-            <h1>hello from FriendRequests </h1>
-            <p> You've sent {pending.length} requests to the following people and are waiting to hear back! </p>
-            {pending.map(request => (
-                <FriendsPendingCard request={request} />
-            ))
+            <p className='requests-para'>Requests Sent</p>
+            <p className='requests-sub-para'> You've sent <span style={{ fontWeight: 'bolder' }}>{pending.length} {pending.length === 1 ? 'request' : 'requests'}</span>  to the following people and are waiting to hear back! </p>
+            {
+                pending.map(request => (
+                    <FriendsPendingCard id={`request-id-${request.id}`} request={request} />
+                ))
             }
             <br></br>
-            <p> total requests waiting on a response from you: {requests.length}</p>
+            <p className='requests-para'> Requests Waiting for a Response</p>
             {
                 requests.map(request => (
-                    <FriendRequestCard request={request} />
+                    <FriendRequestCard id={`request-card-id-${request.id}`} request={request} />
                 ))
             }
         </>
-
 
     )
 }

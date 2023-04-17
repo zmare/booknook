@@ -22,9 +22,12 @@ const FriendsPendingCard = ({ request }) => {
     }
 
     return (
-        <div style={{ display: 'flex' }}>
-            <li>{request.User.name}</li>
-            <button onClick={handleDelete}><i className="fa-solid fa-trash-can"></i></button>
+        <div style={{ display: 'flex', listStyle: 'none' }}>
+            <button className='button-trash-requests-list' onClick={handleDelete}>
+                <i className="fa-solid fa-trash-can"></i>
+            </button>
+            <img className='request-user-image' src='https://s.gr-assets.com/assets/nophoto/user/u_225x300-c928cbb998d4ac6dd1f0f66f31f74b81.png'></img>
+            <li className='request-user-name'>{request.User.name}</li>
         </div>
     )
 }

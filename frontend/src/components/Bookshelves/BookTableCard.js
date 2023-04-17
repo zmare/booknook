@@ -38,7 +38,7 @@ const BookTableCard = ({ book, bookshelf }) => {
             <p id='header-3'>{book.author}</p>
             <p id='header-4'>{book.avgStarRating}</p>
             {bookshelf.name !== "All" ?
-                <button className="button-testing" id="header-5" onClick={handleDelete}> <i className="fa-solid fa-trash-can"></i> </button>
+                <button className="button-trash-book-table" id="header-5" onClick={handleDelete}> <i className="fa-solid fa-trash-can"></i> </button>
                 :
                 ""
             }
