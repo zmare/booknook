@@ -90,10 +90,52 @@ const seedBooksBookshelves = (num) => {
     return booksBookshelves;
 }
 
+const seedRequests = (num) => {
+    let requests = new Array(num).fill('');
+
+    for (const i in requests) {
+        requests[i] = {
+            requestorId: rNum(20),
+            receiverId: 21
+        }
+    }
+
+    return requests;
+}
+
+const seedFriends = (num) => {
+    let friends = new Array(num).fill('');
+
+    for (const i in friends) {
+        friends[i] = {
+            userId: 21,
+            friendId: rNum(20)
+        }
+    }
+
+    return friends;
+}
+
+const seedBooksLists = (num) => {
+    let booksLists = new Array(num).fill('');
+
+    for (const i in booksLists) {
+        booksLists[i] = {
+            bookId: rNum(20),
+            listId: rNum(3)
+        }
+    }
+
+    return booksLists;
+}
+
 module.exports = {
     seedUsers,
     seedBooks,
     seedBookshelves,
     seedReviews,
-    seedBooksBookshelves
+    seedBooksBookshelves,
+    seedRequests,
+    seedFriends,
+    seedBooksLists
 }

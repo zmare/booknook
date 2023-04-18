@@ -36,7 +36,6 @@
 }
 
 .bookshelf-book-details-container {
-    border: 1px solid blue;
     width: 500px;
 }
 
@@ -72,6 +71,7 @@
 
 #header-4 {
     width: 15%;
+    text-align: center;
 }
 
 #header-5 {
@@ -83,7 +83,7 @@
     font-family: 'Lato', serif;
 }
 
-.button-testing {
+.button-trash-book-table {
     height: 30px;
     margin-top: 16px;
     margin-bottom: 16px;
@@ -91,7 +91,7 @@
     border: none;
 }
 
-.button-testing:hover {
+.button-trash-book-table:hover {
     transform: scale(1.2);
     transition: transform 0.2s ease-in-out;
     color: #5d4435;

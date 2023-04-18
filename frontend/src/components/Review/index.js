@@ -1,13 +1,40 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import OpenModalButton from '../OpenModalButton';
 import ReviewCreateEdit from './ReviewCreateEdit';
 import ReviewDelete from './ReviewDelete';
 import './Review.css'
+import { useEffect } from 'react';
+import { getFriends } from '../../store/friend';
+import FriendAddModal from '../Friends/FriendAddModal';
 
 
 const Review = ({ review }) => {
     const book = useSelector(state => state.books.currBook);
-    const user = useSelector(state => state.session.user)
+    const user = useSelector(state => state.session.user);
+    const friends = useSelector(state => state.friends.allFriends);
+    const requests = useSelector(state => state.friends.allRequests);
+    const pending = useSelector(state => state.friends.allPending);
+
+    if (!friends || !requests || !pending) return null;
+
+    let myFriends = [];
+
+    for (let friend of friends) {
+        myFriends.push(friend.User.name)
+    }
+
+    for (let request of requests) {
+        myFriends.push(request.User.name)
+    }
+
+    for (let request of pending) {
+        myFriends.push(request.User.name)
+    }
+
+    const isFriend = (friend) => {
+        if (myFriends.indexOf(friend) !== -1) return true;
+        else return false;
+    }
 
     let newDate = new Date(review.createdAt);
     newDate = newDate.toDateString();
@@ -26,13 +53,22 @@ const Review = ({ review }) => {
 
                 <div className='review-container'>
                     <div>
-                        {/* <li>{review.stars} {review.stars === 1 ? "star" : "stars"}</li> */}
                         {array.map((star, index) => (
                             <i key={`review-star-${index}`} className="fa-solid fa-star"></i>
                         ))}
                     </div>
                     <div className='review-user-date-container'>
-                        <li className="review-username">{review.User.name}</li>
+                        <div style={{ display: 'flex', flexDirection: 'row' }} className='review-add-user'>
+                            {(!isFriend(review.User.name) && review.User.name !== user.name) ?
+                                <OpenModalButton
+                                    buttonText={<i className="fa-solid fa-user-plus"> </i>}
+                                    modalComponent={<FriendAddModal friend={review.User} />}
+                                />
+                                :
+                                ''
+                            }
+                            <li className="review-username">{review.User.name}</li>
+                        </div>
                         <li className='review-review-date'>{review.year} {review.month}</li>
                     </div>
                     <div className='review-review'>

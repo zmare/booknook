@@ -3,9 +3,10 @@ import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { removeBook, getBookshelves, getBookshelf } from "../../store/bookshelves";
 import "./Bookshelves.css"
+import { getAllLists, getList, getUserLists, removeBookFromList } from "../../store/lists";
 
 
-const BookTableCard = ({ book, bookshelf }) => {
+const BookTableCard = ({ book, bookshelf, type }) => {
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -14,19 +15,32 @@ const BookTableCard = ({ book, bookshelf }) => {
     const handleDelete = async (e) => {
         e.preventDefault();
 
-        try {
-            let removeBookFromShelf = await dispatch(removeBook(book.id, bookshelf.id));
-            if (removeBookFromShelf) {
-                await dispatch(getBookshelves());
-                await dispatch(getBookshelf(bookshelf.id))
-                //history.push(`/`)
+        if (!type || type !== "list") {
+            try {
+                let removeBookFromShelf = await dispatch(removeBook(book.id, bookshelf.id));
+                if (removeBookFromShelf) {
+                    await dispatch(getBookshelves());
+                    await dispatch(getBookshelf(bookshelf.id))
+                }
+            }
+            catch (response) {
+                const data = await response.json();
+                if (data && data.errors) setErrors(data.errors);
+            }
+        } else {
+            try {
+                let removedBookFromList = await dispatch(removeBookFromList(book.id, bookshelf.id));
+                if (removedBookFromList) {
+                    await dispatch(getAllLists());
+                    await dispatch(getUserLists());
+                    await dispatch(getList(bookshelf.id));
+                }
+            }
+            catch (response) {
+                const data = await response.json();
+                if (data && data.errors) setErrors(data.errors);
             }
         }
-        catch (response) {
-            const data = await response.json();
-            if (data && data.errors) setErrors(data.errors);
-        }
-
     }
 
     return (
@@ -38,7 +52,7 @@ const BookTableCard = ({ book, bookshelf }) => {
             <p id='header-3'>{book.author}</p>
             <p id='header-4'>{book.avgStarRating}</p>
             {bookshelf.name !== "All" ?
-                <button className="button-testing" id="header-5" onClick={handleDelete}> <i className="fa-solid fa-trash-can"></i> </button>
+                <button className="button-trash-book-table" id="header-5" onClick={handleDelete}> <i className="fa-solid fa-trash-can"></i> </button>
                 :
                 ""
             }

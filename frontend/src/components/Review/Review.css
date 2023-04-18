@@ -26,6 +26,19 @@
     justify-content: space-between;
 } */
 
+.review-add-user button {
+    border: none;
+    border-radius: 8px;
+    margin-right: 10px;
+    cursor: pointer;
+    color: #382110;
+
+}
+
+.pending-request-add-btn:hover {
+    color: #5d4435;
+}
+
 .review-review {
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
