@@ -92,10 +92,10 @@ const Lists = () => {
                 <div style={{ width: '300px' }} className='my-requests-sidebar'>
                     <p className='requests-para'>Lists I've Created</p>
                     {myLists.map(list => (
-                        <>
+                        <span key={`lists-created-by-me-${list.id}`}>
                             <button onClick={(e) => handleListDelete(list, e)}><i className="fa-solid fa-trash-can"></i></button>
                             <NavLink to={`/list/${list.id}`}>{list.name}</NavLink>
-                        </>
+                        </span>
 
                     ))}
                     <div>
