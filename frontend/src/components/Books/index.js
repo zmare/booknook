@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { getBook } from '../../store/book';
 import { getReviewsUser } from '../../store/review';
 import { getBookshelves, addBook } from '../../store/bookshelves';
+import { getAllLists, getUserLists, addBookToList } from "../../store/lists"
 import ReviewIndex from '../Review/ReviewIndex';
 import OpenModalButton from '../OpenModalButton';
 import ReviewCreateEdit from '../Review/ReviewCreateEdit';
@@ -16,6 +17,7 @@ const Books = () => {
     const user = useSelector(state => state.session.user);
     const { bookId } = useParams();
     let allShelves;
+    let allLists;
 
     let review = {
         review: '',
@@ -31,6 +33,7 @@ const Books = () => {
         dispatch(getBookshelves())
         dispatch(getFriends());
         dispatch(getRequests());
+        dispatch(getUserLists());
     }, [dispatch, allShelves, bookId])
 
     const book = useSelector(state => state.books.currBook);
@@ -42,19 +45,29 @@ const Books = () => {
             return state.review.userReviews
         }
     });
+    let userLists = useSelector(state => state.lists.userLists); //all the lists of the user
 
     if (!book) return null;
     let orderedReviews = [];
     if (!book.avgStarRating) book.avgStarRating = 'New';
     if (!userBookshelves) return null;
+    if (!userLists) return null;
 
     allShelves = book.Bookshelves; // all the bookshelves a book is a part of 
+    allLists = book.Lists;  // all the lists a book is a part of 
 
     let allShelvesUser = [];
+    let allListsUser = [];
 
     for (let shelf of allShelves) {
         if (shelf.ownerId === user.id) {
             allShelvesUser.push(shelf)
+        }
+    }
+
+    for (let list of allLists) {
+        if (list.ownerId === user.id) {
+            allListsUser.push(list)
         }
     }
 
@@ -73,6 +86,7 @@ const Books = () => {
     };
 
     let availableBookshelves = { ...userBookshelves };
+    let availableLists = { ...userLists };
 
     // for each shelf that the book is in, remove that from the user's bookshelves list 
     if (allShelvesUser.length) {
@@ -81,13 +95,35 @@ const Books = () => {
         }
     }
 
+    if (allListsUser.length) {
+        for (let list of allLists) {
+            delete availableLists[list.id]
+        }
+    }
+
     availableBookshelves = Object.values(availableBookshelves)
+    availableLists = Object.values(availableLists)
 
     const handleAddBook = async (shelfId) => {
         try {
             let addBookToShelf = await dispatch(addBook(bookId, shelfId));
             if (addBookToShelf) {
                 await dispatch(getBookshelves());
+                await dispatch(getBook(bookId))
+            }
+        }
+        catch (response) {
+            const data = await response.json();
+            if (data && data.errors) setErrors(data.errors);
+        }
+    }
+
+    const handleAddBookList = async (listId) => {
+        try {
+            let addedBooktoList = await dispatch(addBookToList(bookId, listId));
+            if (addedBooktoList) {
+                await dispatch(getAllLists());
+                await dispatch(getUserLists());
                 await dispatch(getBook(bookId))
             }
         }
@@ -111,10 +147,10 @@ const Books = () => {
                                 <div style={{ fontFamily: "'Montserrat',serif", fontSize: "10pt" }}>
                                     <p>You have this book on the following bookshelves:</p>
                                     {allShelvesUser.map(shelf => (
-                                        <>
-                                            <li style={{ listStyle: 'none', paddingLeft: '10px' }} key={`my-shelf-list-${shelf.id}`}>{shelf.name}</li>
+                                        <span key={`my-shelf-list-${shelf.id}`}>
+                                            <li style={{ listStyle: 'none', paddingLeft: '10px' }} >{shelf.name}</li>
                                             <br></br>
-                                        </>
+                                        </span>
                                     ))}
                                 </div>
                                 :
@@ -125,7 +161,33 @@ const Books = () => {
                                 <button className={availableBookshelves.length ? "dropbtn" : "hidden"}>Add to a Bookshelf!</button>
                                 <div className="dropdown-content">
                                     {availableBookshelves.map(shelf => (
-                                        <p key={`shelf-list-${shelf.id}`} onClick={() => handleAddBook(shelf.id)}> {shelf.name}</p>
+                                        <p key={`available-shelf-lists-${shelf.id}`} onClick={() => handleAddBook(shelf.id)}> {shelf.name}</p>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                        <div className='book-info-bookself-selection-container'>
+                            {allListsUser.length
+                                ?
+                                <div style={{ fontFamily: "'Montserrat',serif", fontSize: "10pt" }}>
+                                    <p>You have this book on the following lists:</p>
+                                    {allListsUser.map(list => (
+                                        <span key={`my-lists-${list.id}`}>
+                                            <li style={{ listStyle: 'none', paddingLeft: '10px' }}>{list.name}</li>
+                                        </span>
+
+
+                                    ))}
+                                </div>
+                                :
+                                ""
+                            }
+                            <br></br>
+                            <div className="dropdown">
+                                <button className={availableLists.length ? "dropbtn" : "hidden"}>Add to a List!</button>
+                                <div className="dropdown-content">
+                                    {availableLists.map(list => (
+                                        <p key={`available-lists-${list.id}`} onClick={() => handleAddBookList(list.id)}> {list.name}</p>
                                     ))}
                                 </div>
                             </div>
@@ -159,6 +221,7 @@ const Books = () => {
                                             if (user !== null && !hasReview) {
                                                 return (
                                                     <OpenModalButton
+                                                        key={`add-stars-${index}`}
                                                         buttonText={<i className="fa-solid fa-star"></i>}
                                                         modalComponent={<ReviewCreateEdit book={book} review={review} type="Add" />}
                                                     />
@@ -166,7 +229,7 @@ const Books = () => {
                                             } else {
                                                 return (
                                                     <OpenModalButton
-                                                        key={`stars-${index}`}
+                                                        key={`edit-stars-${index}`}
                                                         buttonText={<i className="fa-solid fa-star"></i>}
                                                         modalComponent={<ReviewCreateEdit book={book} review={review} type="Edit" />}
                                                     />

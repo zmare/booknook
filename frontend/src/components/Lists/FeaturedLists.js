@@ -3,7 +3,7 @@ import ListCard from "./ListCard";
 
 const FeaturedLists = ({ allLists }) => {
 
-    let listArr = Object.values(allLists)
+    let listArr = Object.values(allLists).slice(0, 2)
 
     return (
         <div>
@@ -11,7 +11,7 @@ const FeaturedLists = ({ allLists }) => {
             <div className='listcards-container'>
                 {
                     listArr.map(list => (
-                        <NavLink style={{ textDecoration: 'none' }} to={`/list/${list.id}`} className='list-card-link' >
+                        <NavLink key={`list-card-featured-${list.id}`} style={{ textDecoration: 'none' }} to={`/list/${list.id}`} className='list-card-link' >
                             <ListCard list={list} />
                         </NavLink>
                     ))

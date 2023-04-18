@@ -30,7 +30,7 @@ const addList = list => ({
     list
 })
 
-const addBookToList = () => ({
+const addBook = () => ({
     type: ADD_BOOK
 })
 // const editBookshelf = bookshelf => ({
@@ -91,7 +91,7 @@ export const createList = (list) => async (dispatch) => {
     }
 }
 
-export const addBook = (bookId, listId) => async (dispatch) => {
+export const addBookToList = (bookId, listId) => async (dispatch) => {
     const response = await csrfFetch(`/api/lists/add`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -103,7 +103,7 @@ export const addBook = (bookId, listId) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(addBookToList());
+        dispatch(addBook());
         return data;
     }
 }
