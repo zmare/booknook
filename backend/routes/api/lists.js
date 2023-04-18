@@ -162,7 +162,9 @@ router.post('/', [requireAuth, validateNewList], async (req, res, next) => {
         res.json(newList)
     } else {
         res.json({
-            message: 'List already exists',
+            message: "Validation Error",
+            statusCode: 400,
+            errors: "List already exists"
         })
     }
 })

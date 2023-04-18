@@ -36,7 +36,7 @@ const HomepageLoggedIn = () => {
         <>
             <div className='homepage-wrapper'>
                 <div className='homepage-column-container' id='column-one'>
-                    <div className='homepage-bookshelf-container'>
+                    <NavLink to={currReadingBook ? `/books/${currReadingBook.id}` : `/shelf`} className='homepage-bookshelf-container'>
                         <h2 className='homepage-bookshelf-header'>CURRENTLY READING</h2>
                         {!currReadingBook ?
                             <div style={{ display: 'flex' }}>
@@ -52,7 +52,7 @@ const HomepageLoggedIn = () => {
                                 </div>
                             </div>
                         }
-                    </div>
+                    </NavLink>
                 </div>
                 <div className='homepage-column-container' id='column-two'>
                     <div className='homepage-recommendations-container'>
