@@ -13,7 +13,7 @@ function Navigation({ isLoaded }) {
                 <NavLink className='header-title' exact to={sessionUser ? "/myfeed" : "/"}><span style={{ fontWeight: 'lighter' }}>book</span><span style={{ fontWeight: 'bolder' }}>nook</span></NavLink>
 
                 {(isLoaded && sessionUser) && (
-                    <>
+                    <div className='nav-toolbar-container'>
                         <div className="nav-menu-container">
                             <ul className='nav-menu-content'>
                                 <NavLink to='/myfeed'>Home</NavLink>
@@ -28,15 +28,12 @@ function Navigation({ isLoaded }) {
                         </div>
 
                         <div className='icons-container'>
-                            <li onClick={(e) => window.alert("Feature coming soon!")}>
-                                <img src="https://s.gr-assets.com/assets/layout/header/icn_nav_notifications.svg"></img>
-                            </li >
-                            <li onClick={(e) => window.alert("Feature coming soon!")}>
+                            {/* <li onClick={(e) => window.alert("Feature coming soon!")}>
                                 <img src="https://s.gr-assets.com/assets/layout/header/icn_nav_discussions.svg"></img>
                             </li>
                             <li onClick={(e) => window.alert("Feature coming soon!")}>
                                 <img src="https://s.gr-assets.com/assets/layout/header/icn_nav_msgs.svg"></img>
-                            </li>
+                            </li> */}
                             <NavLink to='/friends'>
                                 <img src="https://s.gr-assets.com/assets/layout/header/icn_nav_friend.svg"></img>
                             </NavLink>
@@ -44,7 +41,7 @@ function Navigation({ isLoaded }) {
                                 <ProfileButton user={sessionUser} />
                             </li>
                         </div>
-                    </>
+                    </div>
                 )}
             </div>
         </ul >

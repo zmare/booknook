@@ -1,3 +1,40 @@
 .list-card-container {
+    display: flex;
+    flex-direction: column;
     max-width: 287px;
+}
+
+.listcards-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+
+.list-card-link {
+    padding: 20px;
+}
+
+.list-book-title {
+    font-family: 'Lato', serif;
+    font-size: 14px;
+    margin: 0;
+    color: black;
+}
+
+.list-book-total {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: rgb(112, 112, 112);
+    margin: 5px 0;
+}
+
+.my-lists {
+    width: 100%;
+    padding-left: 85px;
+}
+
+.lists-book-table {
+    max-width: 800px;
+    margin: auto;
+    margin-top: 25px;
 }

@@ -4,7 +4,7 @@ import BookTableCard from './BookTableCard';
 import OpenModalButton from '../OpenModalButton'
 import './Bookshelves.css'
 
-const BookTable = ({ bookshelf, bookshelves }) => {
+const BookTable = ({ bookshelf, bookshelves, type }) => {
 
     return (
         <>
@@ -12,7 +12,7 @@ const BookTable = ({ bookshelf, bookshelves }) => {
                 <h1 style={{ marginTop: "0", fontFamily: "'Merriweather', serif", fontWeight: '400' }}>
                     {bookshelf.name}
                 </h1>
-                {(bookshelf.name !== "All" && bookshelf.name !== "Read" && bookshelf.name !== "Currently Reading" && bookshelf.name !== "Want to Read") ?
+                {(bookshelf.name !== "All" && bookshelf.name !== "Read" && bookshelf.name !== "Currently Reading" && bookshelf.name !== "Want to Read" && type !== "list") ?
                     <div className="gear-shift-icon">
                         <OpenModalButton
                             buttonText={<i className="fa-solid fa-gear"></i>}
@@ -23,6 +23,7 @@ const BookTable = ({ bookshelf, bookshelves }) => {
                     ""
                 }
             </div>
+
             <div className="book-table-headers" style={{ fontWeight: 700 }}>
                 <p id="header-1">Cover</p>
                 <p id="header-2">Title</p>
@@ -46,7 +47,7 @@ const BookTable = ({ bookshelf, bookshelves }) => {
                         ))}
                     </>
                     :
-                    <p style={{ fontFamily: "'Lato', serif" }}>No books in this bookshelf.</p>
+                    <p style={{ fontFamily: "'Lato', serif" }}>No books here.</p>
             }
 
         </>

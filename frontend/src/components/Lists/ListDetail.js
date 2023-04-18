@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getList } from "../../store/lists";
+import BookTable from '../Bookshelves/BookTable'
 
 const ListDetail = () => {
     const dispatch = useDispatch();
@@ -16,9 +17,9 @@ const ListDetail = () => {
 
 
     return (
-        <>
-            <p>{list.name}</p>
-        </>
+        <div className='lists-book-table'>
+            <BookTable bookshelf={list} type='list' />
+        </div>
     )
 }
 

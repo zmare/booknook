@@ -1,6 +1,6 @@
 const AllListsCommunity = () => {
     return (
-        <p>All Lists in the Community!</p>
+        <p className='requests-para'>All Lists in the Community!</p>
     )
 }
 

@@ -36,6 +36,14 @@ body {
     font-family: 'Montserrat', sans-serif;
     color: #382110;
     font-size: 20pt;
+    margin-right: 15px
+}
+
+.nav-toolbar-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
 }
 
 .nav-menu-content {
@@ -65,7 +73,8 @@ body {
 .nav-search-bar-container {
     background-color: white;
     border-radius: 5px;
-    margin-left: 45px;
+    margin-left: 105px;
+    margin-right: 30px;
     padding-left: 0;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -78,6 +87,7 @@ body {
     flex-shrink: 1;
     flex-basis: 0%;
     margin-right: 8px; */
+    display: flex;
 }
 
 .nav-search-bar {
@@ -85,13 +95,7 @@ body {
     background-color: transparent;
     border: none;
     margin: 5px;
-    /* border-radius: 3px;
-    border: #DCD6CC 1px solid;
-    color: #333333;
-    font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
-    resize: horizontal;
-    width: 200px;
-    margin-left: 40px; */
+
 }
 
 .magnifying-tool {
