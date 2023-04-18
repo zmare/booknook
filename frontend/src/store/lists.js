@@ -187,15 +187,7 @@ export default function listReducer(state = initialState, action) {
             }
         }
         case ADD_LIST: {
-            const allLists = { ...state.allLists }
-            const userLists = { ...state.userLists }
-            allLists[action.list.id] = action.list;
-            userLists[action.list.id] = action.list;
-            return {
-                ...state,
-                allLists,
-                userLists
-            }
+            return { ...state };
         }
         case ADD_BOOK: {
             return { ...state };

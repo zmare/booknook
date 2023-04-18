@@ -120,3 +120,123 @@
     font-size: 12px;
     width: 300px;
 }
+
+.homepage-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.homepage-column-container {
+    flex: 1 1 auto;
+}
+
+#column-one {
+    width: 100px;
+}
+
+#column-two {
+    width: 400px;
+}
+
+#column-three {
+    width: 150px;
+    margin-left: 20px;
+}
+
+.homepage-bookshelf-container {
+    text-decoration: none;
+}
+
+.homepage-bookshelf {
+    width: 200px;
+    height: 300px
+}
+
+.homepage-bookshelf-header {
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16.1px;
+    color: rgb(51, 51, 51);
+}
+
+.homepage-bookshelf-para {
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
+    color: rgb(0, 0, 0);
+    margin-left: 10px;
+}
+
+.homepage-bookshelf-image {
+    width: 95px;
+    height: 150px;
+    object-fit: contain;
+}
+
+#homepage-bookshelf-book-title {
+    font-family: 'Merriweather', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: normal;
+    color: black;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+#homepage-bookshelf-book-author {
+    font-family: 'Merriweather', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+    color: black;
+    margin-left: 10px;
+}
+
+.homepage-rec-container {
+    display: flex;
+    margin-bottom: 30px;
+    height: 180px;
+    overflow: hidden;
+}
+
+.homepage-rec-image {
+    width: 115px;
+    height: 180px;
+    object-fit: cover;
+}
+
+.homepage-bookshelf-header-rec {
+    /* font-family: 'Libre Baskerville', sans-serif; */
+    font-family: 'Merriweather', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: rgb(51, 51, 51);
+
+}
+
+.homepage-rec-para {
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
+    color: rgb(0, 0, 0);
+    margin-left: 10px;
+    margin-right: 45px;
+}
+
+#homepage-rec-book-title {
+    font-family: 'Merriweather', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: normal;
+    color: rgb(51, 51, 51);
+    margin-left: 10px;
+    margin-right: 45px;
+    margin-top: 0;
+
+}

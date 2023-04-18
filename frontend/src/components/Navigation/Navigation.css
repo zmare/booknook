@@ -4,6 +4,7 @@
 
 .profile-dropdown {
     list-style: none;
+    cursor: pointer;
 }
 
 body {

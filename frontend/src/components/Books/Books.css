@@ -15,7 +15,7 @@
 
     width: 215px;
     height: 323px;
-    object-fit: cover;
+    /* object-fit: cover; */
     border-top-right-radius: 5%;
     border-bottom-right-radius: 5%;
 }

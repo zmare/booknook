@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllLists, getUserLists, getList, removeList } from '../../store/lists';
+import { getAllLists, getUserLists, createList, removeList } from '../../store/lists';
 import FeaturedLists from "./FeaturedLists";
 import AllListsCommunity from "./AllListsCommunity";
 
 const Lists = () => {
     const dispatch = useDispatch();
-
-    const [errors, setErrors] = useState();
 
     useEffect(() => {
         dispatch(getAllLists());
@@ -16,6 +14,8 @@ const Lists = () => {
     }, [dispatch])
 
     const [name, setName] = useState("")
+    const [errors, setErrors] = useState([]);
+    const [formErrors, setFormErrors] = useState({});
 
     const allLists = useSelector(state => state.lists.allLists);
     const userLists = useSelector(state => state.lists.userLists);
@@ -23,6 +23,25 @@ const Lists = () => {
     if (!allLists || !userLists) return null;
 
     let myLists = Object.values(userLists)
+
+    const validateNewList = () => {
+        let lists = Object.values(allLists);
+        let err = {};
+
+        if (name.length < 5) {
+            err.rightLength = "List name must be 5 characters or more"
+        }
+
+        for (let list of lists) {
+            if (name === list.name) {
+                err.alreadyExists = "List already exists";
+            }
+        }
+
+        setFormErrors({ ...err });
+
+        return (Object.keys(err).length === 0)
+    }
 
     const handleListDelete = async (list, e) => {
         e.preventDefault();
@@ -38,6 +57,27 @@ const Lists = () => {
             const data = await response.json();
             if (data && data.errors) setErrors(data.errors);
         }
+    }
+
+    const handleListAdd = async (e) => {
+        e.preventDefault();
+
+        if (!validateNewList()) return;
+
+        try {
+            let addedList = await dispatch(createList({ name }));
+            if (addedList) {
+                await dispatch(getAllLists());
+                await dispatch(getUserLists());
+                setFormErrors({});
+            }
+        }
+        catch (response) {
+            const data = await response.json();
+            if (data && data.errors) setErrors(data.errors);
+        }
+
+
     }
 
     return (
@@ -59,7 +99,7 @@ const Lists = () => {
 
                     ))}
                     <div>
-                        <form >
+                        <form onSubmit={handleListAdd}>
                             <input
                                 placeholder='Add new list'
                                 type="text"
@@ -68,6 +108,8 @@ const Lists = () => {
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}>
                             </input>
+                            <div style={{ fontSize: '12px', paddingTop: '5px' }} className="edit-bookshelf-error"> {formErrors.rightLength}</div>
+                            <div style={{ fontSize: '12px', paddingTop: '5px' }} className="edit-bookshelf-error"> {formErrors.alreadyExists}</div>
                             <button className={name.length < 5 ? "disabled-add-btn" : "add-button"}>Add</button>
                         </form>
                     </div>
