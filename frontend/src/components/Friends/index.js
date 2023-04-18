@@ -1,8 +1,14 @@
+import { useSelector } from "react-redux"
+import { Redirect } from "react-router-dom"
 import FriendList from "./FriendList"
 import FriendRequests from "./FriendRequests"
 import './Friends.css'
 
 const Friends = () => {
+    const user = useSelector(state => state.session.user);
+
+    if (!user) return <Redirect to='/' />
+
 
     return (
         <>

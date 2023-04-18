@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBookshelf, getBookshelves } from '../../store/bookshelves';
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import BookshelvesSidebar from './BookshelvesSidebar';
 import BookTable from './BookTable';
 import BookshelfNavigation from './BookshelfNavigation';
@@ -25,7 +25,7 @@ const Bookshelves = () => {
     let Books = {};
     let bookshelf;
 
-    if (!user) return null;
+    if (!user) return <Redirect to='/' />;
     if (!bookshelves) return null
 
     bookshelf = bookshelves[shelfId];

@@ -16,25 +16,29 @@ const Books = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
     const { bookId } = useParams();
+
     let allShelves;
     let allLists;
-
     let review = {
         review: '',
         stars: '',
     }
-
     let array = new Array(5).fill('');
+
     const [errors, setErrors] = [];
 
     useEffect(() => {
         dispatch(getBook(bookId))
-        dispatch(getReviewsUser())
-        dispatch(getBookshelves())
-        dispatch(getFriends());
-        dispatch(getRequests());
-        dispatch(getUserLists());
-    }, [dispatch, allShelves, bookId])
+
+        if (user) {
+            dispatch(getReviewsUser())
+            dispatch(getBookshelves())
+            dispatch(getFriends());
+            dispatch(getRequests());
+            dispatch(getUserLists());
+        }
+
+    }, [dispatch, allShelves, bookId, user])
 
     const book = useSelector(state => state.books.currBook);
     let userBookshelves = useSelector(state => state.bookshelves.allBookshelves); //all the bookshelves of the user
@@ -50,8 +54,11 @@ const Books = () => {
     if (!book) return null;
     let orderedReviews = [];
     if (!book.avgStarRating) book.avgStarRating = 'New';
-    if (!userBookshelves) return null;
-    if (!userLists) return null;
+
+    if (user && !userBookshelves) return null;
+    if (user && !userLists) return null;
+
+
 
     allShelves = book.Bookshelves; // all the bookshelves a book is a part of 
     allLists = book.Lists;  // all the lists a book is a part of 
@@ -60,20 +67,20 @@ const Books = () => {
     let allListsUser = [];
 
     for (let shelf of allShelves) {
-        if (shelf.ownerId === user.id) {
+        if (user && shelf.ownerId === user.id) {
             allShelvesUser.push(shelf)
         }
     }
 
     for (let list of allLists) {
-        if (list.ownerId === user.id) {
+        if (user && list.ownerId === user.id) {
             allListsUser.push(list)
         }
     }
 
     let hasReview = false;
 
-    if (myReviews) {
+    if (user && myReviews) {
         myReviews = Object.values(myReviews);
         for (let review of myReviews) {
             let bookId = parseInt(review.bookId);
@@ -211,7 +218,7 @@ const Books = () => {
                     <div className='book-details-reviews-container'>
                         <h1 className='rating-review-title'>Rating & Reviews</h1>
 
-                        {!hasReview ?
+                        {!hasReview && user ?
                             <>
                                 <p className='rating-review-write'>Write a Review!</p>
                                 <div className='review_spot_stars'>

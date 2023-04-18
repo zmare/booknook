@@ -40,9 +40,6 @@ function App() {
           <Route path='/shelf'>
             <Bookshelves />
           </Route>
-          <Route path='/reviews/edit/:bookId/:reviewId'>
-            <ReviewCreateEdit />
-          </Route>
           <Route path='/signup'>
             <SignupForm />
           </Route>

@@ -6,6 +6,8 @@ const ReviewIndex = ({ book, reviews }) => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
 
+    console.log(book, reviews);
+
     return (
         <>
             <div className='review_rating_num'>
@@ -31,7 +33,10 @@ const ReviewIndex = ({ book, reviews }) => {
             <div>
                 {reviews.map(review => (
                     <div key={`book-review-${review.id}`}>
-                        <Review review={review} />
+                        <>
+                            <Review review={review} />
+                        </>
+
                     </div>
                 ))}
             </div>

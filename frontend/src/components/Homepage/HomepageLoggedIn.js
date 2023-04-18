@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { getBookshelves } from "../../store/bookshelves";
 import { getBooks } from "../../store/book";
 import RecommendedBook from "./RecommendedBooks";
@@ -17,6 +17,8 @@ const HomepageLoggedIn = () => {
         if (user) { dispatch(getBookshelves()); }
         dispatch(getBooks());
     }, [user, dispatch])
+
+    if (!user) return <Redirect to='/' />
 
     let currReadingBook;
 

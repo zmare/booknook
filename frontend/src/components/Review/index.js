@@ -1,35 +1,44 @@
 import { useSelector, useDispatch } from 'react-redux';
 import OpenModalButton from '../OpenModalButton';
+import FriendAddModal from '../../components/Friends/FriendAddModal';
 import ReviewCreateEdit from './ReviewCreateEdit';
-import ReviewDelete from './ReviewDelete';
+import ReviewDelete from '../Review/ReviewDelete';
 import './Review.css'
 import { useEffect } from 'react';
-import { getFriends } from '../../store/friend';
-import FriendAddModal from '../Friends/FriendAddModal';
+import { getReviewsUser } from '../../store/review';
+import { getBookshelves } from '../../store/bookshelves';
+import { getUserLists } from "../../store/lists"
+import { getFriends, getRequests } from '../../store/friend';
 
 
 const Review = ({ review }) => {
+    const dispatch = useDispatch();
     const book = useSelector(state => state.books.currBook);
     const user = useSelector(state => state.session.user);
     const friends = useSelector(state => state.friends.allFriends);
     const requests = useSelector(state => state.friends.allRequests);
     const pending = useSelector(state => state.friends.allPending);
 
-    if (!friends || !requests || !pending) return null;
+    if (user && !friends) return;
+    if (user && !requests) return;
+    if (user && !pending) return;
 
     let myFriends = [];
 
-    for (let friend of friends) {
-        myFriends.push(friend.User.name)
+    if (user) {
+        for (let friend of friends) {
+            myFriends.push(friend.User.name)
+        }
+
+        for (let request of requests) {
+            myFriends.push(request.User.name)
+        }
+
+        for (let request of pending) {
+            myFriends.push(request.User.name)
+        }
     }
 
-    for (let request of requests) {
-        myFriends.push(request.User.name)
-    }
-
-    for (let request of pending) {
-        myFriends.push(request.User.name)
-    }
 
     const isFriend = (friend) => {
         if (myFriends.indexOf(friend) !== -1) return true;
@@ -59,7 +68,7 @@ const Review = ({ review }) => {
                     </div>
                     <div className='review-user-date-container'>
                         <div style={{ display: 'flex', flexDirection: 'row' }} className='review-add-user'>
-                            {(!isFriend(review.User.name) && review.User.name !== user.name) ?
+                            {(user && !isFriend(review.User.name) && review.User.name !== user.name) ?
                                 <OpenModalButton
                                     buttonText={<i className="fa-solid fa-user-plus"> </i>}
                                     modalComponent={<FriendAddModal friend={review.User} />}
@@ -90,8 +99,6 @@ const Review = ({ review }) => {
 
                 </div>
             </div>
-
-
         </>
 
     )
