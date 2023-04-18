@@ -42,7 +42,7 @@ const BookTable = ({ bookshelf, bookshelves, type }) => {
                     <>
                         {bookshelf.Books.map(book => (
                             <NavLink key={`books-table-${book.id}`} style={{ textDecoration: 'none' }} to={`/books/${book.id}`}>
-                                <BookTableCard book={book} bookshelf={bookshelf} />
+                                <BookTableCard book={book} bookshelf={bookshelf} type={type} />
                             </NavLink>
                         ))}
                     </>

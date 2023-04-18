@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllLists, getUserLists } from '../../store/lists';
+import { getAllLists, getUserLists, getList, removeList } from '../../store/lists';
 import FeaturedLists from "./FeaturedLists";
 import AllListsCommunity from "./AllListsCommunity";
 
 const Lists = () => {
     const dispatch = useDispatch();
+
+    const [errors, setErrors] = useState();
 
     useEffect(() => {
         dispatch(getAllLists());
@@ -22,6 +24,21 @@ const Lists = () => {
 
     let myLists = Object.values(userLists)
 
+    const handleListDelete = async (list, e) => {
+        e.preventDefault();
+
+        try {
+            let removedList = await dispatch(removeList(list.id));
+            if (removedList) {
+                await dispatch(getAllLists());
+                await dispatch(getUserLists());
+            }
+        }
+        catch (response) {
+            const data = await response.json();
+            if (data && data.errors) setErrors(data.errors);
+        }
+    }
 
     return (
         <div>
@@ -36,7 +53,7 @@ const Lists = () => {
                     <p className='requests-para'>Lists I've Created</p>
                     {myLists.map(list => (
                         <>
-                            <i className="fa-solid fa-trash-can"></i>
+                            <button onClick={(e) => handleListDelete(list, e)}><i className="fa-solid fa-trash-can"></i></button>
                             <NavLink to={`/list/${list.id}`}>{list.name}</NavLink>
                         </>
 
@@ -51,7 +68,7 @@ const Lists = () => {
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}>
                             </input>
-                            <button className={!name ? "disabled-add-btn" : "add-button"}>Add</button>
+                            <button className={name.length < 5 ? "disabled-add-btn" : "add-button"}>Add</button>
                         </form>
                     </div>
                 </div>
@@ -60,7 +77,7 @@ const Lists = () => {
                     <AllListsCommunity allLists={allLists} />
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

@@ -124,7 +124,7 @@ export const addBook = (bookId, listId) => async (dispatch) => {
 // }
 
 export const removeList = (listId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/bookshelves/${listId}`, {
+    const response = await csrfFetch(`/api/lists/${listId}`, {
         method: 'DELETE',
         headers: { "Content-Type": "application/json" }
     });
@@ -136,7 +136,7 @@ export const removeList = (listId) => async (dispatch) => {
     }
 }
 
-export const removeBook = (bookId, listId) => async (dispatch) => {
+export const removeBookFromList = (bookId, listId) => async (dispatch) => {
     const response = await csrfFetch(`/api/lists/delete`, {
         method: 'DELETE',
         headers: { "Content-Type": "application/json" },
