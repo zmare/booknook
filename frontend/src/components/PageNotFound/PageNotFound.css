@@ -1,0 +1,85 @@
+.page-error-parent-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.page-error-quotes {
+    white-space: pre-wrap;
+}
+
+.page-error-message {
+    font-family: "Lato", sans-serif;
+    color: #333333;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 12px 0;
+    padding-bottom: 20px;
+}
+
+.page-error-quote {
+    font-family: 'Merriweather', sans-serif;
+    font-size: 14px;
+    color: #767676;
+    line-height: 150%;
+    padding-right: 20px;
+
+}
+
+.page-error-author {
+    font-family: 'Merriweather', sans-serif;
+    font-size: 14px;
+    color: #767676;
+    line-height: 150%;
+}
+
+.page-error-book {
+    font-family: 'Merriweather', sans-serif;
+    font-size: 14px;
+    color: #767676;
+    line-height: 150%;
+    font-style: italic;
+}
+
+.page-error-images {
+    margin-left: 25px;
+    float: right;
+    text-align: right;
+    width: 200px;
+    height: 300px;
+}
+
+.page-error-author-image {
+    border-radius: 50%;
+    position: relative;
+    right: 120px;
+    top: -60px;
+}
+
+.page-error-button {
+    width: 300px;
+    margin: auto;
+    margin-top: 30px;
+    border-radius: 3px;
+    border: 1px solid #D6D0C4;
+    font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+    font-size: 14px;
+    -moz-appearance: none;
+    -o-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    color: #333333;
+    background-color: #F4F1EA;
+    line-height: 1;
+    padding: 8px 12px;
+}
+
+.page-error-button:hover {
+    color: #333333;
+    background-color: #ede6d6;
+    text-decoration: none;
+}

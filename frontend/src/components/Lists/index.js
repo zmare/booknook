@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllLists, getUserLists, createList, removeList } from '../../store/lists';
 import FeaturedLists from "./FeaturedLists";
@@ -7,18 +7,21 @@ import AllListsCommunity from "./AllListsCommunity";
 
 const Lists = () => {
     const dispatch = useDispatch();
+    const [name, setName] = useState("")
+    const [errors, setErrors] = useState([]);
+    const [formErrors, setFormErrors] = useState({});
+
+    const user = useSelector(state => state.session.user)
 
     useEffect(() => {
         dispatch(getAllLists());
         dispatch(getUserLists());
     }, [dispatch])
 
-    const [name, setName] = useState("")
-    const [errors, setErrors] = useState([]);
-    const [formErrors, setFormErrors] = useState({});
-
     const allLists = useSelector(state => state.lists.allLists);
     const userLists = useSelector(state => state.lists.userLists);
+
+    if (!user) return <Redirect to='/' />
 
     if (!allLists || !userLists) return null;
 

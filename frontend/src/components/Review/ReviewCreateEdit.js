@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { getBook } from '../../store/book';
 import { updateReview } from '../../store/review';
 import { createReview, getReviewsUser } from '../../store/review';
@@ -14,6 +15,10 @@ const ReviewCreateEdit = ({ book, review, type }) => {
     const [newStars, setNewStars] = useState(review.stars)
     const [errors, setErrors] = useState([]);
     const [formErrors, setFormErrors] = useState({});
+
+    const user = useSelector(state => state.session.user)
+
+    if (!user) return <Redirect to='/' />;
 
     const validateForm = (review) => {
         let err = {};
