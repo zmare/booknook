@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, Redirect, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import "./Homepage.css"
 import { getBookshelves } from "../../store/bookshelves";
@@ -17,6 +17,8 @@ function Homepage() {
     const [credential, setCredential] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
+
+    if (user) return <Redirect to='/myfeed' />
 
     const handleSubmit = async (e) => {
         e.preventDefault();

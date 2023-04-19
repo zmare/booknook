@@ -12,6 +12,7 @@ import HomepageLoggedIn from "./components/Homepage/HomepageLoggedIn";
 import Friends from "./components/Friends";
 import Lists from "./components/Lists";
 import ListDetail from "./components/Lists/ListDetail"
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,29 +29,32 @@ function App() {
           <Route exact path="/">
             <Homepage />
           </Route>
-          <Route path="/myfeed">
+          <Route exact path="/myfeed">
             <HomepageLoggedIn />
           </Route>
-          <Route path='/books/:bookId'>
+          <Route exact path='/books/:bookId'>
             <Books />
           </Route>
-          <Route path='/shelf/:shelfId'>
+          <Route exact path='/shelf/:shelfId'>
             <Bookshelves />
           </Route>
-          <Route path='/shelf'>
+          <Route exact path='/shelf'>
             <Bookshelves />
           </Route>
-          <Route path='/signup'>
+          <Route exact path='/signup'>
             <SignupForm />
           </Route>
-          <Route path='/friends'>
+          <Route exact path='/friends'>
             <Friends />
           </Route>
-          <Route path='/community'>
+          <Route exact path='/community'>
             <Lists />
           </Route>
-          <Route path='/list/:listId'>
+          <Route exact path='/list/:listId'>
             <ListDetail />
+          </Route>
+          <Route>
+            <PageNotFound />
           </Route>
         </Switch>
       )}
