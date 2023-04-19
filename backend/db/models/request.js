@@ -9,11 +9,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Request.belongsTo(
-        models.User, { as: 'receiverId' }
+        models.User, { foreignKey: 'receiverId' }
       )
 
       Request.belongsTo(
-        models.User, { as: 'requestorId' }
+        models.User, { foreignKey: 'requestorId' }
       )
 
     }
