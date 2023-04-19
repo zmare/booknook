@@ -44,15 +44,15 @@ module.exports = {
       }
     }, options);
 
-    await queryInterface.addConstraint("Friends", {
-      fields: ['userId', 'friendId'],
-      type: 'unique',
-      name: 'unique_friends'
-    });
+    // await queryInterface.addConstraint("Friends", {
+    //   fields: ['userId', 'friendId'],
+    //   type: 'unique',
+    //   name: 'unique_friends'
+    // });
   },
   async down(queryInterface, Sequelize) {
     options.tableName = "Friends"
-    await queryInterface.removeConstraint("Friends", 'unique_friends');
+    // await queryInterface.removeConstraint("Friends", 'unique_friends');
     await queryInterface.dropTable(options);
 
   }
