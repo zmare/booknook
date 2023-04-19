@@ -16,19 +16,19 @@ module.exports = {
       },
       receiverId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: "Users",
-          key: 'id'
-        },
+        // references: {
+        //   model: "Users",
+        //   key: 'id'
+        // },
         onDelete: 'cascade',
         allowNull: false
       },
       requestorId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: "Users",
-          key: "id"
-        },
+        // references: {
+        //   model: "Users",
+        //   key: "id"
+        // },
         onDelete: 'cascade',
         allowNull: false
       },
