@@ -96,8 +96,8 @@ const Lists = () => {
                     <p className='requests-para'>Lists I've Created</p>
                     {myLists.map(list => (
                         <span key={`lists-created-by-me-${list.id}`}>
-                            <button onClick={(e) => handleListDelete(list, e)}><i className="fa-solid fa-trash-can"></i></button>
-                            <NavLink to={`/list/${list.id}`}>{list.name}</NavLink>
+                            <button className='button-trash-requests-list' onClick={(e) => handleListDelete(list, e)}><i className="fa-solid fa-trash-can"></i></button>
+                            <NavLink className='bookshelf-links' to={`/list/${list.id}`}>{list.name}</NavLink>
                         </span>
 
                     ))}

@@ -77,6 +77,7 @@ const HomepageLoggedIn = () => {
                             <img style={{ width: '300px', height: "158px" }} src="https://images.gr-assets.com/misc/1679599196-1679599196_goodreads_misc.png" alt=''></img>
                             <p className="in-the-news-title">Readers' Top Romances for April</p>
                             <p className='in-the-news-article'>New in April: Mazey Eddings chronicles a complicated wedding situation in The Plus One. Carlyn Greenwald writes of a lesbian Hollywood flirtation in Sizzle Reel. And Suzanne Park goes back to college in The Do-Over. Also in the mix for April: Victorian-era romance, doctors in love, and Emily Henry's newest. Whew, what a great month!</p>
+
                         </div>
                         <br></br>
                         <div>
