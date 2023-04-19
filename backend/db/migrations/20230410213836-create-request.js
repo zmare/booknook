@@ -1,7 +1,4 @@
 'use strict';
-
-const { query } = require('express');
-
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
@@ -17,15 +14,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      requestorId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "Users",
-          key: "id"
-        },
-        onDelete: 'cascade',
-        allowNull: false
-      },
       receiverId: {
         type: Sequelize.INTEGER,
         references: {
@@ -34,7 +22,15 @@ module.exports = {
         },
         onDelete: 'cascade',
         allowNull: false
-
+      },
+      requestorId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "id"
+        },
+        onDelete: 'cascade',
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
