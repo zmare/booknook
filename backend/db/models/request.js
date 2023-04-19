@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Request.belongsTo(
-        models.User, { foreignKey: 'receiverId', foreignKey: 'requestorId', onDelete: 'cascase' }
+        models.User, { foreignKey: 'receiverId', foreignKey: 'requestorId', onDelete: 'cascade' }
       )
 
       // Request.belongsTo(
