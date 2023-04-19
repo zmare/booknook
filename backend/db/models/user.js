@@ -55,19 +55,19 @@ module.exports = (sequelize, DataTypes) => {
       )
 
       User.hasMany(
-        models.Request, { foreignKey: 'requestorId', onDelete: 'cascase', hooks: true }
+        models.Request, { foreignKey: 'requestorId', onDelete: 'cascade', hooks: true }
       )
 
       User.hasMany(
-        models.Request, { foreignKey: 'receiverId', onDelete: 'casecade', hooks: true }
+        models.Request, { foreignKey: 'receiverId', onDelete: 'cascade', hooks: true }
       )
 
       User.hasMany(
-        models.Friend, { foreignKey: 'userId', onDelete: 'cascase', hooks: true }
+        models.Friend, { foreignKey: 'userId', onDelete: 'cascade', hooks: true }
       )
 
       User.hasMany(
-        models.Friend, { foreignKey: 'friendId', onDelete: 'casecade', hooks: true }
+        models.Friend, { foreignKey: 'friendId', onDelete: 'cascade', hooks: true }
       )
 
       User.hasMany(
