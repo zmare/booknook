@@ -53,11 +53,11 @@ module.exports = {
       fields: ['requestorId', 'receiverId'],
       type: 'unique',
       name: 'unique_friend_requests'
-    });
+    }, options);
   },
   async down(queryInterface, Sequelize) {
     options.tableName = "Requests"
-    await queryInterface.removeConstraint("Requests", 'unique_friend_requests');
+    await queryInterface.removeConstraint(options, 'unique_friend_requests');
     await queryInterface.dropTable(options);
   }
 };
