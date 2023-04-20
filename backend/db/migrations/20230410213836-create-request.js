@@ -52,8 +52,9 @@ module.exports = {
     // }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "Requests"
-    // await queryInterface.removeConstraint(options, 'unique_friend_requests');
+    options.tableName = "Requests";
+    options.constraintName = "Requests_receiverId_fkey"
+    await queryInterface.removeConstraint(options);
     await queryInterface.dropTable(options);
   }
 };

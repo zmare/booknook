@@ -39,8 +39,6 @@ module.exports = {
   },
   down: async (queryInterface, Sequelize) => {
     options.tableName = "Users";
-    options.constraintName = "Requests_receiverId_fkey"
-    queryInterface.removeConstraint(options);
     return queryInterface.dropTable(options);
   }
 };
