@@ -53,8 +53,8 @@ module.exports = {
   },
   async down(queryInterface, Sequelize) {
     options.tableName = "Requests";
-    options.constraintName = "Requests_receiverId_fkey";
-    await queryInterface.removeConstraint(options);
+    // options.constraintName = "Requests_receiverId_fkey";
+    // await queryInterface.removeConstraint(options);
     await queryInterface.dropTable(options);
   }
 };
