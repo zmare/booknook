@@ -39,6 +39,7 @@ module.exports = {
   },
   down: async (queryInterface, Sequelize) => {
     options.tableName = "Users";
+    options.onDelete = 'CASCADE';
     return queryInterface.dropTable(options);
   }
 };
