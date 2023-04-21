@@ -33,6 +33,22 @@
     margin-right: 400px;
 }
 
+.left-para-container {
+    margin-right: 40px;
+    float: left;
+    margin: 0 10px 10px 30px;
+    margin-right: 10px;
+    width: 280px;
+    font-size: 13px;
+}
+
+.right-para-container {
+    float: left;
+    margin: 0 10px 10px 55px;
+    width: 300px;
+    font-size: 13px;
+}
+
 .homepage-left-container {
     /* float: left;
     margin-left: auto;
@@ -58,22 +74,30 @@
     justify-content: center;
     background-color: #f4f2e9;
     border-radius: 10px;
-    width: 625px;
-    height: 500px;
+    width: 605px;
+    height: 450px;
     padding: 15px;
+    margin-top: 20px;
 }
 
 #list-card-1 {
     display: flex;
     flex-direction: column;
+    padding: 15px;
+}
 
-    padding: 15px
+.homepage-news-container {
+    width: 380px;
+
+    margin-left: 100px;
 }
 
 .list-card-header {
     color: #000;
     font-size: 18px;
     margin: 0;
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 18px;
 }
 
 .list-card-para {
@@ -87,10 +111,12 @@
 
 .list-card-img-container {
     display: flex;
-    justify-content: space-between;
-    width: 400px;
-    background-color: blue;
+    justify-content: center-between;
+    width: 100%;
+    margin-left: 35px;
+
 }
+
 
 .list-card-img {
     width: 80px;
@@ -98,26 +124,16 @@
     padding: 0 10px;
 }
 
+.arrow {
+    display: flex;
+    align-items: center;
+}
+
 #arrow {
     width: 21px;
     height: 28px;
 }
 
-.left-para-container {
-    margin-right: 40px;
-    float: left;
-    margin: 0 10px 10px 30px;
-    margin-right: 10px;
-    width: 280px;
-    font-size: 13px;
-}
-
-.right-para-container {
-    float: left;
-    margin: 0 10px 10px 55px;
-    width: 300px;
-    font-size: 13px;
-}
 
 .login-form-header {
     font-size: 25px;
@@ -304,4 +320,15 @@
     margin-right: 45px;
     margin-top: 0;
 
+}
+
+.discovered-categories {
+    font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+    font-weight: bolder;
+    font-size: 13px;
+}
+
+.page-footer-container {
+    background-color: blue;
+    width: 100vw;
 }
