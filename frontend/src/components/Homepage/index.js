@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
-import { NavLink, Redirect, useHistory } from 'react-router-dom';
+import { Link, NavLink, Redirect, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import "./Homepage.css"
 import { getBookshelves } from "../../store/bookshelves";
@@ -150,9 +150,35 @@ function Homepage() {
                     </div>
                 </div>
                 <div className="page-footer-container">
-                    <div>
-                        links
+                    <div className='page-footer-column'>
+                        <span className='column-header'>Tech Stack - Frontend</span>
+                        <div id='column-1'>
+                            <li>Javascript</li>
+                            <li>React</li>
+                            <li>Redux</li>
+                            <li>HTML5</li>
+                            <li>CSS3</li>
+                        </div>
                     </div>
+
+                    <div className='page-footer-column'>
+                        <span className='column-header'>Tech Stack - Backend</span>
+                        <div id='column-2'>
+                            <li>Express</li>
+                            <li>Sequelize</li>
+                            <li>SQLite3</li>
+                        </div>
+                    </div>
+
+                    <div className='page-footer-column'>
+                        <span className='column-header'>Connect</span>
+                        <div id='column-3'>
+                            <NavLink className="link" id='link-1' to='https://www.linkedin.com/in/zaineb-marediya/' target="_blank"><i id='connect' className="fa-brands fa-linkedin"></i></NavLink>
+                            <NavLink className='link' to="https://github.com/zmare" target="_blank"><i id='connect' className="fa-brands fa-github"></i></NavLink>
+                            <NavLink className='link' to="https://zmare.github.io/" target="_blank"><i id='connect' className="fa-solid fa-circle-user"></i></NavLink>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
