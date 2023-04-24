@@ -173,15 +173,14 @@ function Homepage() {
                     <div className='page-footer-column'>
                         <span className='column-header'>Connect</span>
                         <div id='column-3'>
-                            <NavLink className="link" id='link-1' to='https://www.linkedin.com/in/zaineb-marediya/' target="_blank"><i id='connect' className="fa-brands fa-linkedin"></i></NavLink>
-                            <NavLink className='link' to="https://github.com/zmare" target="_blank"><i id='connect' className="fa-brands fa-github"></i></NavLink>
-                            <NavLink className='link' to="https://zmare.github.io/" target="_blank"><i id='connect' className="fa-solid fa-circle-user"></i></NavLink>
+                            <a className="link" id='link-1' href='https://www.linkedin.com/in/zaineb-marediya/' target="_blank"><i id='connect' className="fa-brands fa-linkedin"></i></a>
+                            <a className='link' href="https://github.com/zmare" target="_blank"><i id='connect' className="fa-brands fa-github"></i></a>
+                            <a className='link' href="https://zmare.github.io/" target="_blank"><i id='connect' className="fa-solid fa-circle-user"></i></a>
                         </div>
                     </div>
 
                 </div>
             </div>
-
 
             <div className="login-form-container">
                 <div className="login-form">
