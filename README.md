@@ -2,19 +2,17 @@
 
 Booknook is a web application that aims to replicate Goodreads, allowing users to browse books, read reviews, and create their very own bookshelf and lists.  Booknook is built with a Express/Sequelize backend and a React/Redux frontend for responsiveness.
 
-[Click here to view homeostasis' Live Site](https://booknookzm.onrender.com/)
+[Click here to view booknook's Live Site](https://booknookzm.onrender.com/)
 
-<img width="700" alt="Screen Shot 2023-05-08 at 1 38 56 PM" src="https://user-images.githubusercontent.com/108374623/236904924-f25944f8-44a8-424d-8e96-f53b5fc0575c.png">
-
+<img width="700" alt="Screen Shot 2023-05-09 at 2 52 34 PM" src="https://github.com/zmare/booknook/assets/108374623/274a5ecb-f0c2-4bd5-bf3a-a3370b9d9d84">
 
 ## Navigate to:
 
-[User Stories](https://github.com/zmare/homeostasis/wiki/User-Stories)\
-[Feature List](https://github.com/zmare/homeostasis/wiki/Features)\
-[Database Schema](https://github.com/zmare/homeostasis/wiki/Database-Schema)\
-[Backend Routes](https://github.com/zmare/homeostasis/wiki/API-Routes)\
-[Frontend Store Shape](https://github.com/zmare/homeostasis/wiki/Redux-Store-State-Shape)\
-[Wireframe](https://appacademy-open-assets.s3.us-west-1.amazonaws.com/Modular-Curriculum/content/week-16/AirBnB+MVP+Wireframes.pdf)
+[User Stories](https://github.com/zmare/booknook/wiki/User-Stories)\
+[Feature List](https://github.com/zmare/booknook/wiki/Feature-List)\
+[Database Schema](https://github.com/zmare/booknook/wiki/Database-Schema)\
+[Backend Routes](https://github.com/zmare/booknook/wiki/API-Routes)\
+[Wireframe](https://github.com/zmare/booknook/wiki/Wireframe)\
 
 ## Technologies/Frameworks Used:
 
@@ -42,42 +40,56 @@ Booknook is a web application that aims to replicate Goodreads, allowing users t
 
 * Feel free to test the site features through clicking the "Demo User" button which will directly log you in
 
-<img width="700" alt="Screen Shot 2023-05-08 at 1 49 08 PM" src="https://user-images.githubusercontent.com/108374623/236907150-0c64f46a-a059-46f0-a7f5-d49101727059.png">
 
 ## Sign up a User:
 
 * You will be able to sign up and automatically be redirected to the logged in page
-* There are validations for signing up such as username length requirements, valid email address, password length, etc
+* There are validations for signing up such as valid email address, password length, etc
 * Passwords must be matching when entered twice or the signup button will be disabled
 * Friendly reminders will display and signup will be blocked if fields are not properly filled out
-
-<img width="700" alt="Screen Shot 2023-05-08 at 1 50 10 PM" src="https://user-images.githubusercontent.com/108374623/236907372-8a09b87e-197d-40df-a162-2d25c5f74bb1.png">
+* 
+<img width="700" alt="Screen Shot 2023-05-09 at 2 52 55 PM" src="https://github.com/zmare/booknook/assets/108374623/187f8ec3-a2e9-46c2-b9b0-acb8774b0ba8">
+<img width="700" alt="Screen Shot 2023-05-09 at 2 53 23 PM" src="https://github.com/zmare/booknook/assets/108374623/24cdbd4a-2447-4c95-be61-cc027fefae8c">
 
 ## User Login, Authentication, and Authorization:
 
 * You are able to login as long as your credentials are stored within the database (hashed)
   * Authorization is handled using JWT 
 * If there are no matching credentials an error message is displayed
-* Login button is disabled if there are null fields or if the amount of characters entered is not within the acceptable range
-
-<img width="700" alt="Screen Shot 2023-05-08 at 1 51 29 PM" src="https://user-images.githubusercontent.com/108374623/236907671-aed669a0-b725-47e1-bdae-e04e9b85e3c4.png">
 
 
-## Create a Spot
-* Users are able to create a spot and add images that show off this spot's features
-<img width="700" alt="Screen Shot 2023-05-08 at 1 53 12 PM" src="https://user-images.githubusercontent.com/108374623/236908021-1936202c-9560-42f2-b465-4cd1412dc3f0.png">
+## Create a Bookshelf
+* Users are able to create a bookshelf and add books to that shelf
+<img width="700" alt="Screen Shot 2023-05-09 at 2 53 38 PM" src="https://github.com/zmare/booknook/assets/108374623/8782c561-a645-43e6-8959-34eb7bd1e737">
 
-## Mark Spot as a Favorite
-* Users can either add or remove a spot from their favorites list. These can be reviewed and managed under their "My Favorites" list
-<img width="700" alt="Screen Shot 2023-05-08 at 1 55 45 PM" src="https://user-images.githubusercontent.com/108374623/236908551-8a8b8b49-789a-4508-a0a1-07b7784a5615.png">
+## See Details about a Book 
+* Users can click on a book to see a summary of the book as well as user reviews
+<img width="700" alt="Screen Shot 2023-05-09 at 2 54 23 PM" src="https://github.com/zmare/booknook/assets/108374623/00036b0b-0e14-419d-9fed-5efd4a20fa88">
+
 
 ## Write a review 
-* Users can write, edit, and delete a reivew they leave for a spot
-<img width="700" alt="Screen Shot 2023-05-08 at 1 56 40 PM" src="https://user-images.githubusercontent.com/108374623/236908737-f9bfaa65-63de-4012-bdc5-6c4f642ea2a1.png">
+* Users can write, edit, and delete a review they leave for a book 
+<img width="700" alt="Screen Shot 2023-05-09 at 3 24 43 PM" src="https://github.com/zmare/booknook/assets/108374623/8ceac9fc-b1c9-4d25-a295-7693ba0ff488">
 
+
+## Create a List 
+* Users can create a list that is availble for all users to view. 
+<img width="700" alt="Screen Shot 2023-05-09 at 2 53 52 PM" src="https://github.com/zmare/booknook/assets/108374623/66ea2482-24fb-478a-9675-e1994353c7c8">
+
+
+## Add Books to Bookshelf or List 
+* Users can add or remove books from the bookshelves and lists they have created 
+<img width="700" alt="Screen Shot 2023-05-09 at 3 25 47 PM" src="https://github.com/zmare/booknook/assets/108374623/676bc318-f03f-4f18-9fd4-bf5afbf7a9e6">
+
+
+## Add or Remove Friends
+* Users can send and receive friend request to and from other users. 
+* Users can delete friend requests they have sent. 
+* Users can view all their friends 
+<img width="700" alt="Screen Shot 2023-05-09 at 3 24 03 PM" src="https://github.com/zmare/booknook/assets/108374623/295f737b-6748-4b12-b07d-12655f2db5b6">
 
 ## Features Coming Soon:
-* AWS for Image Uploads
+* Search functionality! 
 
 
 
