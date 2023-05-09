@@ -22,13 +22,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zmare/BookNook.git"
+    "url": "git+https://github.com/zmare/booknook.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/zmare/BookNook/issues"
+    "url": "https://github.com/zmare/booknook/issues"
   },
-  "homepage": "https://github.com/zmare/BookNook#readme"
+  "homepage": "https://github.com/zmare/booknook#readme"
 }
