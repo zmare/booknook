@@ -6,8 +6,6 @@ const ReviewIndex = ({ book, reviews }) => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
 
-    console.log(book, reviews);
-
     return (
         <>
             <div className='review_rating_num'>
