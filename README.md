@@ -12,7 +12,7 @@ Booknook is a web application that aims to replicate Goodreads, allowing users t
 [Feature List](https://github.com/zmare/booknook/wiki/Feature-List)\
 [Database Schema](https://github.com/zmare/booknook/wiki/Database-Schema)\
 [Backend Routes](https://github.com/zmare/booknook/wiki/API-Routes)\
-[Wireframe](https://github.com/zmare/booknook/wiki/Wireframe)\
+[Wireframe](https://github.com/zmare/booknook/wiki/Wireframe)
 
 ## Technologies/Frameworks Used:
 
@@ -47,7 +47,7 @@ Booknook is a web application that aims to replicate Goodreads, allowing users t
 * There are validations for signing up such as valid email address, password length, etc
 * Passwords must be matching when entered twice or the signup button will be disabled
 * Friendly reminders will display and signup will be blocked if fields are not properly filled out
-* 
+  
 <img width="700" alt="Screen Shot 2023-05-09 at 2 52 55 PM" src="https://github.com/zmare/booknook/assets/108374623/187f8ec3-a2e9-46c2-b9b0-acb8774b0ba8">
 <img width="700" alt="Screen Shot 2023-05-09 at 2 53 23 PM" src="https://github.com/zmare/booknook/assets/108374623/24cdbd4a-2447-4c95-be61-cc027fefae8c">
 
