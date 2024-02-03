@@ -90,6 +90,3 @@ Booknook is a web application that aims to replicate Goodreads, allowing users t
 
 ## Features Coming Soon:
 * Search functionality! 
-
-
-
