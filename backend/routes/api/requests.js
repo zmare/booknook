@@ -66,18 +66,18 @@ router.get('/pending', requireAuth, async (req, res) => {
 /// CREATE FRIEND REQUEST 
 
 // THIS ROUTE IS ONLY TO CREATE MORE TEST DATA...DO NOT USE ON FRONTEND 
-router.post('/testingData', requireAuth, async (req, res) => {
-    const { requestorId, receiverId } = req.body;
+// router.post('/testingData', requireAuth, async (req, res) => {
+//     const { requestorId, receiverId } = req.body;
 
-    const newRequest = await Request.create({
-        requestorId: +requestorId,
-        receiverId: +receiverId
-    })
+//     const newRequest = await Request.create({
+//         requestorId: +requestorId,
+//         receiverId: +receiverId
+//     })
 
-    res.statusCode = 201;
-    res.json(newRequest)
+//     res.statusCode = 201;
+//     res.json(newRequest)
 
-})
+// })
 
 
 router.post('/:friendId', requireAuth, async (req, res) => {
